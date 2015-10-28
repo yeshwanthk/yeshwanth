@@ -1,0 +1,149 @@
+<div class="devices"
+     data-ng-click="clickDeselectDevice()">
+
+      <cv-split-panel
+        data-show-right-panel="isDeviceSelected()"
+        data-speed="400">
+          <cv-split-panel-left>
+
+            <div class="device-body">
+              <!-- START-DEVICE-CONTAINER -->
+              <div class="device-body-header">
+                <div class="header-wrapper">
+                  <!-- START-SEARCH -->
+                  <div cv-search
+                       model="searchString"
+                       update-callback="updateSearch"
+                       placeholder="DEVICES.SEARCH"
+                       data-ng-click="$event.stopPropagation();"
+                    ></div>
+                  <!-- END-SEARCH -->
+
+                  <!-- START-ADD-DEVICE -->
+                  <!--
+                  <div class="add-device button"
+                       ng-click="startAddDevice($event);"
+                       data-ng-disabled="isInNewDeviceSetup()">
+                    <span>{{'DEVICES.ADD_DEVICE' | translate}}</span>
+                    <i class="wl-icon-plus"></i>
+                  </div>
+                  -->
+                  <!-- END-ADD-DEVICE -->
+                </div>
+              </div>
+              <div class="device-body-main">
+                <div class="device-list-header">
+                  <!-- START-FILTER -->
+                  <form id="sideFilters" class="styled-inputs filters">
+                    <span ng-repeat="filter in filterList">
+                      <a class="filter button"
+                         id="filter-{{$index}}"
+                         name="filter-{{$index}}"
+                         data-ng-class="{'selected': filterSelected.status == filter.status}"
+                         data-ng-click="selectFilter(filter, $event);"
+                         translate>{{filter.name}}</a>
+                    </span>
+                  </form>
+                  <!-- END-FILTER -->
+                </div>
+                <div cv-split-panel-resizable>
+                  <div class="device-list-wrapper ">
+                    <!-- START-ADD-DEVICE -->
+                    <div class="cv-device-card add-devices"
+                         ng-click="startAddDevice($event);"
+                         data-ng-disabled="isInNewDeviceSetup()">
+                      <div class="wrapper">
+                        <div class="icon">
+                          <i class="wl-icon-plus_thin"></i><br/>
+                          <div class="button hollow" translate>DEVICES.ADD_DEVICE</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- END-ADD-DEVICE -->
+
+                    <div class="device-list" data-ng-repeat="device in devices | objOrder | orderBy:[sortDeviceOrder, 'name', 'serial'] track by $index">
+                      <div id="device-{{device.id}}"
+                           data-cv-scroll-to-view
+                           data-scroll="shouldScrollToSelected(device)"
+                           data-start-delay="400"
+                           data-scrollable-selector=".device-list-wrapper"
+                           data-on-scrolling="onScrolling">
+                        <div data-cv-device-card
+                             data-device="device"
+                             data-selected-device-id="selectedDevice.id"
+                             data-selected-device-saved="selectedDevice.info.saved"
+                          ></div>
+                      </div>
+                    </div>
+
+                    <br/>
+                    <div cv-spinner ng-show="showLoader" class="icon-size-128x128"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- START-DEVICE-CONTAINER -->
+            </div>
+
+          </cv-split-panel-left>
+          <cv-split-panel-right class="sidebar-width sidebar">
+
+            <!-- START-SIDEBAR -->
+            <div data-ng-switch="sidebarView" class="sidebar-view cv-split-panel-set-height">
+              <!-- ---------- -->
+              <div class="sidebar-view-flex-area" data-ng-switch-when="unused">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-unused"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="registered" class="registered">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-registered" class="sidebar-registered"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="new-device-adding">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-new-device-adding"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="new-device-setup">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-new-device-setup"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="needs-edit">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-needs-edit"></div>
+              </div>
+              <!-- ---------- -->
+              <div class="sidebar-view-flex-area" data-ng-switch-when="details">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-details"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="logs">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-logs"></div>
+              </div>
+              <div class="sidebar-view-flex-area" data-ng-switch-when="edit-location">
+                <div class="sidebar-view-flex-area" data-ui-view="sidebar-edit-location"></div>
+              </div>
+              <!-- ---------- -->
+            </div>
+          <!-- END-SIDEBAR -->
+
+        </cv-split-panel-right>
+      </cv-split-panel>
+
+  <!-- START-MODELs -->
+  <!-- Delete Model -->
+  <div id="deleteDeviceModal" class="cv-modal small reveal-modal" data-reveal block-ui="dpDeleteDeviceModal">
+
+    <div class="header">
+      <h4>{{'DEVICES.MODEL.DELETE_DEVICE.HEADER' | translate}}</h4>
+      <div class="button-group right">
+        <button class="button dark" ng-click="closeModal('deleteDeviceModal')" translate>SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL</button>
+        &nbsp;
+        <button type="submit" class="button light" ng-click="deleteDevice()" translate>SHARED.MODAL-CONFIRMATION.BUTTON-DELETE</button>
+      </div>
+    </div>
+
+    <div class="content-container sized-container">
+
+      <div class="icon"><img src="/images/devices/reccomended-device-large.png"></div>
+      <h5>{{'DEVICES.MODEL.DELETE_DEVICE.BODY' | translate }}
+      <strong ng-if="selectedDevice.info.name" ng-bind="selectedDevice.info.name"></strong>.</h5>
+
+    </div>
+
+  </div>
+
+</div>
+

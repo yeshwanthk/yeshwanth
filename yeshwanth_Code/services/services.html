@@ -1,0 +1,46 @@
+<div class="cv-services">
+  <cv-split-panel data-show-right-panel="true">
+    <cv-split-panel-left>
+      <div ui-view="mainpanel"
+           class="main-panel"></div>
+    </cv-split-panel-left>
+    <cv-split-panel-right class="sidebar">
+
+      <div class="cv-split-panel-set-height sliding-panels service-panel">
+        <cv-sliding-panels active-panel="activePanel">
+
+            <!-- 1ST PAGE: Service Details -->
+            <div class="service-details"
+                 service-details-panel
+                 service="service"
+                 open-performance-history="openPerformanceHistory">
+            </div>
+
+            <!-- 2ND PAGE: Device Details -->
+            <div class="devices-details"
+               devices-details-panel
+               service="service"
+               site="site"
+               open-performance-history="openPerformanceHistory"
+               show-device-details="showDeviceDetails(device)"
+               on-back="onBack()"
+               on-leave="onLeave()">
+            </div>
+
+            <!-- 3RD PAGE: Support Device Types -->
+            <div class="device-details"
+               cv-device-details-panel
+               device="selectedDevice"
+               supported-device-types="supportedDeviceTypes"
+               details-read-only="true"
+               allow-edit="false"
+               on-back="onBack"
+               on-leave="onLeave()">
+            </div>
+
+        </cv-sliding-panels>
+      </div>
+
+    </cv-split-panel-right>
+  </cv-split-panel>
+</div>

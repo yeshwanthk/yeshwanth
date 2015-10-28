@@ -1,0 +1,104 @@
+<div class="ordering-main"
+     id="ordering-main">
+    <div class="ordering-header-container">
+        <div ordering-header
+             title="title"
+             service-total="serviceTotal"
+             device-total="deviceTotal"
+             install-total="installTotal.data"
+             show-basket="showBasket"
+             currency="{{currency}}"
+             service-charge-unit="{{serviceChargeUnit}}"
+             device-charge-unit="deviceChargeUnit.data"
+             device-charge-type="deviceChargeType.data">
+        </div>
+    </div>
+    <a class="order-device-link right"
+       ng-show="hasService && currentStepIndex==0"
+       ui-sref="root.orderDevice"
+       translate>ORDER.SHARED.CHANGE</a>
+
+    <div block-ui="orderingBlock">
+        <div class="scrollable-container"
+             id="ordering-scrollable-container"
+             ng-class="{'show-scroll':startShowScrollbar}"
+             ng-show="isOrderingSteps">
+            <div class="tax-warning"
+                 ng-show="orderingShowTaxWarning"
+                 translate>ORDER.REVIEW.TAX_NOT_INCLUDED
+            </div>
+            <div class="selection-panels"><!--
+                --><div class="selection-panel expanded">
+                    <div class="content"
+                         ordering-view-service-catalog
+                         service-list="serviceList"
+                         currency="{{currency}}"
+                         charge-unit="{{serviceChargeUnit}}"
+                         on-step-completed="onStepCompleted(data)">
+                    </div>
+                </div><!--
+                --><div class="selection-panel">
+                    <div class="content"
+                         ordering-view-site-profile
+                         is-animating="isAnimating"
+                         on-step-completed="onStepCompleted(data)">
+                    </div>
+                </div><!----><div ng-repeat="option in optionList | orderBy:'orderIndex'"
+                     class="selection-panel">
+                    <div class="content"
+                         ordering-view-option-list
+                         option="option"
+                         service-total="serviceTotal"
+                         currency="{{currency}}"
+                         charge-unit="{{serviceChargeUnit}}"
+                         on-step-completed="onStepCompleted(data)">
+                    </div>
+                </div><!--
+                --><div class="selection-panel">
+                    <div class="content"
+                         ordering-view-devices
+                         recommended-devices="recommendedDevices"
+                         currency="{{currency}}"
+                         device-charge-unit="deviceChargeUnit.data"
+                         device-charge-type="deviceChargeType.data"
+                         install-total="installTotal.data"
+                         has-existing-subscription="existingSubscription.hasExistingSubscription"
+                         on-step-completed="onStepCompleted(data)">
+                    </div>
+                </div><!--
+                --><div class="selection-panel">
+                    <div class="content"
+                         ordering-view-shipping
+                         all-devices="allDevices"
+                         currency="{{currency}}"
+                         install-options="installOptions"
+                         use-recommended-devices="useRecommendedDevices"
+                         recommended-devices="recommendedDevices"
+                         on-step-completed="onStepCompleted(data)"
+                         update-totals="updateTotals"
+                         show-address-form="showAddressForm">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--additional ng-class prevents ng-show animation of buttons on first load-->
+        <div class="step-review-order expanded"
+             ng-show="isReviewStep"
+             ng-class="{'hidden': !isReviewStep}"
+             ordering-view-review-order
+             options-for-order="selectedService"
+             service-total="serviceTotal"
+             device-total="deviceTotal"
+             install-total="installTotal.data"
+             currency="{{currency}}"
+             install-count="{{installCount}}"
+             install-price="{{installPrice}}"
+             service-charge-unit="{{serviceChargeUnit}}"
+             device-charge-unit="deviceChargeUnit.data"
+             device-charge-type="deviceChargeType.data"
+             shipping-options="shippingOptions"
+             on-step-completed="onStepCompleted(data)">
+        </div>
+    </div>
+</div>

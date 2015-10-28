@@ -1,0 +1,98 @@
+@mixin catalog-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.device-purchase-table {
+  display: table;
+  width: 100%;
+  text-align: center;
+  table-layout:fixed;
+
+  p {
+    margin-bottom: 10px;
+  }
+  .table-row {
+    display: table-row;
+  }
+  .empty-cell-device-image {
+    @include catalog-cell;
+    width: 10%;
+  }
+  .empty-cell-device-desc {
+    @include catalog-cell;
+    width: 30%;
+  }
+  .empty-cell-total-row{
+    @include catalog-cell;
+  }
+
+  .border-cell {
+    @include catalog-cell;
+    border-top: 1px solid $color-text-lighter-5;
+  }
+
+  .device-image {
+    width: 10%;
+    @include catalog-cell;
+    border-top: 1px solid $color-text-lighter-5;
+    img {
+      width: 75px;
+    }
+  }
+  .device-desc {
+    text-align: left;
+    width: 40%;
+    font-weight: 400;
+    @include catalog-cell;
+    border-top: 1px solid $color-text-lighter-5;
+    color: $color-text-lighter-2;
+    padding: 1.5rem 0 1.5rem 0;
+  }
+  .device-head {
+    @include catalog-cell;
+    text-transform: uppercase;
+    width: 10%;
+    color: $color-text-lighter-2;
+    padding: 1rem 0 0.5rem 0;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .device-figure {
+    width: 10%;
+    @include catalog-cell;
+    border-top: 1px solid $color-text-lighter-5;
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    font-size: x-large;
+    font-weight: 300;
+    color: $color-text-lighter-1;
+
+  }
+
+  input {
+    min-width: 50px;
+    border-radius: 0;
+    text-align: center;
+    font-size: x-large;
+    font-weight: 300;
+    margin: 0;
+    color: $color-text-lighter-1;
+  }
+  .device-total-head {
+    @include catalog-cell();
+    text-align: center;
+    text-transform: uppercase;
+    border-top: 1px solid $color-text-lighter-5;
+    padding-top: 0.5rem;
+    color: $color-text-lighter-2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .device-total {
+    @include catalog-cell();
+    padding-bottom: 1rem;
+    font-size: x-large;
+    font-weight: 500;
+  }
+}

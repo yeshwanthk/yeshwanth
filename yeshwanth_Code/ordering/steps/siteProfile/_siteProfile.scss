@@ -1,0 +1,171 @@
+$ordering-growth-slider-width: 490px;
+
+.ordering-view-recommendations {
+  padding: 2rem;
+  min-width: 1000px;
+  background-color: $order-section-background-color;
+
+  $site-warning-offset: 20px;
+  .site-warning {
+    font-size: 10px;
+    height: $site-warning-offset;
+  }
+
+  .has-error {
+    border: 1px solid red;
+  }
+
+  .columns, .column {
+    padding: 0;
+    margin: 0;
+  }
+
+  h4 {
+    color: $color-text;
+    max-width: 1000px;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  h5 {
+    color: $color-text;
+    font-weight: 600;
+    font-size: 14px;
+    margin-left: 2rem;
+    margin-bottom: 22px;
+  }
+
+  .company-info {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .company-profile {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 40px 0px 40px 8rem;
+    height: 145px;
+    background: url("#{$images-root}/ordering/profile-building.svg") no-repeat left center;
+    background-size: 90px 100px;
+    margin-left: 2rem;
+  }
+  .employee-icons {
+    //fixes overflow issue with Firefox
+    width: $ordering-growth-slider-width;
+  }
+
+  .growth-slider {
+    width: $ordering-growth-slider-width - 15px;
+  }
+  .growth-slider-labels {
+    color: #888;
+    width: $ordering-growth-slider-width - 15px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .sites-entry {
+    display: inline-block;
+    white-space: normal;
+    vertical-align: top;
+    margin-bottom: 20px;
+  }
+
+  label {
+    min-width: 180px;
+    text-align: right;
+    padding-bottom: 0.3rem;
+    margin-left: 0.4rem;
+    vertical-align: top;
+    /* Have Input Placeholders Align Right - WebKit Solution */
+    ::-webkit-input-placeholder {
+      text-align: right;
+    }
+    /* Have Input Placeholders Align Right - Mozilla Solution */
+    input:-moz-placeholder {
+      text-align: right;
+    }
+    input {
+      text-align: right;
+      display: inline;
+      width: 90px;
+      margin-bottom: 0;
+    }
+    &.number {
+      border-right: $line-color 1px solid;
+      display: table-cell;
+      white-space: nowrap;
+      padding-right: 1rem;
+    }
+    p {
+      display: inline;
+      margin-right: 1rem;
+    }
+  }
+
+  .sites-array {
+    padding-top: $site-warning-offset;;
+    display: inline-block;
+    white-space: normal;
+    max-width: 650px;
+    min-width: 500px;
+
+    .site-users {
+      position: relative;
+
+      .site-users-label {
+        color: rgba($color-text, 0.4);
+        display: inline-block;
+        position: absolute;
+        right: 8px;
+        top: 0px;
+      }
+
+      input {
+        padding-right: 46px;
+      }
+    }
+
+    > div {
+      display: inline-block;
+    }
+    label {
+      float: left;
+      text-align: right;
+    }
+  }
+
+  .growth-slider {
+    .range-slider {
+      background: $line-color;
+    }
+  }
+
+  hr {
+    border: solid $line-color;
+    border-width: 1px 0 0;
+    clear: both;
+    margin: 2rem -2rem 2rem 0;
+    height: 0;
+    &.indent {
+      margin-right: 0;
+    }
+  }
+
+  .cv-icon-employee-woman {
+    margin-left: -11px;
+    margin-right: -11px;
+
+    &:not(.primary) {
+      color: #888;
+    }
+  }
+
+  .bottom {
+    .button {
+      width: auto;
+      margin: auto;
+      padding: 10px 16px 10px 16px;
+    }
+  }
+}

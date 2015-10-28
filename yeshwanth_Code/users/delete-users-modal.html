@@ -1,0 +1,46 @@
+<!-- Modal -->
+<div class="cv-modal">
+
+  <form ng-submit="ok()" class="cv-modal">
+
+    <div class="header">
+      <h4>
+        <ng-pluralize count="value.length"
+                      when="{
+                '1'     : '{{&quot;USERS.DELETE_USERS.SINGLE&quot; | translate}}',
+                'other' : '{{&quot;USERS.DELETE_USERS.PLURAL&quot; | translate: {nusers: value.length} }}'
+                }"></ng-pluralize>
+      </h4>
+      <div class="button-group right">
+        <button class="button dark" type="button"
+                ng-click="cancel()">
+          {{'SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL' | translate}}
+        </button>
+        &nbsp;
+        <button class="button light" type="submit">
+          <ng-pluralize count="value.length"
+                        when="{
+                '1'     : '{{&quot;USERS.DELETE_USERS.SINGLE&quot; | translate}}',
+                'other' : '{{&quot;USERS.DELETE_USERS.PLURAL&quot; | translate: {nusers: value.length} }}'
+                }"></ng-pluralize>
+
+        </button>
+      </div>
+    </div>
+
+    <div class="content-container sized-container">
+
+      <p>
+        <ng-pluralize
+          count="value.length"
+          when="{
+            '1'     : '{{&quot;USERS.MODAL.DELETE.SINGLE&quot; | translate}}',
+            'other' : '{{&quot;USERS.MODAL.DELETE.PLURAL&quot; | translate}}'}">
+        </ng-pluralize>
+      </p>
+
+    </div>
+
+  </form>
+
+</div>

@@ -1,0 +1,114 @@
+<div class="ordering-view-devices">
+    <div ordering-view-recommended-devices
+         recommended-devices="recommendedDevices">
+    </div>
+
+    <!--Purchased devices-->
+    <div class="device-purchase-container">
+        <h4 class="subheader">{{"ORDER.DEVICEPURCHASE.PANEL" | translate | toSentenceCase}}</h4>
+        <h5 ng-if="!devicesSelected" translate>ORDER.DEVICEPURCHASE.NO_DEVICES_SELECTED</h5>
+
+        <div ng-if="devicesSelected">
+            <div class="row">
+                <div class="small-10 columns"></div>
+                <div class="small-2 columns text-center">
+                    <p class="quantity">{{"ORDER.DEVICEPURCHASE.QUANTITY" | translate}}</p>
+                </div>
+            </div>
+            <div ng-repeat="device in userSelectedDevices track by $index">
+                <div class="row device">
+                    <div class="row device-subtotal"
+                         ng-show="shouldDisplaySubtotal(device)">&nbsp;</div>
+                    <div class="row">
+
+                        <div class="small-2 columns">
+                        <img class="device-icon" ng-src="{{device.imageLoc}}"/>
+                    </div>
+                    <div class="small-4 columns text-left">
+                        <strong class="device-name nowrap">{{device.name}}</strong>
+                    </div>
+                    <div class="small-1 columns">&nbsp;</div>
+                    <div class="small-3 columns text-right nowrap price-info">
+                        {{device.price | currency: currency}}<span ng-if="deviceChargeType !== 'fixed' && deviceChargeUnit">/{{deviceChargeUnit}}</span>
+                    </div>
+                        <div class="small-2 columns">
+                        <input type="number"
+                               value="device.userQuantity"
+                               ng-model="device.userQuantity"
+                               ng-change="updateDeviceTotals(true, userSelectedDevices)"
+                               class="text-center quantity-input"
+                               select-on-click/>
+                    </div>
+                    </div>
+                    <div class="row device-subtotal"
+                         ng-show="shouldDisplaySubtotal(device)">
+                        <div class="small-2 columns">
+                            &nbsp;
+                        </div>
+                        <div class="small-4 columns">
+                            &nbsp;
+                        </div>
+                        <div class="small-1 columns text-right upper total-string">
+                            <span>{{"ORDER.DEVICEPURCHASE.SUBTOTAL" | translate}}</span>
+                        </div>
+                        <div class="small-3 columns text-right total-price">
+                        <span class="float-right">{{device.userQuantity * device.price | currency: currency}}<span
+                                ng-if="deviceChargeType !== 'fixed' && deviceChargeUnit">/{{deviceChargeUnit}}</span></span>
+                        </div>
+                        <div class="small-2 columns">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="device-totals row">
+            <div class="small-6 columns">
+                <div>
+                    <button class="button light" ng-click="openViewDeviceCatalogModal()">
+                        {{(deviceCost > 0? "ORDER.DEVICEPURCHASE.CHANGE_SELECTION"
+                        :"ORDER.DEVICEPURCHASE.DEVICE_SELECTION") | translate}}
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div ng-if="deviceCost">
+                <div class="small-1 columns text-right upper">
+                    <strong>{{"SERVICE.BUCKETS.TOTAL" | translate}}</strong>
+                </div>
+                <div class="small-3 columns text-right">
+                    <div class="total">{{deviceCost | currency: currency}}<strong
+                            ng-if="deviceChargeType !== 'fixed' && deviceChargeUnit">/{{deviceChargeUnit}}</strong></div>
+                </div>
+                <div class="small-2 columns text-center">
+                    <div class="total">{{deviceCount}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row button-row">
+            <div class="small-10 columns"></div>
+            <div class="small-2 columns">
+                <form>
+                    <button type="submit"
+                            class="button radius"
+                            ng-click="onStepCompleted({data: {'key': 'devicePurchase',
+                            'value': userSelectedDevices,
+                            'deviceCount': deviceCount,
+                            'useRecommendedDevices':useRecommendedDevices && deviceCount > 0,
+                            'selectionChanged': selectionChanged,
+                            'event': $event,
+                            'widgetInfo': {
+                            'type': 'iconic',
+                            'iconName': '/images/ordering/device.svg',
+                            'iconTitle': 'ORDER.DEVICEPURCHASE.COLLAPSED_TITLE',
+                            shrinkToFit: true
+                            }}})"
+                            translate>SHARED.INPUT.NEXT
+                    </button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="ordering-service-catalog">
+
+    <div class="inline-table">
+        <div class="inline-table-col"></div>
+        <div class="service-table-row"></div>
+        <div ng-repeat="service in serviceIdMatrix track by $index | orderBy: 'price'"></div>
+    </div>
+
+    <div class="service-table">
+        <div class="service-table-col"></div>
+        <div ng-repeat="service in serviceIdMatrix track by $index | orderBy: 'price'"
+             class="service-table-col"
+             ng-class="{'service-highlighted': service.subscribed}"></div>
+        <div class="service-table-row">
+            <div class="feature-space"></div>
+
+            <div class="service"
+                 ng-repeat="service in serviceIdMatrix track by $index | orderBy: 'price'"
+                 id="offerId-{{service.offerId}}"
+                 ng-class="{'feature-col-border': service.subscribed}">
+                <div class="selection">
+                    <div ordering-product-panel
+                         data-content="service"
+                         data-price-text="true"
+                         data-starting-from-text="true"
+                         charge-unit="{{chargeUnit}}"
+                         data-currency="{{currency}}">
+                    </div>
+
+                    <button class="tiny button panel-button"
+                            ng-class="{'subscribed':service.subscribed, 'disabled-elem': $root.queue.disableEdit}"
+
+                            ns-popover="$root.queue.disableEdit"
+                            ns-popover-template="popover-queue-msg"
+                            ns-popover-trigger="mouseenter"
+                            ns-popover-placement="left"
+                            ns-popover-theme="popover-cv-input-error-theme"
+                            ns-popover-timeout="0"
+
+                            ng-click="onStepCompleted(
+                                        {data: {
+                                        'key': 'service',
+                                        'value': service,
+                                        'existingSubscription': existingSubscription,
+                                        'event': $event,
+                                        'widgetInfo': {
+                                          'type': 'iconic',
+                                          'iconName': service.imageLoc,
+                                          'iconTitle': service.name,
+                                          'shrinkToFit': true
+                                      }}})"
+                            translate
+                    >{{service.subscribed? "ORDER.SHARED.MODIFY" : "ORDER.SHARED.SELECT"}}</button>
+
+                    <div>
+                        <span>
+                            <a ng-class="{'hidden': !service.subscribed || $root.queue.disableEdit}"
+                               class="text-center"
+                               ng-click="unsubscribeService(service)"
+                               translate
+                            >ORDER.SERVICE.UNSUBSCRIBE</a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div ng-repeat="feature in featureList | orderBy: $index" class="feature service-table-row">
+            <div class="feature-description">
+                <span>{{feature.name}}</span>
+                <i class="wl-icon-more_info"
+                   ns-popover
+                   ns-popover-template="{{feature.desc}}"
+                   ns-popover-plain="true"
+                   ns-popover-trigger="mouseenter"
+                   ns-popover-placement="top|left"
+                   ns-popover-timeout="0"></i>
+            </div>
+            <div ng-repeat="service in serviceIdMatrix track by $index | orderBy: 'price'"
+                 class="feature-check"
+                 ng-class="{'feature-col-border highlighted': service.subscribed}">
+                <i ng-show="service.features[feature.featureId].presence"
+                   class="wl-icon-checkmark"></i>
+            </div>
+        </div>
+    </div>
+</div>

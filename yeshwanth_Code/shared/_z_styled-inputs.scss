@@ -1,0 +1,101 @@
+.styled-inputs {
+
+  .users {
+    input[type="checkbox"] + label {
+      color: $gray;
+    }
+  }
+  span {
+    &.circle {
+      width: 22px;
+      height: 22px;
+      display: inline-block;
+      margin-right: 8px;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      border: 1px solid #cccccc;
+      position: absolute;
+      &.online {
+        background: #fb0953;
+      }
+    }
+    &.status {
+      font-family: $font-family-emphasis;
+      font-size: rem-calc(16);
+      color: $gray;
+      margin-left: 30px;
+    }
+    &.time {
+      display: block;
+      font-size: rem-calc(12);
+      margin-left: 30px;
+      color: $gray-light;
+    }
+  }
+
+  input[type="radio"], input[type="checkbox"] {
+    display: none;
+  }
+  input[type="radio"] + label, input[type="checkbox"] + label {
+    font-family: $font-family-emphasis;
+    font-size: 16px;
+    color: $gray;
+    margin-left: 0;
+  }
+  input[type="radio"].boxed + label span, input[type="checkbox"].boxed + label span:first-of-type {
+    -moz-border-radius: 0;
+    border-radius: 0;
+  }
+  input[type="radio"] + label span:first-of-type, input[type="checkbox"] + label span:first-of-type {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin: -1px 10px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: $color-background;
+    border: 1px solid $line-color;
+    i {
+      display: none;
+    }
+  }
+
+  input[type="radio"]:checked + label {
+    span {
+      border: 1px solid $line-color;
+      border-radius: 50%;
+      background: $color-background url('#{$images-root}/shared/radio.png')no-repeat center center;
+      background-size: 12px 12px;
+    }
+  }
+
+  input[type="checkbox"]:checked + label {
+    span:first-of-type {
+      color: $primary-color;
+      background: $color-background url('#{$images-root}/shared/checked-icon.png')no-repeat center center;
+      background-size: 70%;
+      border: 1px solid $line-color;
+      text-align: center;
+      display: inline-block;
+      line-height: 22px;
+      content: "\e608";
+
+
+      i {
+        display: inline;
+      }
+    }
+  }
+
+  input[type="radio"] + label span,
+  input[type="radio"]:checked + label span, input[type="checkbox"] + label span,
+  input[type="checkbox"]:checked + label span {
+    -webkit-transition: background-color 0.3s linear;
+    -o-transition: background-color 0.3s linear;
+    -moz-transition: background-color 0.3s linear;
+    transition: background-color 0.3s linear;
+  }
+
+}

@@ -1,0 +1,87 @@
+@mixin cell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+//used for ordering/scrollable container height calcs
+$ordering-header-height: 122px;
+
+.order-device-link {
+  display: table-cell;
+  vertical-align: bottom;
+  color: $color-text-lighter-5;
+  text-align: right;
+  margin-top: -30px;
+  margin-right: 50px;
+}
+
+.ordering-header-container {
+  height: $ordering-header-height;
+  width: 100%;
+  background: $color-heading-darker;
+}
+
+.ordering-header {
+  display: table;
+  width: 100%;
+
+  .title-container {
+    height: $ordering-header-height;
+    width: 75%;
+    @include cell();
+    :first-letter {
+      text-transform: capitalize;
+    }
+    padding-left: 5%;
+    h3 {
+      color: $color-text-inverse;
+      font-weight: 200;
+    }
+  }
+
+  .basket-container {
+    @include cell();
+    height: $ordering-header-height;
+    width: 25%;
+    text-align: center;
+    min-width: 200px;
+    background: $color-heading;
+
+    .basket-table {
+      display: table;
+      width: 100%;
+    }
+
+    .basket-image {
+      @include cell();
+      padding-left: 2rem;
+      color: $color-background;
+      i {
+        padding: 0.5rem;
+        border: 1px solid $color-text-lighter-5;
+      }
+    }
+
+    .basket-subtotal {
+
+      .price-container {
+        display: inline-block;
+        padding-right: 1rem;
+      }
+      padding-left: 1rem;
+      @include cell();
+      text-align: left;
+      .price {
+        color: $color-text-inverse;
+        font-size: medium;
+      }
+      .price-info {
+        font-size: x-small;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: $color-text-lighter-5;
+
+      }
+    }
+  }
+}

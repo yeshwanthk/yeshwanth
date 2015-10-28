@@ -1,0 +1,108 @@
+$shipping-device-manager-width: 220px;
+$shipping-device-height: 120px;
+
+.shipping-device-manager {
+  width: $shipping-device-manager-width;
+  height: 100%;
+  display: table;
+
+  //shipping-device defaults
+  .shipping-device {
+    display: table-row;
+    color: $color-text-lighter-1;
+
+    .site-container {
+      display: table-cell;
+      height: $shipping-device-height;
+      width: 40%;
+      vertical-align: top;
+      padding-right: 18px;
+      padding-top: 8px;
+      .site-text {
+        text-align: right;
+        font-weight: 600;
+      }
+      .user-count {
+        text-align: right;
+        color: $color-text-lighter-2;
+        span {
+          font-weight: 400;
+        }
+      }
+    }
+
+    .divider {
+      display: table-cell;
+      vertical-align: top;
+      height: $shipping-device-height;
+      padding-top: 5px;
+      width: 20%;
+      .circle {
+        background-color: $color-section-background;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+    .device-container {
+      display: table-cell;
+      width: 40%;
+      height: $shipping-device-height;
+      svg {
+        margin: auto;
+        height: 40px;
+        path, circle {
+          fill: $color-text-lighter-4;
+        }
+      }
+      .device-name {
+        font-size: 10px;
+        font-weight: 500;
+        color: $color-text-lighter-3;
+        padding: 5px 15px 0 15px;
+        margin: auto;
+        text-align: center;
+        visibility: hidden;
+        height: 0;
+      }
+    }
+    .shipping-device-link {
+      border-right: 2px solid $color-section-background;
+      display: block;
+      width: 25px;
+      height: 80px;
+      margin-top: 5px;
+    }
+  }
+
+  .shipping-device.selected {
+    .circle {
+      background-color: $color-normal;
+    }
+    svg {
+      path, circle {
+        fill: $color-normal;
+      }
+    }
+    .device-name {
+      visibility: visible;
+      height: 100%;
+    }
+  }
+  .shipping-device.associated {
+    .circle {
+      position: relative;
+      background-color: $color-normal;
+    }
+    i {
+      color: $color-text-inverse;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .shipping-device-link {
+      border-right: 2px solid $color-normal;
+    }
+  }
+}

@@ -1,0 +1,109 @@
+<div>
+
+
+    <div class="shipping-device"
+         id="shipping-device"
+         ng-class="{
+     'associated': device.status === 'associated',
+     'selected': device.status === 'selected'}">
+        <!-- Site counter -->
+        <div class="site-container">
+            <div ng-class="{'hidden': !showSiteInfo}">
+                <div class="site-text">
+                    {{"SHARED.SITE.SINGLE" | translate}} {{device.siteId +1}}
+                </div>
+                <div class="user-count">
+                    <span>{{device.siteUsers}}</span> <span ng-pluralize
+                                                            count="device.siteUsers"
+                                                            when="{
+              '1': '{{&quot;SHARED.USER.SINGLE&quot; | translate}}',
+              'other': '{{&quot;SHARED.USER.PLURAL&quot; |translate}}'}">
+        </span>
+                </div>
+            </div>
+        </div>
+        <!-- Divider with circle -->
+
+        <div class="divider">
+            <div ng-class="{'selected': device.status === 'selected' || device.status ==='associated'}">
+                <div class="circle">
+                    <div ng-if="device.status === 'associated'">
+                        <i class="wl-icon-checkmark"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="shipping-device-link"
+                 ng-if="!lastDevice"
+                 ng-class="{
+     'associated': device.status === 'associated',
+     'selected': device.status === 'selected'}">
+            </div>
+        </div>
+
+        <!-- Device info -->
+        <div class="device-container">
+            <cv-svg-import class="device-svg" svg-url="'/images/ordering/device.svg'"></cv-svg-import>
+            <div class="device-name">
+                {{device.name}}
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+<!--    <div class="shipping-device-border"
+         ng-class="{
+     'associated': device.status === 'associated',
+     'selected': device.status === 'selected'}">
+        <div class="shipping-device">
+            &lt;!&ndash; Site counter &ndash;&gt;
+            <div class="site">&nbsp;
+                <div ng-class="{'hidden': !showSiteInfo}">
+                    <div class="site-text">
+                        {{"SHARED.SITE.SINGLE" | translate}} {{device.siteId}}
+                    </div>
+                    <div class="user-count">
+                        <span>{{device.siteUsers}}</span> <span ng-pluralize
+                                                                count="device.siteUsers"
+                                                                when="{
+              '1': '{{&quot;SHARED.USER.SINGLE&quot; | translate}}',
+              'other': '{{&quot;SHARED.USER.PLURAL&quot; |translate}}'}">
+        </span>
+                    </div>
+                </div>
+            </div>
+
+            &lt;!&ndash; Divider with circle &ndash;&gt;
+            <div class="device-border">
+                <div class="status-mark">
+
+                    <div ng-class="{'selected': device.status === 'selected' || device.status ==='associated'}">
+                        <div class="circle">
+                            <div ng-if="device.status === 'associated'">
+                                <i class="wl-icon-checkmark"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                &lt;!&ndash; Device info &ndash;&gt;
+                <div class="device-container">
+                    <cv-svg-import class="device-svg" svg-url="'/images/ordering/device.svg'"></cv-svg-import>
+                    <div class="device-name">
+                        {{device.name}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shipping-device-link"
+         ng-class="{'long-link': device.status === 'associated'
+         && nextDevice != null && nextDevice.status == 'selected'}">
+        <div ng-class="{'joining-line': !(lastDevice),
+         'associated':device.status === 'associated'}"></div>
+    </div>-->
+</div>

@@ -1,0 +1,12 @@
+<div>
+    <div class="shipping-device-manager">
+        <div ng-repeat="device in allDevices track by $index">
+            <div shipping-device
+                 show-site-info="showSiteLabel && device.siteId != null && (device.siteId == 0 || device.siteId != allDevices[$index - 1].siteId)"
+                 device="device"
+                 last-device="$last"
+                 next-device="allDevices[$index + 1] || null">
+            </div>
+        </div>
+    </div>
+</div>

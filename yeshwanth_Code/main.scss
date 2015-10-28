@@ -1,0 +1,608 @@
+/*!
+ * Copyright (c) 2015 Cisco and/or its affiliates.
+ *
+ * PROPRIETARY AND CONFIDENTIAL -ALL USE MUST BE LICENSED
+ *
+ * The code, technical concepts, all information contained herein and related
+ * documentation are the property of, proprietary to and are vested in Cisco
+ * Technology, Inc. and/or its affiliated entities, ("Cisco") under various
+ * laws including copyright, international treaties, patent, trade secret
+ * and/or contract. Any copying, dissemination, reverse engineering, disclosure
+ * or other use of the material contained herein without an express license
+ * from Cisco is prohibited and, among other legal consequences, constitutes an
+ * infringement of the intellectual property and the proprietary rights of
+ * Cisco. All use of the material herein must be in strict accordance with the
+ * terms of the license you have entered into with Cisco.
+ *
+ */
+//===================================================================================
+// Theme variables and Foundation Settings
+//===================================================================================
+// Import foundation files the SASS way
+@import "shared/settings";
+// Custom theme variables
+@import "shared/variable";
+//===================================================================================
+// Custom theme variables
+@import "../customization/styles/settings";
+//===================================================================================
+// Shared
+//===================================================================================
+// Zurb Foundation Library
+@import "foundation";
+// Custom icons
+@import "shared/portal-glyphs";
+// WhiteLabel Icons
+@import "shared/wl-icons";
+//
+//===================================================================================
+//===================================================================================
+// Shared
+//===================================================================================
+// Custom mixins
+@import "shared/mixins";
+// Import from Zurb Style
+@import "shared/z_main";
+// Import from Zurb Style
+@import "shared/z_styled-inputs";
+@import "shared/animation";
+@import "shared/header";
+// override tag styles
+@import "shared/style-tags";
+//===================================================================================
+//===================================================================================
+// 3rd party bower components
+//===================================================================================
+@import "../../bower_components/nsPopover/sass/ns-popover";
+//===================================================================================
+//===================================================================================
+// Components
+//===================================================================================
+@import "../components/multi-input/multi-input";
+@import "../components/input/cv-input";
+@import "../components/device-card/device-card";
+@import "../components/device-panel/device-panel";
+@import "../components/language-selector/language-selector";
+@import "../components/date-picker/date-picker";
+@import "../components/search/search";
+@import "../components/split-panel/split-panel";
+@import "../components/spinner/spinner";
+@import "../components/map/map";
+@import "../components/performance-graph/performace-graph";
+@import "../components/auto-lock-top/auto-lock-top";
+@import "../components/alert-popup/alert-popup";
+@import "../components/sliding-panels/sliding-panels";
+@import "../components/drop-down-menu/drop-down-menu";
+@import "../components/pop-out/pop-out";
+@import "../components/ion-slider/ion-slider";
+
+//===================================================================================
+//===================================================================================
+// Sections
+//===================================================================================
+@import "ordering/ordering";
+@import "services/services";
+@import "devices/devices";
+@import "logs/logs";
+@import "users/users";
+@import "login/login";
+@import "block-ui";
+//===================================================================================
+//===================================================================================
+// Normalize
+//===================================================================================
+@import "normalize";
+
+html, body{
+  height:100%;
+}
+
+//Overwrite normalization clipping the graph SVGs
+svg:not(:root) {
+  overflow: visible;
+}
+
+//===================================================================================
+
+.dash {
+  .row {
+    width: 100%;
+    min-width: $page-width;
+  }
+}
+
+.page-width {
+  width: $page-width;
+  min-width: $min-page-width;
+}
+
+/* Global Styles */
+.row.full {
+  width: 100%;
+  max-width: 100%;
+}
+
+.critical {
+  color: $color-critical; // for fonts
+  svg:first-child {
+    fill: $color-critical; // for SVGs
+  }
+}
+
+.minor {
+  color: $color-minor; // for fonts
+  svg:first-child {
+    fill: $color-minor; // for SVGs
+  }
+}
+
+.normal {
+  color: $color-normal; // for fonts
+  svg:first-child {
+    fill: $color-normal; // for SVGs
+  }
+}
+
+.primary {
+
+  var-primary: $primary-color;
+  color: $primary-color; // for fonts
+
+  svg path.first, svg rect.first, svg circle.first {
+    var-primary: $color-text-inverse;
+    fill: $color-text-inverse;
+  }
+
+  svg path.second, svg rect.second, svg circle.second {
+    var-primary: $primary-color;
+    fill: $primary-color;
+  }
+
+  svg path.third, svg rect.third, svg circle.third {
+    var-primary: #13afe2;
+    fill: #13afe2;
+  }
+
+  svg path.fourth, svg rect.fourth, svg circle.fourth {
+    var-primary: $controls-color;
+    fill: $controls-color;
+  }
+
+}
+
+.primary-selected {
+
+  var-primary: $primary-color;
+  color: $primary-color; // for fonts
+
+  svg path.first, svg rect.first, svg circle.first {
+    var-primary: $color-text-inverse;
+    fill: $color-text-inverse;
+  }
+
+  svg path.second, svg rect.second, svg circle.second {
+    var-primary: $primary-color;
+    fill: $primary-color;
+  }
+
+  svg path.third, svg rect.third, svg circle.third {
+    var-primary: #13afe2;
+    fill: #13afe2;
+  }
+
+  svg path.fourth, svg rect.fourth, svg circle.fourth {
+    var-primary: $primary-color;
+    fill: $primary-color;
+  }
+
+}
+
+:root {
+  var-primary: $primary-color;
+}
+
+.secondary {
+  color: $secondary-color; // for fonts
+  svg:first-child {
+    fill: $secondary-color; // for SVGs
+  }
+}
+
+
+/*could not find what this is supposed to be controlling,
+but it is overriding all context-nested .info in ordering:
+remove until it can be nested*/
+/*.info {
+  background-color: $modal-header !important;
+  color: $info-color; // for fonts
+  svg:first-child {
+    fill: $info-color; // for SVGs
+  }
+}*/
+
+.light-gray {
+  color: $light-gray; // for fonts
+  svg:first-child {
+    fill: $light-gray; // for SVGs
+  }
+}
+
+.icon-size-32x32 {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+
+  i {
+    font-size: 32px;
+  }
+
+  &i {
+    font-size: 32px;
+  }
+  svg:first-child {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.icon-size-48x48 {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+
+  i {
+    font-size: 48px;
+  }
+
+  &i {
+    font-size: 48px;
+  }
+  svg:first-child {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.icon-size-64x64 {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+
+  i {
+    font-size: 64px;
+  }
+
+  &i {
+    font-size: 64px;
+  }
+  svg:first-child {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.icon-size-128x128 {
+  font-size: 128px;
+  width: 128px;
+  height: 128px;
+
+  i {
+    font-size: 128px;
+  }
+
+  &i {
+    font-size: 128px;
+  }
+  svg:first-child {
+    width: 128px;
+    height: 128px;
+  }
+}
+
+.block-ui-container {
+  .cv-spinner {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.circle {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: $secondary-color;
+
+  &.critical {
+    background-color: $color-critical;
+  }
+
+  &.minor {
+    background-color: $color-minor;
+  }
+
+  &.normal {
+    background-color: $color-normal;
+  }
+
+  &.primary {
+    background-color: $primary-color;
+  }
+
+  &.info {
+    background-color: $info-color;
+  }
+}
+
+.down-triangle {
+  font-size: 2px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid $color-text;
+}
+
+/* light button over-ride */
+.button.light {
+  color: $color-text;
+  background: $primary-color-invert;
+  border: $color-button-secondary-border $button-light-border-width solid !important;
+  border-radius: $border-radius-base;
+
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: $button-med - $button-light-border-width !important;
+  padding-top: $button-med - $button-light-border-width !important;
+  &.disabled, &.disabled:hover, &[disabled='disabled'],&[disabled='disabled']:hover  {
+    color: $secondary-disabled-color;
+    background: $primary-color-invert;
+    border: $color-button-secondary-border $button-light-border-width solid !important;
+  }
+
+  &:hover {
+    border: $color-button-secondary-border-hover $button-light-border-width solid !important;
+  }
+
+  span {
+    color: $color-text;
+  }
+}
+
+.button {
+  color: $color-text-lighter-1;
+  //background: $button-color;
+  font-size: $font-size-base;
+  border-radius: $border-radius-base;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: $primary-color;
+  color: $primary-color-invert;
+
+  span {
+    color: $primary-color-invert;
+  }
+
+  &.disabled {
+    background-color: $button-disabled-color;
+
+    &:hover {
+      background-color: $button-disabled-color;
+    }
+  }
+
+  &.hollow {
+    border: $primary-color-invert $button-light-border-width solid !important;
+    color: $primary-color-invert;
+    background-color: transparent;
+  }
+}
+
+//ordering.modal.viewDeviceCatalog modal HTML
+.cv-modal {
+  width: 100%;
+  padding: 0;
+
+  .inverse {
+    color: $color-text-inverse;
+  }
+
+  .header {
+    white-space: nowrap;
+    padding: 2.5rem;
+    width: 100%;
+    background: $color-heading;
+    border: none;
+
+    .inverse {
+      color: $color-text-inverse;
+    }
+
+    h4 {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      font-size: 28px;
+      font-weight: 100;
+      width: 60%;
+      color: $color-background;
+    }
+
+    .button-group {
+      margin: 0;
+      padding: 0;
+      display: inline-block;
+      width: 40%;
+      white-space: nowrap;
+      text-align: right;
+      .button {
+        min-width: 120px;
+        margin-bottom: 0;
+      }
+      .dark {
+        background: darken($color-heading-darkest, 10);
+      }
+    }
+  }
+
+  .content-container {
+
+    padding: 60px 60px 60px 60px;
+
+    .description {
+      font-size:20px;
+      padding-bottom: 40px;
+      color: #232f34;
+    }
+
+    .icon {
+      text-align: center;
+    }
+
+    .input-label {
+      display: inline-block;
+      width: 225px;
+      text-align: right;
+      font-size: 18px;
+      padding-right: 20px;
+      color: #b7b7b7;
+    }
+
+    .input-box {
+      display: inline-block;
+      font-size: 18px;
+      color: #b7b7b7;
+      width:310px;
+    }
+
+  }
+
+  .sized-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height:350px;
+  }
+
+}
+
+.no-column-padding {
+  padding: 0;
+}
+
+.datepicker {
+  td.day {
+    &.active {
+      background: $primary-color;
+    }
+    &:hover {
+      background: lighten($primary-color, 50%);
+    }
+  }
+}
+
+.no-row-margin {
+  &.row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.text-mirror {
+  display: block;
+  @include transform-mirror();
+}
+
+.text-rotate-90 {
+  display: block;
+  @include text-rotate(90deg);
+}
+
+.root {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+}
+
+.main-wrapper {
+  display: inline-block;
+  white-space: nowrap;
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  display: inline-block;
+  white-space: normal;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------ */
+// fix angular foundation modal animation
+$transition-speed: 0.20s;
+$transition-type: ease-out;
+.reveal-modal.fade {
+  -webkit-transition: -webkit-transform $transition-speed $transition-type;
+  -moz-transition: -moz-transform $transition-speed $transition-type;
+  -o-transition: -o-transform $transition-speed $transition-type;
+  transition: transform $transition-speed $transition-type;
+  -webkit-transform: translate(0, -150%);
+  -ms-transform: translate(0, -150%);
+  transform: translate(0, -150%);
+  padding: 0;
+}
+
+.reveal-modal.in {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+}
+
+/* ------------------------------------ */
+
+.upper {
+  text-transform: uppercase;
+}
+
+.capital {
+  text-transform: capitalize;
+}
+
+.section-title {
+  color: $primary-color;
+}
+
+.global-alert {
+  position: absolute;
+  left: 25%;
+  top: 0px;
+  width: 50%;
+  z-index: 9000;
+}
+
+.global-error {
+  @extend .global-alert;
+  background-color: $color-critical;
+  color: $secondary-color;
+}
+
+.global-success {
+  @extend .global-alert;
+  background-color: $success-color;
+  color: $secondary-color;
+}
+
+.popover-contact-info {
+  .header {
+    font-weight: 500;
+  }
+}
+
+.disabled-elem {
+  opacity: 0.25;
+  cursor: default;
+}

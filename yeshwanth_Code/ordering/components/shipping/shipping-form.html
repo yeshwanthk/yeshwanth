@@ -1,0 +1,153 @@
+<form name="addressForm" ng-submit="submit">
+
+    <div class="row">
+        <div ng-if="addressError && addressError !== ''">{{addressError}}</div>
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.NAME"
+                   for="shipToName">
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToName"
+                    ng-model="returnAddress.name"
+                    value="returnAddress.name"
+                    required/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.COMPANY"
+                   for="shipToOrg">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToOrg"
+                    ng-model="returnAddress.org"
+                    value="returnAddress.org"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.ADDRESS1"
+                   for="shipToAddress1">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToAddress1"
+                    ng-model="returnAddress.address1"
+                    value="returnAddress.address1"
+                    required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.ADDRESS2"
+                   for="shipToAddress2">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToAddress2"
+                    ng-model="returnAddress.address2"
+                    value="returnAddress.address2"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.CITY"
+                   for="shipToCity">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToCity"
+                    ng-model="returnAddress.city"
+                    value="returnAddress.city"
+                    required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.COUNTRY"
+                   for="shipToCountry">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToCountry"
+                    ng-model="returnAddress.country"
+                    value="returnAddress.country"
+                    required/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="small-3 columns">
+            <label class="right inline"
+                   translate="ORDER.SHIPPING.ADDRESS.POSTCODE"
+                   for="shipToZip">
+
+            </label>
+        </div>
+        <div class="small-9 columns">
+            <input
+                    class="address-field"
+                    type="text"
+                    id="shipToZip"
+                    ng-model="returnAddress.zip"
+                    value="returnAddress.zip"
+                    required/>
+        </div>
+    </div>
+
+    <!--bottom buttons-->
+    <div class="row">
+        <ul class="button-group right">
+            <li>
+                <button class="button tiny right"
+                        type="button"
+                        ng-click="cancelForm()"
+                        translate>SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL
+                </button>
+            </li>
+            <li>
+                <button class="button tiny right"
+                        type="submit"
+                        ng-disabled="addressForm.$invalid"
+                        ng-click="saveForm()"
+                        translate>SHARED.MODAL-CONFIRMATION.BUTTON-SAVE
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+
+</form>

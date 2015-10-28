@@ -1,0 +1,123 @@
+<div class="ordering-view-recommendations small-12 columns">
+    <h4 class="subheader" translate="ORDER.SITEPROFILE.INFO"></h4>
+
+    <hr/>
+    <h5 translate>ORDER.SITEPROFILE.COMPANY_PROFILE</h5>
+
+    <div class="company-profile">
+        <form name="sitesEntry">
+            <div class="sites-entry">
+                <div class="site-warning"
+                     ng-class="{'hidden':numberSites || numberSites ==='' || numberSites === 0 || sitesEntry.sitesInput.$pristine || sitesEntry.sitesInput.$valid}">
+                    {{'ORDER.SITEPROFILE.MAX_SITES_ERROR' | translate:{maxSites: maxSites} }}
+                </div>
+                <label class="number">
+                    <p>{{"ORDER.SITEPROFILE.NUMBER_SITES" | translate}}</p>
+                    <input name="sitesInput"
+                           type="number"
+                           ng-class="{'has-error': !sitesEntry.sitesInput.$valid && !sitesEntry.sitesInput.$pristine}"
+                           ng-model="numberSites"
+                           tabindex="100"
+                           min="0"
+                           max="99"
+                           numbers-only
+                           select-on-click
+                           required/>
+                </label>
+            </div>
+
+            <div class="sites-array">
+                <div ng-repeat="site in tempSiteArray(numberSites) track by $index">
+                    <label>
+                        <p>{{"SHARED.SITE.SINGLE" | translate}} {{$index+1}}</p>
+                        <input type="number"
+                               tabindex="{{$index+101}}"
+                               placeholder="{{'ORDER.SITEPROFILE.NUMBER_USERS' | translate}}"
+                               ng-model="savedSiteArray[$index]"
+                               required
+                               numbers-only
+                               select-on-click
+                               min="1"/>
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr  class="indent"/>
+
+    <h5 translate>ORDER.SITEPROFILE.ANTICIPATED_GROWTH</h5>
+
+    <div class="row">
+        <div class="small-3 columns">&nbsp;</div>
+        <div class="small-6 columns">
+            <div class="employee-icons">
+        <span data-ng-repeat="i in tempArray(35)">
+          <i class="cv-icon-employee-woman icon-size-32x32"
+             ng-class="{'primary': i < 1 + Math.floor((employeeGrowth) * 35 / 2)}"
+                  ></i>
+        </span>
+            </div>
+
+            <div ion-slider
+                 class="growth-slider"
+                 min="0"
+                 max="maxEmployeeGrowth"
+                 step="1"
+                 ng-cloak
+                 from="employeeGrowth"
+                 ng-model="employeeGrowth"
+                 grid-snap="true"
+                 hide-min-max="true"
+                 hide-from-to="true">
+            </div>
+            <div class="row growth-slider-labels">
+                <div class="small-4 columns text-left">
+                    <span translate>ORDER.SITEPROFILE.GROWTH.LOW</span>
+                </div>
+                <div class="small-4 columns text-center">
+                    <span translate>ORDER.SITEPROFILE.GROWTH.MEDIUM</span>
+                </div>
+                <div class="small-4 columns text-right">
+                    <span translate>ORDER.SITEPROFILE.GROWTH.HIGH</span>
+                </div>
+            </div>
+        </div>
+        <div class="small-3 columns"></div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="bottom">
+            <ul class="button-group right">
+                <li>
+                    <button class="light button"
+                            tabindex="1000"
+                            ng-click="selectRecommendations({
+                    'showRecommendations': false,
+                    'event': $event,
+                    'widgetInfo': {
+                    'type': 'iconic',
+                    'iconName': '/images/ordering/profile-building.svg',
+                    'iconTitle': 'ORDER.SITEPROFILE.TITLE',
+                    shrinkToFit: true}})"
+                            translate>ORDER.SITEPROFILE.BUTTON-SKIP
+                    </button>
+                </li>
+                <li>
+                    <button ng-disabled="numberSites === 0 || sitesEntry.$invalid || sitesEntry.$pristine || isAnimating"
+                            class="button"
+                            tabindex="1001"
+                            ng-click="selectRecommendations({
+                    'showRecommendations': true,
+                    'event': $event,
+                    'widgetInfo': {
+                    'type': 'iconic',
+                    'iconName': '/images/ordering/profile-building.svg',
+                    'iconTitle': 'ORDER.SITEPROFILE.TITLE',
+                    shrinkToFit: true}})"
+                            translate>ORDER.SITEPROFILE.BUTTON-VIEW
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

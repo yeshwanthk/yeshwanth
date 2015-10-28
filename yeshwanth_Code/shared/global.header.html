@@ -1,0 +1,174 @@
+<script type="text/ng-template" id="popover-tenant-selector">
+    <div class="ns-popover-tooltip">
+        <ul>
+            <li ng-repeat="item in tenants">
+                <!--<a class="option" ng-click="onMenuItemSelected(item);hidePopover();">-->
+                <a class="option" ng-click="onMenuItemSelected(item);">
+                    <div class="option-wrapper padding">
+                        <span class="text-wrap" translate>{{item.name}}</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</script>
+
+<script type="text/ng-template" id="popover-language-selector">
+    <!--this popover is used by both the login and header pages! (same ID)-->
+    <div class="ns-popover-tooltip">
+        <ul>
+            <li class="padding">
+                <span translate>SHARED.NAV.LANGUAGE</span>
+            </li>
+
+            <li ng-repeat="item in language.list">
+                <a class="option" ng-click="onLanguageSelected(item); hidePopover();">
+                    <div class="option-wrapper padding">
+                        <span ng-if="item.id !== language.selected.id" class="icon-wrap"><img
+                                ng-src="{{item.icon}}"></span>
+                                <span ng-if="item.id === language.selected.id" class="icon-wrap">
+                                  <span class="circle"><i class="wl-icon-checkmark"></i></span>
+                                </span>
+
+                        <span class="text-wrap">{{item.name}}</span>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="triangle"></div>
+</script>
+
+<script type="text/ng-template" id="popover-contact-info">
+  <span class="popover-contact-info">
+    <div class="triangle"></div>
+    <div class="ns-popover-tooltip">
+      <ul>
+        <li ng-repeat="group in contactInfo">
+          <div class="group header" ng-class="{'middle': !$last}" ng-if="group.type === 'sales'" translate>
+            <h1>CONTACT.SALES_SUPPORT</h1>
+          </div>
+          <div class="group header" ng-class="{'middle': !$last}" ng-if="group.type === 'tech'" translate>
+            <h1>CONTACT.TECH_SUPPORT</h1>
+          </div>
+          <div class="group" ng-class="{'middle': !$last}">
+            <ul>
+              <li ng-repeat="item in group.items">
+                <div class="name" ng-switch="item.type">
+                  <span ng-switch-when="local-phone" translate>CONTACT.LOCAL_NUMBER</span>
+                  <span ng-switch-when="inter-phone" translate>CONTACT.INTER_NUMBER</span>
+                  <span ng-switch-when="email" translate>CONTACT.EMAIL</span>
+                </div>
+                <div ng-switch="item.type" class="value">
+                  <a ng-switch-when="local-phone" href="tel:{{item.value}}" ng-bind-html="item.value"></a>
+                  <a ng-switch-when="inter-phone" href="tel:{{item.value}}" ng-bind-html="item.value"></a>
+                  <a ng-switch-when="email" href="mailto:{{item.value}}" ng-bind-html="item.value"></a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </span>
+</script>
+
+<!--id = side-header is necessary for correct product-specific ordering animation scrolling-->
+<nav class="nav-container" id="side-header">
+
+    <!-- Logo -->
+    <section class="nav-logo-wrapper">
+        <div class="nav-logo">
+            <div class="logo">
+                <img ng-src="{{LOGO_IMAGE_URL}}">
+            </div>
+        </div>
+    </section>
+
+    <!-- Tenant drop-down -->
+    <section ng-if="isAdmin">
+        <div>
+          <span class="cell">
+              <span class=""
+                    cv-drop-down-menu
+                    menu-item-list="tenants"
+                    selected-item="selectedTenant"
+                    popover-id="createNewTenantPopover"
+                    menu-item-list-offset="{x:-10,y:0}"
+                    drop-down-title="{{'SHARED.NAV.ADMIN.SELECT_TENANT'| translate}}"
+                    data-on-select-complete="onMenuItemSelected(data)"
+                    add-new-tenant="addNewTenant">
+              </span>
+          </span>
+        </div>
+    </section>
+
+    <!-- Nav Links -->
+    <section>
+        <!--<div ng-if="selectedTenant != null && selectedTenant != undefined" class="nav-items">-->
+        <div class="nav-items">
+            <ul>
+                <li data-ng-repeat="link in navigationLinks">
+                    <a ui-sref="{{link.route}}" ng-class="{'selected': link.route == currentState}">
+                        <span class="circle"><i class="icon" data-ng-class="link.iconClass"></i></span>
+                        <span class="nav-text" data-translate>{{link.textKey}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <div class="nav-options" ng-class="currentState == 'root.login' ? 'small' : ''">
+
+      <span ng-if="currentState !== 'root.login'" class="options">
+
+          <div class="link" ng-if="selectedTenant != null && selectedTenant != undefined">
+              <a ui-sref="root.logs"
+                 ng-class="{'selected': 'root.logs' == currentState}">
+                  <span translate>DASHBOARD.EVENT_LOGS</span>
+              </a>
+          </div>
+
+          <div class="link">
+              <hr/>
+          </div>
+
+          <div class="account link" ng-if="!isAdmin">
+              <span translate>HEADER.ACCOUNT</span>
+          </div>
+
+          <div class="link"
+               ns-popover
+               ns-popover-template="popover-language-selector"
+               ns-popover-trigger="click"
+               ns-popover-placement="top|left"
+               ns-popover-hide-on-click="true"
+               ns-popover-timeout="60000">
+              {{language.selected.name}} <i class="down-triangle"></i>
+          </div>
+
+          <div class="link"
+              ns-popover
+              ns-popover-template="popover-contact-info"
+              ns-popover-trigger="click"
+              ns-popover-placement="top|right"
+              ns-popover-theme="ns-popover-tooltip-theme"
+              ns-popover-timeout="60000">
+            <span translate>HEADER.CONTACT_US</span>
+          </div>
+
+          <div class="logout link" ng-click="logout()">
+              <span translate>HEADER.LOGOUT</span>
+          </div>
+
+      </span>
+        </div>
+    </section>
+
+
+</nav>
+
+
+

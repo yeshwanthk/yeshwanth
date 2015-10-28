@@ -1,0 +1,143 @@
+<div>
+    <div ng-if="option.type ==='choice'"
+         class="option-selection"
+         ng-repeat="choice in choices | orderBy: 'price'"
+         ng-class="{'recommended-selection': choice.rec}">
+        <div ordering-product-panel
+             data-content="choice"
+             data-price-text="true"
+             service-total="serviceTotal"
+             data-currency="{{currency}}"
+             data-charge-unit="{{chargeUnit}}"
+             data-starting-from-text="false">
+        </div>
+        <div class="button-container">
+            <button class="tiny button panel-button"
+                ng-click="onStepCompleted({data: {'key': option.id,
+                'option': true,
+                'value': choice,
+                'event': $event,
+                'widgetInfo':{
+                'type': 'iconic',
+                'iconName': choice.imageLoc,
+                'iconTitle': option.title,
+                'iconTextValue': option.value,
+                'iconTextUnit': option.valueUnit}}})"
+                    data-translate="ORDER.SHARED.SELECT"></button>
+        </div>
+        <div class="panel-heading">{{choice.title}}
+        </div>
+        <ul class="panel-description">
+            <li ng-repeat="line in choice.desc track by $index">
+                {{line}}
+            </li>
+        </ul>
+        <div ng-class="{'hidden': !choice.rec}"
+             class="panel-recommended">
+            <div class="ribbon">
+                <div class="triangle-corner"></div>
+                <div class="triangle-box">
+                    <div class="triangle-top"></div>
+                    <div class="triangle-bottom"></div>
+                </div>
+                <div class="text-box">
+                    <div class="rec-text" translate>ORDER.SHARED.RECOMMENDED</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--special custom increment option for speed-->
+    <div ng-if="option.type ==='incremental'"
+         class="incremental-speed-container">
+        <h4>{{option.title}}</h4>
+
+        <div class="inc-speed-box">
+
+            <div class="users-box selection">
+                <div ordering-product-panel
+                     data-content="option"
+                     service-total="serviceTotal"
+                     data-price-text="true"
+                     data-currency="{{currency}}"
+                     data-charge-unit="{{chargeUnit}}"
+                     data-starting-from-text="false">
+                </div>
+                <button class="tiny button panel-button"
+                        ng-click="onStepCompleted({data: {
+                        'key': option.id,
+                        'option': true,
+                        'value': option,
+                        'event': $event,
+                        'widgetInfo':{
+                            'type': 'iconic',
+                            'iconName': option.imageLoc,
+                            'iconTitle': option.title}}})"
+                        data-translate="ORDER.SHARED.SELECT"></button>
+            </div>
+            <div class="slider-box"
+                 id="ordering-users-slider-box">
+                <div class="advisory">{{"ORDER.INCREMENTAL.ADVISORY"| translate: {minValue: option.minValue, valueUnit:
+                    option.valueUnit, increment: option.increment} }} <span class="users-price">{{option.incrementPrice | currency: currency}}/{{option.priceUnit}}</span>.
+                </div>
+                <div class="slider-container">
+
+                    <div class="grid-icon-wrapper"
+                         ng-class="{'cv-icon-no-grid': !showGrid}">
+                        <i class="cv-icon-minus"
+                           ng-click="increment(-option.increment)"
+                           ng-disabled="option.selectedValue === option.minValue"></i>
+                    </div>
+
+                    <div ion-slider
+                         class="users-slider"
+                         min="option.minValue"
+                         max="option.maxValue"
+                         step="option.increment"
+                         from="option.recValue"
+                         ng-model="option.selectedValue"
+                         grid-snap="true"
+                         grid="{{showGrid}}"
+                         grid-num="1"
+                         hide-min-max="false"
+                         hide-from-to="false"
+                         prettify-enabled="true"
+                         prettify-func="usersPrettifyFunc">
+                    </div>
+                    <div class="grid-icon-wrapper"
+                         ng-class="{'cv-icon-no-grid': !showGrid}">
+                        <i class="cv-icon-plus"
+                           ng-click="increment(option.increment)"
+                           ng-disabled="option.selectedValue === option.maxValue"></i>
+                    </div>
+                </div>
+                <div class="slider-points" ng-if="option.recValue">
+                    <div class="slider-row">
+                        <div class="slider-circle-cell"
+                             ng-repeat="point in sliderScale track by $index">
+                            <div class="slider-rec"
+                                 ng-class="{'hidden': !point}">
+                                <div class="slider-rec-line">
+                                    <div class="slider-rec-box">
+                                        <div class="slider-rec"
+                                             ng-click="increment(option.recValue, true)">{{recText}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div ng-if="option.choices">
+        <br>
+        <div class="option-advisory">{{option.desc}}
+        </div>
+    </div>
+</div>
+
+

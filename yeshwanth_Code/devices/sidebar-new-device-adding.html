@@ -1,0 +1,103 @@
+<section class="body device-serial">
+
+  <div class="overlay" id="sidebar-adding"
+       ng-if="isLoaderShow('sidebar-adding')">
+    <div class="container">
+      <div class="wrapper">
+        <p><cv-spinner class="icon-size-64x64"></cv-spinner></p>
+        <p class="lead">{{'DEVICES.SIDEBAR.NEW_DEVICE.VERIFY.MESSAGE' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel-header">
+    <h2 translate>DEVICES.SIDEBAR.NEW_DEVICE.ADDING.HEADER</h2>
+  </div>
+
+  <div class="panel-body-wrapper">
+
+    <div class="panel-body">
+      <section>
+        <!-- START-PROGRESS-CIRCLES -->
+        <div class="serial-status">
+          <div class="left-status">
+            <div class="align-right circle">
+              <div class="filler filled"></div>
+            </div>
+            <p class="primary" translate>DEVICES.SIDEBAR.NEW_DEVICE.ADDING.CURRENT-STEP</p>
+          </div>
+          <div class="middle-status">
+            <hr class="disabled"/>
+          </div>
+          <div class="right-status">
+            <div class="circle disabled">
+              <div class="filler disabled"></div>
+            </div>
+            <p translate>DEVICES.SIDEBAR.NEW_DEVICE.ADDING.NEXT-STEP</p>
+          </div>
+        </div>
+        <!-- END-PROGRESS-CIRCLES -->
+      </section>
+      <hr class="sep"/>
+      <section class="serial-input">
+        <!-- START-ADDING-FORM -->
+        <form name="addingDevices">
+          <div class="input-label padding-indent" translate>DEVICES.SIDEBAR.NEW_DEVICE.ADDING.SERIAL-LABEL</div>
+          <div cv-multi-input
+               cv-input-error-descriptions="shared.input.error.serial.message"
+               is-invalid="isInvalidSerial"
+               show-validation="false"
+               form-type="text"
+               input-type="serial"
+               list-data="newDevices"
+               list-key="serialId"
+               new-item="createNewDeviceObject"
+               on-update="migrateNewDevice"
+               on-edit="updateAllNewDeviceErrors"
+               on-focus="focusNewDeviceIdx"
+               ng-disable="isLoaderShow('sidebar-adding')"
+            ></div>
+        </form>
+        <div class="padding-indent">
+          <h6>{{'DEVICES.SIDEBAR.NEW_DEVICE.ADDING.SUPPORTED' | translate}}:</h6>
+          <ul class="supported-devices">
+            <li ng-repeat="sd in supportedDeviceTypes">{{sd.name}}</li>
+          </ul>
+        </div>
+        <!-- END-ADDING-FORM -->
+      </section>
+    </div>
+
+    <div class="panel-footer">
+      <section>
+        <!-- START-BOTTOM -->
+        <div class="bottom">
+          <div class="buttons">
+
+            <a class="button light"
+               data-ng-click="cancelNewDevice()"
+            >{{'DEVICES.SIDEBAR.NEW_DEVICE.ADDING.BUTTON-CANCEL' | translate}}</a>
+
+            <a class="button"
+               data-ng-disabled="!hasValidNewDevice() || $root.queue.disableEdit === true"
+               data-reveal-id="verify"
+
+               ns-popover
+               ns-popover-template="popover-queue-msg"
+               ns-popover-trigger="mouseenter"
+               ns-popover-placement="left"
+               ns-popover-theme="popover-cv-input-error-theme"
+               ns-popover-timeout="0"
+
+               data-ng-click="associateNewDevices()"
+            >{{'DEVICES.SIDEBAR.NEW_DEVICE.ADDING.BUTTON-ASSOCIATE' | translate}}</a>
+
+          </div>
+        </div>
+        <!--END-BOTTOM -->
+      </section>
+      <hr class="sep"/>
+    </div>
+  </div>
+
+</section>

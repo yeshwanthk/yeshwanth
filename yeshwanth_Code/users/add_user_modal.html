@@ -1,0 +1,26 @@
+<!-- Modal -->
+<div class="cv-modal">
+
+  <form novalidate class="vc-modal" name="addUsersForm" ng-submit="ok()">
+
+    <div class="header">
+      <h4 translate>USERS.ADD_USERS.HEADER</h4>
+      <div class="button-group right">
+        <button class="button dark" ng-click="cancel()" translate>SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL</button>
+        &nbsp;
+        <button ng-disabled="addUsersForm.$invalid || $root.queue.disableEdit === true" type="submit" class="button light" translate>USERS.ADD_USERS.ADD_USERS</button>
+      </div>
+    </div>
+
+    <div class="content-container sized-container">
+
+      <p translate>USERS.ADD_USERS.ENTER_EMAILS</p>
+      <div cv-multi-input
+           show-validation="true"
+           input-type="email"
+           list-key="value"
+           list-data="data.emailList"></div>
+    </div>
+
+  </form>
+</div>

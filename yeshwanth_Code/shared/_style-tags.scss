@@ -1,0 +1,88 @@
+html, body {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: $color-text;
+}
+
+ul, ol, dl, span, div, p, input, button {
+  font-size: $font-size-base;
+  font-weight: $font-weight-base;
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+}
+
+input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
+  padding: $input-padding;
+  border-radius: $input-border-radius;
+  transition: all 0.5s ease;
+  color: $input-color;
+  background-color: $input-background-color;
+  @include box-shadow(none);
+
+  &:focus {
+    @include box-shadow(none);
+    background-color: $input-background-color;
+  }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+//disable spinner on firefox
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+footer {
+  height: 220px;
+  background: #EEEEEE;
+  color: #6e6e6e;
+  padding: 20px 0;
+  h6 {
+    color: #6e6e6e;
+    font-weight: 600;
+    font-size: rem-calc(14);
+    text-transform: uppercase;
+    font-family: sans-serif;
+  }
+  p {
+    font-size: rem-calc(12);
+    margin-bottom: 0;
+  }
+}
+
+// IE FIX to NOT display an X on all form inputs
+/* IE 10+ */
+::-ms-clear {
+  display: none;
+}
+
+::-webkit-input-placeholder {
+  color: $placeholder-color;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: $placeholder-color;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: $placeholder-color;
+}
+
+:-ms-input-placeholder {
+  color: $placeholder-color;
+}

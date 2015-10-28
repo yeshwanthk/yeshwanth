@@ -1,0 +1,63 @@
+<section class="needs-edit sidebar-view-flex-area">
+
+  <div class="panel-header">
+    <!-- START-DEVICE-BASIC-INFO -->
+    <h2 translate>DEVICES.SIDEBAR.NEEDS_EDIT.HEADER</h2>
+    <div class="device-details">
+      <div class="device-breakdown">
+        <section class="info">
+          <p class="inline" ng-if="device.ip" ng-bind="device.ip"></p>
+          <p class="inline" ng-if="!device.ip || !device.ip.length">&nbsp;</p>
+          <p class="identity inline" ng-if="selectedDevice.info.model">{{selectedDevice.info.model}}</p>
+          <p class="inline">{{'DEVICES.DETAILS.SERIAL_NUMBER_ABR' | translate}}: {{selectedDevice.info.serialId}}</p>
+        </section>
+        </div>
+    </div>
+    <!-- END-DEVICE-BASIC-INFO -->
+  </div>
+
+  <div class="panel-body-wrapper">
+    <div class="panel-body">
+      <!-- START-EDIT-FORM -->
+      <section class="device-profile-breakdown">
+        <!-- START-DEVICE-DETAIL-INFO -->
+        <form class="device-info">
+          <span class="device-label"
+                translate>DEVICES.SIDEBAR.NEEDS_EDIT.DEVICE-LABEL</span>
+          <input type="text"
+                 id="right-label-name"
+                 placeholder="{{'DEVICES.SIDEBAR.NEEDS_EDIT.DEVICE-PLACEHOLDER' | translate}}"
+                 data-ng-model="selectedDevice.info.name"
+                 data-ng-change="startEditingDeviceInfo('name')"
+                 data-ng-blur="saveSelectedDeviceName()">
+        </form>
+        <!-- END-DEVICE-DETAIL-INFO -->
+      </section>
+      <!-- START-MAP -->
+      <cv-map
+       data-location="selectedDevice.info.location"
+       data-on-save="saveTempLocation"
+       data-mode="edit"
+       data-show-back="false"
+       data-hide-buttons="true"
+      ></cv-map>
+      <!-- END-MAP -->
+      <!-- END-EDIT-FORM -->
+    </div>
+
+    <div class="panel-footer">
+      <section>
+        <!-- START-BOTTOM -->
+        <div class="bottom">
+          <div class="buttons">
+            <a class="button"
+               data-ng-click="applyDeviceEdit()" translate>DEVICES.SIDEBAR.NEEDS_EDIT.BUTTON-FINISH</a>
+          </div>
+        </div>
+        <!-- END-BOTTOM -->
+      </section>
+      <hr class="sep" />
+    </div>
+  </div>
+
+</section>

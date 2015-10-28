@@ -1,0 +1,25 @@
+
+.ani-jerry{
+	color:blue;
+}
+
+.loading-pane {
+  position: absolute;
+  background: url("#{$images-root}/shared/loading_background.jpg");
+/*
+  .spinner-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("#{$images-root}/shared/loading.jpg") center center no-repeat;
+  }
+*/  
+}
+
+.animate {
+  @include append-transition(linear);
+  @include append-transition(ease);
+  @include append-transition(ease-in);
+  @include append-transition(ease-out);
+  @include append-transition(ease-in-out);
+}

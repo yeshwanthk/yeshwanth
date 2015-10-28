@@ -1,0 +1,41 @@
+.order-device {
+  max-height: 100%;
+  height: 100%;
+  text-align: left;
+  @include calc("width", "100% - #{$customer-header-width}");
+  overflow-y: auto;
+  overflow-x: auto;
+
+  //use the main order device scroll in this case; prevents issue with buttons floating below screen
+  .review-order {
+    overflow: hidden;
+    height: auto;
+  }
+
+  .order-device-button-parent {
+    padding: 1rem 0 0 0;
+    position: relative;
+    margin-bottom: 2rem;
+
+    /*this keeps the directive out of the way of the 'back' button without
+      needing to restrict the shipping device container    */
+    .center-shipping-container {
+      text-align: center;
+    }
+    h4 {
+      margin-bottom: 0;
+    }
+    .order-device-buttons {
+      position: absolute;
+      //these keep it in line for both device and shipping steps outside directive
+      bottom: 0;
+      left: 1rem;
+      .button {
+        margin: 0 10px 0 0;
+        min-width: 100px;
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,270 @@
+@import "components/devicePurchasePanel/devicePurchasePanel";
+@import "components/shipping/shippingDevice";
+@import "components/productPanel/productPanel";
+@import "components/header/header";
+@import "steps/siteProfile/siteProfile";
+@import "steps/optionList/viewOptionList";
+@import "steps/welcome/welcome";
+@import "steps/serviceCatalog/serviceCatalog";
+@import "orderDevice/orderDevice";
+@import "steps/devicePurchase/devicePurchase";
+@import "steps/shippingSelection/shippingSelection";
+@import "steps/review/review";
+
+.hidden {
+  visibility: hidden;
+}
+
+.advisory {
+  font-size: 0.85rem;
+}
+
+/*------------------------------------
+	scrollable-container transition
+------------------------------------ */
+
+.scrollable-container, .step-review-order {
+  -webkit-transition: all ease-out 1s;
+  -moz-transition: all ease-out 1s;
+  transition: all ease-out 1s;
+}
+
+/* New view enters */
+.scrollable-container.ng-hide {
+  z-index: 1;
+  opacity: 0;
+}
+
+/* New view finish entering */
+.scrollable-container.ng-show {
+  z-index: 5;
+  opacity: 1;
+}
+
+/*------------------------------------
+	step-review-order transition
+------------------------------------ */
+/* New view enters */
+.step-review-order.ng-hide {
+  z-index: 1;
+  opacity: 0;
+}
+
+/* New view finish entering */
+.step-review-order.ng-show {
+  z-index: 5;
+  opacity: 1;
+}
+
+.ordering-main {
+  height: 100%;
+  width: 100%;
+  @include calc("width", "100% - #{$customer-header-width}");
+
+  input {
+    border-radius: 0;
+  }
+
+  .block-ui {
+    height: 100%;
+  }
+}
+
+.scrollable-container {
+  display: block;
+  @include calc("height", "100% - #{$ordering-header-height}");
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: scroll;
+
+  background-color: $color-background-darker;
+
+  &.show-scroll {
+    overflow-x: scroll;
+  }
+}
+
+.price-text {
+  text-align: center;
+  span {
+    color: $color-text;
+    font-weight: 200;
+    font-size: rem-calc(20px);
+  }
+}
+
+.selection-panels {
+  white-space: nowrap;
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.selection-panel {
+  white-space: normal;
+  @include transitions(width 0.5s ease-in-out, background-color 0.5s ease-in-out);
+  background-color: #fafafa;
+  display: none;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  vertical-align: top;
+  padding: 2rem 5rem 2rem 5rem;
+
+  &:first-child {
+    text-align: center;
+    width: 100%;
+    background-color: #fff;
+  }
+
+  &.expand, &.expanded, &.collapse, &.collapsed {
+    //@include box-shadow(-8px, 0px, 10px, -3px, rgba(56, 56, 56, 0.25), false);
+    display: inline-block;
+  }
+
+  &.expand {
+    .widget-container.product-panel .price-text {
+      opacity: 0;
+    }
+  }
+
+  &.expanded {
+    background: $color-background-darker;
+    > .content {
+      opacity: 1;
+    }
+  }
+
+  &.collapse {
+    height: 100%;
+    > .content {
+      opacity: 0;
+    }
+
+    .widget-container.product-panel .price-text {
+      opacity: 0;
+    }
+  }
+
+  &.collapsed {
+    padding: 0;
+    border-right: 8px solid $color-background;
+    background-color: $color-background-darkest;
+    width: 238px !important;
+
+    &.expand {
+      background-color: #fafafa;
+    }
+
+    &.expand .widget-container {
+      opacity: 0;
+    }
+
+    > .content {
+      display: none;
+    }
+
+    .widget-container {
+      left: 12px !important;
+
+      h6 {
+        text-align: left;
+        width: 100%;
+        color: #232f34;
+        padding: 0.5rem;
+        vertical-align: middle;
+        line-height: 25px;
+        display: inline-block;
+        height: 60px;
+        margin: 0;
+      }
+      .status-icon {
+        display: inline-block;
+      }
+    }
+
+    .widget-container.product-panel .price-text {
+      display: none;
+    }
+  }
+
+  > .content {
+    @include transition(ease-in-out, 0.5s, opacity);
+    display: inline-block;
+    opacity: 0;
+  }
+
+  //this is what appears in the collapsed panels
+  > .widget-container {
+    text-align: center;
+    @include transitions(left 0.5s ease-in-out, opacity 0.5s ease-in-out);
+    border-color: $primary-color;
+    cursor: pointer;
+    opacity: 1;
+    z-index: 10;
+    h6 {
+      text-align: left;
+      color: $color-text;
+      padding: 1.5rem 0 1.5rem 0;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    div[class^="cv-icon"] {
+      color: $primary-color;
+      font-size: 6rem;
+    }
+
+    .status-icon {
+      color: $primary-color;
+      display: none;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    //container to hold the circle svg centered
+    .panel-container {
+      padding: 1rem 0 1rem 0;
+      border-bottom: 1px solid $color-text-lighter-4;
+      border-top: 1px solid $color-text-lighter-4;
+      .circle {
+        margin-left: -$option-margin;
+        background: $color-normal;
+        width: $product-panel-svg-height;
+        height: $product-panel-svg-height;
+        svg {
+          rect {
+            fill: $color-background;
+          }
+        }
+        .svg-table {
+          width: 100%;
+          height: 100%;
+          display: table;
+          .panel-svg {
+            position: relative;
+            display: table-cell;
+            color: $color-background;
+            vertical-align: middle;
+          }
+          .svg-max-bound {
+            max-width: 60%;
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+
+  .widget-container.product-panel .price-text {
+    @include transition(ease-in-out, 0.5s, opacity);
+    opacity: 1;
+  }
+
+  button {
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    display: block;
+  }
+}

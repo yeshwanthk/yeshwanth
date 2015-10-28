@@ -1,0 +1,189 @@
+.review-order {
+  color: #232f34;
+  padding: 2rem 2rem 2rem 2rem;
+  //height: 100%;
+  @include calc("height", "100% - #{$ordering-header-height}");
+  width: 100%;
+  overflow-y: auto;
+
+  h3 {
+    color: #222;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  h4 {
+    color: #4b4b4b;
+    font-size: 1.25rem;
+    span {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  .icon {
+    circle.second {
+      fill: $color-background;
+    }
+    .first {
+      fill: $color-heading;
+    }
+    .third {
+      fill: $color-heading-lightest;
+    }
+
+    g {
+      .text > .first {
+        fill: $color-heading;
+      }
+      .heading > .first {
+        fill: $color-text;
+      }
+    }
+    rect.second {
+      fill: $color-background;
+    }
+
+    /*svg {
+      width: 24px;
+      height: 24px;
+    }*/
+  }
+
+  ul {
+    margin-bottom: 0;
+    display: inline-block;
+    vertical-align: middle;
+
+    li {
+      line-height: 1.5;
+    }
+  }
+
+  .subheader {
+    color: #232f34;
+  }
+
+  strong.subheader {
+    font-weight: bold;
+  }
+
+  .row {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .row, .columns {
+    padding: 0;
+  }
+
+    .options-panel {
+    h3, h4 {
+      margin: 0;
+    }
+
+    h4.service-name, h4.ship-to {
+      font-weight: 300;
+    }
+
+      img {
+        margin-top: -5px;
+      width: 75px;
+    }
+  }
+
+  .order-includes {
+    padding: 1rem 0;
+
+    &.secondary {
+      padding: 0.25rem 0 2.5rem 0;
+    }
+
+    .subheader {
+      margin-bottom: 1.2rem;
+    }
+  }
+  .device-section {
+    padding-top: 3rem;
+  }
+  .subtotal-row {
+    margin-top: -1px;
+    padding-bottom: 1px;
+
+    h4 {
+      color: $primary-color;
+      padding-top: 0.25rem;
+      white-space: nowrap;
+      line-height: 50px;
+    }
+  }
+
+  .button-row {
+    margin-top: 1rem;
+  }
+
+  .section-title {
+    display: inline-block;
+  }
+
+  .border-bottom {
+    padding-top: 0.2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: #ccc 1px solid;
+
+    &.secondary {
+      color: #232f34;
+      line-height: 3.5rem;
+
+      h4 {
+        line-height: 90px;
+      }
+    }
+
+    .icon {
+      display: inline-block;
+      width: 100%;
+      height: 90px;
+      padding: 1rem;
+
+      span {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .icon + span {
+      font-weight: 300;
+      text-transform: uppercase;
+    }
+  }
+
+  .border-top {
+    padding-top: 0.5rem;
+    border-top: 1px solid $primary-color;
+  }
+  .button {
+    min-width: 8rem;
+    margin-left: 24px;
+  }
+
+  .shipping-address li {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .device-row{
+    height: 7rem;
+    padding: 2.5rem 1rem 0 0;
+    h4{
+      display: inline-block
+    }
+  }
+}

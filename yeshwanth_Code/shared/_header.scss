@@ -1,0 +1,172 @@
+.ns-popover-list-theme {
+
+  @include calc("max-height", "100% - 400px");
+  overflow: auto;
+  overflow-x: hidden;
+
+  .ns-popover-tooltip {
+
+    ul, .list {
+
+      .padding {
+        margin-left: 20px;
+        padding-right: 20px;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .option-wrapper {
+        border-top: 1px solid #d0d5d8;
+        height:100%;
+      }
+
+      li:first-child{
+        .option-wrapper {
+          border: 0;
+        }
+      }
+
+      li{
+
+        min-width: 200px;
+
+        .option {
+
+          color: black;
+          padding:0;
+
+          .circle {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            background-color: #7acc5a;
+            color: #ffffff;
+            font-size: 16px;
+            text-align: center;
+          }
+
+          .text-wrap {
+            padding-left: 5px;
+          }
+        }
+      }
+
+
+    }
+  }
+}
+
+.nav-container {
+
+  display: inline-block;
+  white-space: normal;
+  height: 100%;
+  max-height: 100%;
+  width: $customer-header-width;
+  min-width: 193px;
+  vertical-align: top;
+  padding: 0 10px;
+
+
+  nav {
+
+    a.selected{
+      color: rgb(20, 178, 230)!important;
+    }
+
+    section {
+      display: table-row;
+      position:relative;
+      z-index:2;
+      background: white;
+
+      & > div{
+        display: table-cell;
+        min-width: 145px;
+      }
+
+      &:last-child {
+        position: absolute;
+        bottom: 0;
+        z-index:1;
+      }
+
+      span.link{
+        display:inline-block;
+      }
+
+      a, .link{
+        color: rgb(162, 162, 162);
+        margin-bottom:15px;
+        cursor:pointer;
+
+        i.down-triangle{
+          color: rgb(162, 162, 162);
+          border-top-color:rgb(162, 162, 162);
+          display:inline-block;
+          margin-left:5px;
+        }
+      }
+
+    }
+
+    .nav-logo-wrapper {
+      height: 122px;
+      .nav-logo {
+        padding-left: 34px;
+        vertical-align: middle;
+      }
+    }
+
+    .nav-items{
+      ul {
+        list-style-type: none;
+        margin: 0;
+
+        li{
+          padding-bottom: 12px;
+          line-height: 44px;
+          text-transform: capitalize;
+
+
+          .selected {
+            color: $primary-color;
+
+            .circle {
+              background-color: $primary-color;
+              i {
+                color: $primary-color-invert;
+              }
+            }
+          }
+
+          a{
+            color: #b7b7b7;
+
+            .circle{
+              width: 44px;
+              height: 44px;
+
+              .icon{
+                display: inline-block;
+                width: 44px;
+                height: 44px;
+                line-height: 44px;
+                text-align: center;
+                font-size: 18px;
+              }
+            }
+
+            .nav-text{
+              font-size: 14px;
+              padding-left: 10px;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

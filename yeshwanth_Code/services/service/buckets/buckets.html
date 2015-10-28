@@ -1,0 +1,171 @@
+<div class="bucket-panel">
+  <div block-ui="bucketsBlock" class="service-info">
+
+    <div class="row header size-header">
+
+      <span ng-click="cancel(); showAdvanced = false;" class="service-back title small">
+          <i class="wl-icon-chevron back-arrow"></i>
+          <span>{{models.title}}</span>
+      </span>
+
+      <div class="bandwidth-checkbox styled-inputs"
+           ng-if="models._hasQoSFlag">
+        <input type="checkbox"
+               class="boxed"
+               id="enable-cb"
+               name="enable-cb"
+               data-ng-click="enableBandwidth()"
+               data-ng-checked="models.enabled"
+          />
+        <label class="filter" for="enable-cb" data-ng-click="$event.stopPropogation();">
+          <span ng-class="{'disabled-bg': service.enabled}"></span>
+          <div translate class="bandwidth-checkbox-label" ng-class="{'disabled-txt': service.enabled}">SERVICE.BUCKETS.ENABLED</div>
+        </label>
+        <div class="block-checkbox" data-ng-show="service.enabled"></div>
+      </div>
+
+      <div class="enable-msg" translate>SERVICE.BUCKETS.MSG</div>
+
+    </div>
+
+    <div class="bandwidth-content">
+
+        <div class="applications-details-header">
+          <div>
+            <span class="buckets-image"><img ng-src="{{models.imageLoc}}"/></span><span class="n-applications upper">{{models.header}} ({{nApplications}} <span translate>SERVICE.BUCKETS.TOTAL</span>)</span>
+          </div>
+          <div class="advanced-switch">
+            <a href="" target="_blank" ng-click="showAdvanced = !showAdvanced">
+              <span ng-if="showAdvanced" translate>SERVICE.BUCKETS.HIDE_ADVANCED</span>
+              <span ng-if="!showAdvanced" translate>SERVICE.BUCKETS.SHOW_ADVANCED</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Template for cv-error pop-over message -->
+        <script type="text/ng-template" id="popover-cv-buckets-weight">
+          <span>
+              <div class="triangle"></div>
+              <div class="popover-cv-input-error">
+                <p class="message">{{models.weightError}}</p>
+              </div>
+            </span>
+        </script>
+
+        <!-- Advanced section with the sliders -->
+        <div class="advanced-detail-wrap" ng-if="showAdvanced" >
+          <p class="buckets-announce">{{models.advancedDesc}}</p>
+          <div class="advanced-detail">
+            <div ng-repeat="list in models.buckets">
+              <div class="name">
+                <p class="upper">{{list.name}}</p>
+              </div>
+              <div class="slider-wrap">
+
+                <div ion-slider
+                     min="0"
+                     max="100"
+                     from="list.weight"
+                     ng-model="list.weight"
+                     ng-change="sliderChange(list.name)"
+                     grid-snap="true"
+                     hide-min-max="true"
+                     hide-from-to="true">
+                </div>
+
+              </div>
+              <div class="weight"><input type="number" ng-change="sliderChange(list.name)" ng-model="list.weight"/></div>
+              <div class="">
+                <p>%</p>
+              </div>
+            </div>
+            <div class="total-weight-wrap" ng-init="updateTotalWeight()">
+              <div class="space"></div>
+              <div class="align-right upper sum-percentage">
+                  <i class="cv-icon-error"
+                     ng-if="totalWeight > 100"
+                     ns-popover
+                     ns-popover-template="popover-cv-buckets-weight"
+                     ns-popover-trigger="mouseenter"
+                     ns-popover-placement="bottom"
+                     ns-popover-theme="popover-cv-input-error-theme"
+                     ns-popover-timeout="0"></i>
+                <p class="right" translate>SERVICE.BUCKETS.TOTAL</p></div>
+              <div class="sum"><p>{{totalWeight}}</p></div>
+              <div><p class="sum-percentage">%</p></div>
+            </div>
+            <div class="total-unused-wrap">
+              <div class="space"></div>
+              <div class="align-right"><p class="right" translate>SERVICE.BUCKETS.UNUSED</p></div>
+              <div class="sum"><p>{{unusedWeight}}</p></div>
+              <div><p>%</p></div>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+        <ul class="small-block-grid-2 buckets">
+            <li ng-repeat="list in models.buckets">
+                  <p class="upper">{{list.name}} ({{list.contains.length}}<span ng-if="list.limit">&nbsp;|&nbsp;{{list.limit}}&nbsp;max</span>)</p>
+                <div>
+                  <!-- The dnd-list directive allows to drop elements into it.
+                    The dropped data will be added to the referenced list -->
+                  <ul dnd-list="list.contains"
+                      dnd-disable-if="list.contains.length >= list.limit || isSameBucket(currentDraggedItem, list.name)">
+                    <!-- The dnd-draggable directive makes an element draggable and will
+             transfer the object that was assigned to it. If an element was
+             dragged away, you have to remove it from the original list
+             yourself using the dnd-moved attribute. -->
+             <!-- If the list contains only 1 element, disable dragging from the list by
+                  assigning dnd-draggable to '', instead ov item value -->
+                    <li
+                      ng-repeat="item in list.contains | orderBy:getItemName"
+                      dnd-draggable="{{ (list.contains.length > 1) ? 'item' : ''}}"
+                      dnd-moved="list.contains.splice($index, 1)"
+                      dnd-dragstart="onDragged(item)"
+                      dnd-effect-allowed="move"
+                      title="{{models.items[item].name}}">
+                      <div class="drag-item-container">
+                        <div class="drag-handle">&nbsp;</div>
+                        <div class="drag-content">{{models.items[item].name}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+            </li>
+        </ul>
+
+      <div class="content-blocker" ng-hide="models.enabled"></div>
+
+    </div>
+
+  </div>
+
+  <div class="button-group row">
+    <button ng-click="cancel()" class="button light" data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL"></button>
+    &nbsp;
+    <button class="button dark"
+            ng-disabled="totalWeight > 100"
+            ng-click="save(models.buckets)"
+            data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-SAVE"
+            data-ng-show="$root.queue.disableEdit === false"
+    ></button>
+    <button
+        class="button dark disabled-elem"
+        data-ng-show="$root.queue.disableEdit === true"
+        data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-SAVE"
+
+        ns-popover
+        ns-popover-template="popover-queue-msg"
+        ns-popover-trigger="mouseenter"
+        ns-popover-placement="left"
+        ns-popover-theme="popover-cv-input-error-theme"
+        ns-popover-timeout="0"
+
+    ></button>
+    <div class="separator">&nbsp;</div>
+    <button class="button light" ng-click="restoreDefaults()" data-translate="SERVICE.RESTORE_DEFAULTS"></button>
+  </div>
+
+</div>
+

@@ -1,0 +1,28 @@
+<div class="product-panel"
+     ng-class="{'recommended': content.rec,
+     'subscribed': content.subscribed}">
+    <div class="title-container">
+        <h6 class="title">{{content.name}}</h6>
+        <div class="subscribed-flag"
+             ng-class="{'hidden': !content.subscribed}">
+            <span translate>ORDER.SHARED.SUBSCRIBED</span>
+        </div>
+    </div>
+    <div class="circle">
+        <div class="svg-table">
+            <div class="product-panel-svg">
+                <div cv-svg-import svg-url="content.imageLoc">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fittext-div-container">
+        <div class="fittext-div"
+             data-fittext
+             data-fittext-max="24"
+             data-fittext-delay="100"
+             data-ng-model="content.price">{{(content.price >= 0 ? content.price : 0) | currency:
+            currency}}/{{chargeUnit}}
+        </div>
+    </div>
+</div>

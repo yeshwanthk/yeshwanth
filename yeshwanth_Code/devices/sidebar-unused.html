@@ -1,0 +1,83 @@
+<div class="unused">
+
+  <div class="overlay" id="sidebar-unused"
+       ng-if="isLoaderShow('sidebar-unused')">
+    <div class="container">
+      <div class="wrapper">
+        <p><cv-spinner class="icon-size-64x64"></cv-spinner></p>
+        <p translate>DEVICES.SIDEBAR.UNUSED.VERIFY.MESSAGE</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- START-ENTER-SERIAL -->
+  <section class="body device-serial">
+
+    <div class="panel-header">
+      <span translate>DEVICES.SIDEBAR.UNUSED.HEADER</span>
+    </div>
+
+    <div class="panel-body-wrapper">
+      <div class="panel-body">
+        <!-- START-UNUSED-FORM -->
+        <form name="unusedDevice">
+          <div class="row full">
+            <div class="small-12 columns serial-input">
+              <p translate>DEVICES.SIDEBAR.UNUSED.SERIAL-LABEL</p>
+              <input cv-input="{'errorKey':'shared.input.error.serial.message'}"
+                     set-invalid="{'errorKey':isInvalidSerial}"
+                     name="serial"
+                     type="text"
+                     placeholder="{{'DEVICES.SIDEBAR.UNUSED.SERIAL-PLACEHOLDER' | translate}}"
+                     data-ng-model="selectedDevice.info.serialId"
+                     data-ng-change="startEditingDeviceInfo('unused.serialId')"
+                     required>
+
+              <p class="device-serial-detail" translate>DEVICES.SIDEBAR.UNUSED.SERIAL-NOTE</p>
+            </div>
+          </div>
+        </form>
+        <!-- END-UNUSED-FORM -->
+      </div><div class="panel-footer">
+      <section>
+        <div class="bottom">
+          <div class="buttons">
+
+            <a class="button light"
+               ng-class="{'disabled': preventDelete()}"
+               data-ng-disabled="preventDelete() || $root.queue.disableEdit === true"
+               ng-click="openModal('deleteDeviceModal')"
+               translate
+            >DEVICES.SIDEBAR.UNUSED.BUTTON-DELETE</a>
+
+            <a class="button"
+                data-reveal-id="verify"
+                data-ng-show="$root.queue.disableEdit === false"
+                data-ng-disabled="unusedDevice.$invalid"
+                data-ng-click="applyDeviceSerial(selectedDevice.info)"
+            >{{'DEVICES.SIDEBAR.UNUSED.BUTTON-ASSOCIATE' | translate}}</a>
+
+            <a class="button disabled-elem"
+                data-ng-show="$root.queue.disableEdit === true"
+                data-reveal-id="verify"
+
+                ns-popover
+                ns-popover-template="popover-queue-msg"
+                ns-popover-trigger="mouseenter"
+                ns-popover-placement="left"
+                ns-popover-theme="popover-cv-input-error-theme"
+                ns-popover-timeout="0"
+
+            >{{'DEVICES.SIDEBAR.UNUSED.BUTTON-ASSOCIATE' | translate}}</a>
+
+          </div>
+        </div>
+      </section>
+      <hr class="sep"/>
+    </div>
+    </div>
+
+  </section>
+  <!-- END-ENTER-SERIAL -->
+
+</div>

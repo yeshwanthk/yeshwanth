@@ -1,0 +1,125 @@
+$login-title-margin-top: rem-calc(75px);
+$login-title-margin-bottom: rem-calc(50px);
+$login-title-font-size: rem-calc(68px);
+$login-main-title-char-spacing: rem-calc(2);
+$login-line-color:rgba(255, 255, 255, 0.3);
+
+$login-form-font-size: rem-calc(16px);
+$login-form-label-margin: rem-calc(20px);
+$login-form-item-height: rem-calc(45px);
+$login-form-input-width: rem-calc(242px);
+$login-form-line-margin: rem-calc(15px);
+$login-form-button-padding-top: rem-calc(40px) - $login-form-line-margin;
+
+
+.login-main {
+
+  background: $primary-color;
+
+  min-height: 700px;
+  background-size: 100%;
+  height: 100%;
+  color: white;
+
+  .login-logo {
+    padding:50px;
+  }
+
+  .login-container {
+
+    width:100%;
+    background: transparent;
+    border-top: 1px solid $login-line-color;
+    margin-left: 360px;
+
+    .title {
+      margin-top: $login-title-margin-top;
+      margin-bottom: $login-title-margin-bottom;
+      font-size: $login-title-font-size;
+      font-weight: 100;
+      color:white;
+      white-space: nowrap;
+    }
+
+    .login-inner-container {
+      white-space: nowrap;
+    }
+
+    .login-form {
+
+      display: inline-block;
+
+      .login-table {
+
+        .login-table-row {
+        }
+
+        .login-left-cell {
+          display:inline-block;
+          width: 175px;
+        }
+
+        .login-right-cell {
+          display:inline-block;
+          min-width:275px;
+
+        }
+
+      }
+
+      .login-form-label {
+        font-size: $login-form-font-size;
+        margin-right: $login-form-label-margin;
+        margin-bottom: 0;
+        text-align: right;
+        line-height: $login-form-item-height;
+        color: white;
+        cursor: default;
+        font-weight: 200;
+      }
+
+      input {
+        background-color: rgba(0,0,0,0.1);
+        border: 0;
+        width: 275px;
+        color:white;
+      }
+
+      .login-form-button {
+        background-color: white;
+        border: 0;
+        width: 175px;
+        color: black;
+      }
+
+      .login-input-language {
+        cursor: pointer;
+      }
+
+      .forgot-password {
+        margin-left: 16px;
+        color: white;
+      }
+    }
+
+    .login-help {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 48px;
+      margin-top: 20px
+    }
+
+    .content-wrap {
+      position: relative;
+
+      .alert-box {
+        width: 100%;
+        position: absolute;
+        top: 100px;
+        text-align: center;
+      }
+    }
+
+  }
+
+}

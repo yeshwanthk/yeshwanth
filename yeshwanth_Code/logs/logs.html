@@ -1,0 +1,144 @@
+<section class="event-logs">
+  <div class="logs-header">
+    <div class="header-wrapper">
+      <div cv-search model="search.description"
+           update-callback="searchUpdated"
+           placeholder="LOGS.SEARCH"
+        ></div>
+    </div>
+  </div>
+
+  <div class="logs-body">
+
+    <div class="logs-body-bar">
+      <div class="first-set side-filter logs-list-header">
+        <div class="logs-list-wrapper">
+          <!-- START-FILTER -->
+          <form id="sideFilters" class="styled-inputs filters">
+            <span ng-repeat="filter in filterList">
+              <a class="filter button"
+                 id="filter-{{$index}}"
+                 name="filter-{{$index}}"
+                 data-ng-class="{'selected': filterSeverity == filter.value}"
+                 data-ng-click="selectFilter(filter.value)"
+                 translate>{{filter.name}}</a>
+            </span>
+          </form>
+          <!-- END-FILTER -->
+        </div>
+      </div>
+
+      <div class="second-set side-filter logs-list-header">
+        <div class="logs-list-wrapper">
+          <!-- START-SEARCH-INTERVAL -->
+          <form class="styled-inputs filters">
+            <span ng-repeat="search in searchIntervalList">
+              <a class="filter button"
+                 id="filter-{{$index}}"
+                 name="filter-{{$index}}"
+                 data-ng-class="{'selected': searchInterval == search.value}"
+                 data-ng-click="selectSearchInterval(search.value)"
+                 translate>{{search.name}}</a>
+            </span>
+          </form>
+          <!-- END-SEARCH-INTERVAL -->
+          <div class="custom-range"
+               data-ng-class="{'disabled': disableCustomRange}">
+
+            <script type="text/ng-template" id="popover-logs-datepicker">
+              <div class="triangle"></div>
+              <div class="ns-popover-tooltip">
+                <span translate>LOGS.TIME.WRONG_INTERVAL</span>
+              </div>
+            </script>
+
+            <!-- Date picker -->
+            <span ns-popover="showDateRangeError"
+                  ns-popover-template="popover-logs-datepicker"
+                  ns-popover-placement="top"
+                  ns-popover-timeout="0"
+                  ns-popover-theme="ns-popover-tooltip-theme">
+              <div cv-date-picker
+                   show-datepicker="showDatePicker1"
+                   update-callback="updateStartDate"
+                   disable-input="disableCustomRange"></div>
+              <p class="to" translate>LOGS.TO</p>
+              <!-- Date picker -->
+              <div cv-date-picker
+                   update-callback="updateEndDate"
+                   disable-input="disableCustomRange"
+                ></div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="logs-table">
+      <ul class="event-log-list header">
+        <li class="details">
+          <!-- table header -->
+          <div class="left-side cell" ng-click="sortBy = 'severity'; sortReverse = !sortReverse; updateLogs()">
+              <div class="column-sorter">
+                  <p class="{{sortBy == 'severity'
+                  ? (sortReverse ? 'arrow-down' : 'arrow-up')
+                  : '' }}" translate>LOGS.SEVERITY</p>
+              </div>
+          </div>
+          <div class="middle cell" ng-click="sortBy = 'description'; sortReverse = !sortReverse; updateLogs()">
+              <div class="column-sorter">
+                  <p class="{{sortBy == 'description'
+                  ? (sortReverse ? 'arrow-down' : 'arrow-up')
+                  : '' }}"
+                 translate>LOGS.DESCRIPTION</p>
+              </div>
+          </div>
+          <div class="right-side cell" ng-click="sortBy = 'time'; sortReverse = !sortReverse; updateLogs()">
+              <div class="column-sorter">
+                  <p class="{{ sortBy == 'time'
+                              ? (sortReverse ? 'arrow-down' : 'arrow-up')
+                              : '' }}"
+                      translate>LOGS.TIMESTAMP</p>
+              </div>
+          </div>
+        </li>
+      </ul>
+      <div class="logs-table-contents"
+           cv-infinite-scroll
+           on-scroll="onScroll"
+           distance="0"
+           disabled="busy">
+        <ul class="event-log-list">
+          <li ng-repeat="logItem in logs">
+              <div class="left-side cell">
+                  <div ng-switch="logItem.severity">
+                      <div ng-switch-when=2 title="{{'LOGS.FILTERS.WARNING' | translate }}">
+                          <span class="circle minor"><i class="wl-icon-status-minor"></i></span>
+                      </div>
+                      <div ng-switch-when=3 title="{{'LOGS.FILTERS.CRITICAL' | translate }}">
+                          <span class="circle critical"><i class="wl-icon-status-critical"></i></span>
+                      </div>
+                      <div ng-switch-default title="{{'LOGS.FILTERS.INFO' | translate }}">
+                          <span class="circle info"><i class="wl-icon-status-info"></i></span>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="middle cell" style="padding-left: 6px;">
+                  <p>{{logItem.description}}</p>
+              </div>
+              <div class="right-side cell" style="padding-left: 10px;">
+                  <p>{{convertTime(logItem.time)}}</p>
+              </div>
+          </li>
+          <li ng-show="busy">
+              <div class="tall"><cv-spinner size="20"></cv-spinner></div>
+          </li>
+          <li ng-show="!busy && logs.length === 0">
+              <div class="tall"><span translate>LOGS.NO_RESULTS</span></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,78 @@
+<div class="services-controller" block-ui="servicesMapbox">
+  <div class="map-block-overlay" ng-if="usedBlockReason">
+    <div class="overlay-content">
+      <div ng-switch on="usedBlockReason">
+        <div ng-switch-when="no_location">
+          <p translate>SERVICE.MAP_BLOCK.NO_DEVICES</p>
+          <p><a translate="" ui-sref="root.devices">SERVICE.MAP_BLOCK.EDIT_DEVICES</a></p>
+        </div>
+        <div ng-switch-default>
+          <p translate>SERVICE.MAP_BLOCK.DETAILS_OPEN</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    <mapbox id="mapbox-test-main"
+            map-id="{{CONST.MAPBOX_ID}}"
+            width="100%"
+            height="100%"
+            cluster-markers="true"
+            scale-to-fit="true"
+            num-markers="{{sites | filter: filterTerm | keylength}}">
+
+
+
+
+
+        <marker ng-repeat="site in sites | filter: filterTerm"
+                lat="{{site.location.la}}"
+                lng="{{site.location.lo}}"
+                color="gray"
+                class="hide"
+                devices="{{site.devices.length}}"
+                issue="{{site.issue}}">
+            <p>{{site.devices.length}}
+                <ng-pluralize
+                    count="site.devices.length"
+                    when="{
+                        '1'     : 'Device',
+                        'other' : 'Devices'
+                    }">
+                </ng-pluralize>
+            </p>
+
+            <p>{{setAddress(site.location)}}</p>
+
+            <p>{{setAddress(site.location, true)}}</p>
+
+            <div class="map-device-list" ng-class="{many: {{site.devices.length}} > 5}">
+
+                <ul>
+
+                    <li ng-repeat="device in site.devices" xng-click="showDeviceDetails({{device}})" ng-class="{'device-selected': checkDeviceSelected({{device}})}">
+
+                      <div class="device-info">
+
+                        <span class="left device-state circle {{getDeviceState(device.status)}}">
+                          <i ng-show="checkDeviceStatus({{device}}, 'online')" class="wl-icon-checkmark"></i>
+                          <i ng-show="checkDeviceStatus({{device}}, 'offline')" class="wl-icon-x"></i>
+                          <i ng-show="checkDeviceStatus({{device}}, 'degraded')" class="wl-icon-degraded"></i>
+                        </span>
+
+                        <span class="device-name">{{device.name}}</span>
+
+                        <span class="right"><i class="wl-icon-chevron text-mirror"></i></span>
+
+                      </div>
+
+                    </li>
+
+
+                </ul>
+            </div>
+        </marker>
+
+
+
+    </mapbox>
+</div>

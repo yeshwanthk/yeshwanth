@@ -1,0 +1,22 @@
+<div class="main-wrapper">
+
+  <!-- Notification -->
+  <cv-alert-popup
+    event-name="global:error"
+    transition-show="{ 'top': '0px' }"
+    transition-hide="{ 'top': '-150px' }"
+    transition-speed="slow"
+    class="global-error"
+    ></cv-alert-popup>
+
+  <cv-alert-popup
+    event-name="global:success"
+    transition-show="{ 'top': '0px' }"
+    transition-hide="{ 'top': '-150px' }"
+    transition-speed="slow"
+    class="global-success"
+    ></cv-alert-popup>
+
+  <div ui-view="header" class="nav-container"  ng-hide="currentState == 'root.login'"></div><div ui-view="body" class="main-container"></div>
+
+</div>

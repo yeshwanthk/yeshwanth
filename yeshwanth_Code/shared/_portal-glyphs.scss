@@ -1,0 +1,130 @@
+@font-face {
+	font-family: 'portal-glyphs';
+	src:url('../fonts/portal-glyphs.eot?-polcgm');
+	src:url('../fonts/portal-glyphs.eot?#iefix-polcgm') format('embedded-opentype'),
+		url('../fonts/portal-glyphs.woff?-polcgm') format('woff'),
+		url('../fonts/portal-glyphs.ttf?-polcgm') format('truetype'),
+		url('../fonts/portal-glyphs.svg?-polcgm#portal-glyphs') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="cv-icon-"], [class*=" cv-icon-"] {
+	font-family: 'portal-glyphs';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.cv-icon-cloud-plug:before {
+  content: "\e620";
+}
+.cv-icon-users-1:before {
+  content: "\e622";
+}
+.cv-icon-users-outline:before {
+  content: "\e604";
+}
+.cv-icon-arrow:before {
+  content: "\e609";
+}
+.cv-icon-chevron:before {
+  content: "\e613";
+}
+.cv-icon-calendar:before {
+  content: "\e618";
+}
+.cv-icon-info:before {
+  content: "\e61e";
+}
+.cv-icon-router:before {
+  content: "\e61f";
+}
+.cv-icon-error:before {
+  content: "\e607";
+}
+.cv-icon-status-critical:before {
+  content: "\e621";
+}
+.cv-icon-building:before {
+  content: "\e600";
+}
+.cv-icon-bundle-basic:before {
+  content: "\e601";
+}
+.cv-icon-bundle-medium:before {
+  content: "\e602";
+}
+.cv-icon-bundle-full:before {
+  content: "\e603";
+}
+.cv-icon-cart:before {
+  content: "\e605";
+}
+.wl-icon-checkmark:before {
+  content: "\e606";
+}
+.cv-icon-pencil:before {
+  content: "\e608";
+}
+.cv-icon-employee-man:before {
+  content: "\e60a";
+}
+.cv-icon-employee-woman:before {
+  content: "\e60b";
+}
+.cv-icon-x:before {
+  content: "\e60d";
+}
+.cv-icon-plus:before {
+  content: "\e60c";
+}
+.cv-icon-status-info:before {
+  content: "\e60e";
+}
+.cv-icon-logout:before {
+  content: "\e60f";
+}
+.cv-icon-status-minor:before {
+  content: "\e610";
+}
+.cv-icon-status-normal:before {
+  content: "\e611";
+}
+.cv-icon-router-picto:before {
+  content: "\e612";
+}
+.cv-icon-search:before {
+  content: "\e614";
+}
+.cv-icon-security-basic:before {
+  content: "\e615";
+}
+.cv-icon-security-enhanced:before {
+  content: "\e616";
+}
+.cv-icon-security-high:before {
+  content: "\e617";
+}
+.cv-icon-users-5:before {
+  content: "\e619";
+}
+.cv-icon-users-2:before {
+  content: "\e61a";
+}
+.cv-icon-users-3:before {
+  content: "\e61b";
+}
+.cv-icon-status-waiting:before {
+  content: "\e61c";
+}
+.cv-icon-status-warning-waiting:before {
+  content: "\e61d";
+}

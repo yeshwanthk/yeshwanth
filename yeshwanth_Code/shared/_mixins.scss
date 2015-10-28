@@ -1,0 +1,243 @@
+/**
+ *  Multi browser linear-gradient
+ *  [source] http://codeboxers.com/straight-sass-gradient-mixin/
+ *
+ *  [usage]
+ *    @include linear-gradient(rgba(149,149,149,1), #BADA55);
+ *    @include linear-gradient(transparent, #BADA55); // does not include any styles
+ */
+@mixin linear-gradient($fromColor, $toColor) {
+
+  @if $fromColor != transparent and
+      $toColor   != transparent {
+    background-color: $toColor; /* Fallback Color */
+    background-image: -webkit-gradient(linear, left top, left bottom, from($fromColor), to($toColor)); /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient(top, $fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image: -moz-linear-gradient(top, $fromColor, $toColor); /* FF3.6 */
+    background-image: -ms-linear-gradient(top, $fromColor, $toColor); /* IE10 */
+    background-image: -o-linear-gradient(top, $fromColor, $toColor); /* Opera 11.10+ */
+    background-image: linear-gradient(top, $fromColor, $toColor);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+  }
+
+}
+
+@mixin radial-gradient($fromColor, $toColor) {
+
+  @if $fromColor != transparent and
+      $toColor   != transparent
+  {
+    background-color: $toColor; /* Fallback Color */
+    background-image: -webkit-gradient(radial, from($fromColor), to($toColor)); /* Saf4+, Chrome */
+    background-image: -webkit-radial-gradient($fromColor, $toColor); /* Chrome 10+, Saf5.1+, iOS 5+ */
+    background-image:    -moz-radial-gradient($fromColor, $toColor); /* FF3.6 */
+    background-image:     -ms-radial-gradient($fromColor, $toColor); /* IE10 */
+    background-image:      -o-radial-gradient($fromColor, $toColor); /* Opera 11.10+ */
+    background-image:         radial-gradient($fromColor, $toColor);
+    filter:           progid:DXImageTransform.Microsoft.gradient(GradientType=1,StartColorStr='#{$fromColor}', EndColorStr='#{$toColor}');
+  }
+
+}
+
+/**
+ *  Multi browser transition
+ *
+ *  [usage]
+ *    @include transition(linear, 0.7s, all, 0s);
+ */
+@mixin transition($style, $duration: 0.7s, $which: all, $delay: 0s) {
+  -webkit-transition: $which $duration $style $delay;
+  -moz-transition: $which $duration $style $delay;
+  -o-transition: $which $duration $style $delay;
+  transition: $which $duration $style $delay;
+}
+
+/**
+ *  Multi browser transition for multiple transitions
+ *
+ *  [usage]
+ *    @include transitions(left 0.7s linear 0s, top 0.7s linear 0s);
+ */
+@mixin transitions($transition...) {
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  -webkit-transition: $transition;
+  transition: $transition;
+}
+
+/**
+ *  Join the transition "style" to parent selector
+ *
+ *  [usage]
+ *    @include append-transition(linear);
+ */
+@mixin append-transition($style, $duration: 0.7s, $which: all, $delay: 0s) {
+  &.#{$style} {
+    @include transition($style, $duration, $which, $delay);
+  }
+}
+
+/**
+ *  Transforms the selector to it's mirror
+ *  [source] http://stackoverflow.com/questions/5406368/can-you-use-css-to-mirror-flip-text
+ *
+ *  [usage]
+ *    @include transform-mirror();
+ */
+@mixin transform-mirror() {
+  @include text-rotate(180deg);
+}
+
+/**
+ *  Transforms the selector to it's mirror
+ *  [source] http://stackoverflow.com/questions/5406368/can-you-use-css-to-mirror-flip-text
+ *
+ *  [usage]
+ *    @include transform-mirror();
+ */
+@mixin text-rotate($degree: -90deg) {
+  /* default */
+  transform: rotate($degree);
+  /* Safari */
+  -webkit-transform: rotate($degree);
+  /* Firefox */
+  -moz-transform: rotate($degree);
+  /* IE */
+  -ms-transform: rotate($degree);
+  /* Opera */
+  -o-transform: rotate($degree);
+
+  /* Internet Explorer
+    0 - Default. Content is not rotated.
+    1 - Content is rotated 90 degrees.
+    2 - Content is rotated 180 degrees.
+    3 - Content is rotated 270 degrees.
+  */
+  $rot: 0;
+  @if $degree == 90deg {
+    $rot: 1;
+  } @else if $degree == 180deg {
+    $rot: 2;
+  } @else if $degree == 270deg or $degree == -90deg {
+    $rot: 3;
+  }
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=$rot);
+
+  @if $degree == 180deg {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+  }
+}
+
+/**
+* Adds a box shadow a selector
+* [source] https://gist.github.com/garyharan/957284
+*
+* [usage]
+*   @include box-shadow(0, 0, 1px, red)
+*/
+@mixin box-shadow($hShadow, $vShadow: 0px, $blur: 5px, $spread: 1px, $color: #CCC, $inset: false) {
+  @if $hShadow == none {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  } @else {
+    @if $inset {
+      -webkit-box-shadow: inset $hShadow $vShadow $blur $spread $color;
+      -moz-box-shadow: inset $hShadow $vShadow $blur $spread $color;
+      box-shadow: inset $hShadow $vShadow $blur $spread $color;
+    } @else {
+      -webkit-box-shadow: $hShadow $vShadow $blur $spread $color;
+      -moz-box-shadow: $hShadow $vShadow $blur $spread $color;
+      box-shadow: $hShadow $vShadow $blur $spread $color;
+    }
+  }
+}
+
+/**
+* [source]
+*   https://github.com/jxnblk/loading
+*   https://github.com/jxnblk/loading/blob/master/loading-spinning-bubbles.svg
+*
+* [usage]
+*   @include svg-spinner(32px);
+*/
+@mixin svg-spinner($size: 64px) {
+
+  display: block;
+  width: $size;
+  height: $size;
+  background-image: url('../images/shared/spinner.svg');
+  background-size: $size $size;
+  background-color: $primary-color;
+
+  &.cv-spinner {
+    width: $size;
+    height: $size;
+  }
+}
+
+/**
+* [source]
+*   http://codepen.io/sawmac/pen/qGudy
+*
+* [usage]
+*   @include transform(translate(-100%, 100%))
+*/
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+/**
+ * [source]
+ *   https://github.com/mastastealth/sass-flex-mixin/blob/master/flex.scss
+ *
+ * [usage]
+ *   @include flexbox()
+ */
+@mixin flexbox {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+/**
+ *  Add user-select property, making it "unselectable"
+ *
+ *  [usage]
+ *    @include unselectable();
+ */
+@mixin unselectable() {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/**
+ *  Adds calc to a selector
+ *
+ *  [usage]
+ *    @include calc("width", "100% - #{$customer-header-width}");
+ */
+@mixin calc($key, $value) {
+  #{$key}: -webkit-calc(#{$value});
+  #{$key}: -moz-calc(#{$value});
+  #{$key}: calc(#{$value});
+}
+
+/*
+To click rapidly on up/down buttons on sliders without selecting text.
+*/
+
+@mixin click-no-select {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}

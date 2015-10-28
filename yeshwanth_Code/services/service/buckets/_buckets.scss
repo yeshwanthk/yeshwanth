@@ -1,0 +1,342 @@
+.sidebar .bucket-panel {
+
+  color: $gray;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+
+  .separator {
+    width: 100%;
+    height: 0;
+    margin: 0;
+    margin-bottom: 16px;
+    border-bottom: $line-color 1px solid;
+  }
+
+  .size-header {
+    min-height: 172px;
+
+    .enable-msg {
+      font-size: 16px;
+      padding-left: 10px;
+      padding-right: 16px;
+    }
+
+  }
+
+  .button-group {
+    background: $color-background;
+    padding: 30px 0 30px 30px;
+    button {
+      min-width: 140px;
+    }
+  }
+
+  .buckets-image {
+    margin-right: 10px;
+
+    img {
+      opacity: 0.5;
+      width: 35px;
+    }
+  }
+
+  .applications-details-header {
+
+    color: $gray;
+    display: table;
+    width: 100%;
+    margin: 16px 0 20px 20px;
+
+    div {
+      display: table-cell;
+    }
+
+    .advanced-switch {
+      display: inline;
+      padding: 2px 16px 4px 16px;
+      width: 150px;
+      vertical-align: middle;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 20px;
+      background: $modal-header;
+
+      a {
+        color: $color-text-inverse;
+      }
+    }
+
+    .n-applications {
+      font-size: 15px;
+    }
+
+  }
+
+  .drag-item-container {
+
+    .drag-handle {
+      height: 100%;
+      width: 10px;
+      border-left: 3px double #ddd;
+      float: left;
+    }
+
+    .drag-content {
+      height: 100%;
+      // hide overflowing text;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .sum-percentage {
+    position: relative;
+  }
+  .cv-icon-error {
+    color: $critical-color;
+    font-size: 20px;
+    line-height: 37px;
+    position: absolute;
+    right: 104px;
+    bottom: 0px;
+  }
+
+  .bandwidth-checkbox {
+      display: block;
+      width: 100%;
+      min-height: 20px;
+      margin: 7px 0 10px 10px;
+
+
+      label {
+        margin-left: 0;
+        span {
+            border-radius: 0;
+        }
+
+        .bandwidth-checkbox-label {
+          color: $color-text-inverse;
+          display: inline;
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+  }
+
+  .bandwidth-content {
+
+      position: relative;
+      margin: 10px 0 10px 0;
+
+      .content-blocker {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $secondary-color;
+        z-index: 9999999;
+        opacity: 0.75;
+      }
+  }
+
+  .bandwidth-content-faded {
+    opacity: 0.2;
+  }
+
+  .advanced-detail-wrap {
+    p, span {
+      font-size: 14px;
+    }
+
+    .total-weight-wrap {
+      height: 35px;
+      p {
+        font-weight: bold;
+        color: #333333;
+      }
+    }
+
+    .upper {
+      font-size: 12px;
+      color: $gray-light;
+    }
+
+    .buckets-announce {
+      color: $gray;
+      margin-left: 30px;
+      margin-bottom: 10px;
+    }
+
+    .sum {
+      p {
+        padding: 0 16px;
+        text-align: right;
+      }
+      input {
+        display:none;
+      }
+    }
+  }
+
+  .advanced-detail {
+    display:table;
+    width: 100%;
+
+    input {
+      border-radius: 0;
+    }
+
+    & > div {
+      display: table-row;
+      & > div {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 5px;
+      }
+    }
+
+    .slider-wrap {
+      width: 205px;
+      padding-right: 15px;
+    }
+
+    .name {
+      text-align: right;
+    }
+  }
+
+  .weight {
+    width: 67px;
+    padding:0 10px;
+    input {
+      text-align: right;
+      padding-right: 16px;
+      margin: 0px;
+    }
+  }
+
+  .slider-name {
+    text-align: right;
+  }
+
+  .buckets {
+    p, span {
+      font-size: 14px;
+    }
+
+    margin: 0 10px 0 20px;
+  }
+}
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.bucket-panel ul[dnd-list],
+.bucket-panel ul[dnd-list] > li {
+  position: relative;
+}
+
+.bucket-panel ul[dnd-list] {
+  border: $line-color 1px solid;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+
+.bucket-panel ul[dnd-list] {
+  min-height: 245px;
+  max-height: 245px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 10px;
+  background: white;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &::scrollbar {
+    display: none;
+  }
+  &::-moz-scrollbar {
+    display: none;
+  }
+}
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+
+.bucket-panel ul[dnd-list] .dndDraggingSource {
+  display: none;
+}
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+
+.bucket-panel ul[dnd-list] .dndPlaceholder {
+  display: none;
+}
+.bucket-panel ul .dndDragover {
+  border: $modal-header 1px solid;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+
+.bucket-panel ul[dnd-list] li {
+  height: 40px;
+  background-color: rgb(244, 244, 244);
+  border: 1px solid rgb(220, 220, 220);
+  margin: 5px 0;
+  display: block;
+  padding: 7px 7px 7px 5px;
+  cursor: pointer;
+}
+/**
+ * Show selected elements in green
+ */
+
+.bucket-panel ul[dnd-list] li.selected {
+  background-color: #dff0d8;
+  color: #3c763d;
+}
+
+.bandwidth-checkbox {
+
+    position: relative;
+
+    .block-checkbox {
+        position: absolute;
+        background-color: transparent;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    label.filter {
+        span.disabled-bg {
+          opacity: 0.4;
+        }
+        div.disabled-txt {
+            color: rgba($color-text-inverse, 0.4) !important;
+        }
+    }
+}

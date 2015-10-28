@@ -1,0 +1,422 @@
+
+.event-logs {
+
+  background-color: $body-color;
+  height: 100%;
+
+  .logs-header {
+    min-width: $devices-min-width;
+    width: 100%;
+    height: $body-header-height;
+    background-color: $body-header-color;
+    display: table;
+    padding-left: $body-padding;
+    padding-right: $body-padding;
+
+    .header-wrapper {
+      display: table-cell;
+      vertical-align: middle;
+
+      .button {
+        padding-right: 12px;
+        width: 154px;
+        margin: 0;
+
+        span {
+          float: left;
+          font-size: 14px;
+        }
+
+        i {
+          float: right;
+          font-size: 16px;
+        }
+      }
+
+      .cv-search {
+        float: left;
+
+        .postfix {
+          right: 0;
+        }
+
+        .search {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .logs-body-bar {
+    width: 100%;
+    display: table;
+
+    .logs-list-header {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      //border-bottom: 1px solid $line-color;
+
+      .button {
+        margin: 0;
+        font-size: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    .logs-list-wrapper {
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
+
+    .first-set {
+      text-align: left;
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .second-set {
+      text-align: right;
+      display: table-cell;
+      vertical-align: middle;
+
+      .logs-list-wrapper {
+        padding-left: 10px;
+        border-left: 1px solid $line-color;
+      }
+
+      div, p {
+        display: inline-block;
+        margin-bottom: 0px;
+      }
+    }
+
+    .datepicker-wrap {
+      width: 125px;
+
+      .icon-wrap {
+        right: 12px;
+
+        i {
+          font-size: 14px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    $disabled-color-text: rgba($input-color, 0.3);
+    .custom-range {
+      div, p {
+        color: $input-color;
+        border-color: $input-color;
+        @include transitions(all 0.8s ease);
+      }
+
+      .to {
+        text-transform: uppercase;
+        font-size: 10px;
+      }
+
+      input {
+        background-color: $input-background-color;
+      }
+
+      &.disabled {
+        div, p {
+          color: $disabled-color-text;
+          border-color: $disabled-color-text;
+        }
+
+        input {
+          background-color: rgba($input-color, 0.05);
+        }
+      }
+    }
+
+    .date-picker {
+      border-radius: $border-radius-base;
+      border: 1px solid $line-color;
+      color: rgba($color-text, 0.5);
+      outline: none;
+      padding-left: 10px;
+      padding-right: 10px;
+      @include transitions(all 0.8s ease);
+      font-size: 18px;
+
+      i {
+        color: rgba($color-text, 0.5);
+        @include transitions(all 0.8s ease);
+      }
+
+      &:focus {
+        border-color: $color-text;
+        color: $color-text;
+        outline: none;
+
+        i {
+          color: $color-text;
+        }
+      }
+    }
+
+    .vertical-sep {
+      display: inline-block;
+      width: 1px;
+      height: 33px;
+      background-color: $line-color;
+      margin: 0;
+      margin-right: 12px;
+      border-width: 0;
+      border: 0;
+    }
+
+    .filters {
+      display: inline-block;
+
+      .filter {
+        transition: all 0.5s ease;
+        background-color: $input-background-color;
+        color: black;
+        text-transform: uppercase;
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+        &.selected {
+          color: white;
+          background-color: $body-secondary-color;
+        }
+
+        i {
+          font-style: normal;
+        }
+      }
+
+      h6 {
+        font-size: rem-calc(18);
+      }
+
+      ul {
+        list-style: none;
+        margin-left: 0;
+        margin-bottom: 40px;
+
+        li {
+          margin-bottom: 12px;
+        }
+      }
+
+      &.second-set {
+        margin-top: 30px !important;
+
+        span {
+          position: relative;
+
+          input.custom-range  {
+            width: 150px;
+            display: inline;
+            margin-bottom: 2px;
+            margin-left: 32px;
+          }
+
+          a {
+            position: absolute;
+            right: 0px;
+            top: 1px;
+            display: inline-block;
+            width: 30px;
+            height: 20px;
+            background: url("#{$images-root}/devices/calendar-icon.png") center center no-repeat;
+          }
+        }
+
+        p {
+          margin-bottom: 0;
+          margin-left: 32px;
+          color: $light-gray;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .logs-body {
+    display: table;
+    width: 100%;
+    min-width: $devices-min-width;
+    padding-left: $body-padding;
+    padding-right: $body-padding + $customer-header-width;
+
+  }
+
+  .logs-table {
+    width: 100%;
+    background-color: $sidebar-background-color;
+
+    .logs-table-contents {
+      overflow-y: scroll;
+      width: 100%;
+      border-bottom: #ccc 3px solid;
+    }
+
+    .event-log-list {
+      display: table;
+      width: 100%;
+      list-style: none;
+      margin: 0;
+      background-color: $color-background;
+
+      &.header {
+        li {
+          &:first-of-type {
+            p {
+              color: $table-header-text-color;
+              display: inline-block;
+              font-size: 12px;
+              text-transform: uppercase;
+              font-weight: 500;
+            }
+
+            div.column-sorter {
+              display: inline-block;
+              cursor: pointer;
+            }
+
+            label {
+              margin-right: 0;
+            }
+          }
+        }
+      }
+
+      li {
+        display: table-row;
+
+        .cell:first-of-type {
+          padding-left: 32px;
+        }
+        .cell:last-of-type {
+          padding-right: 32px;
+        }
+
+        .cell {
+          display: table-cell;
+          padding: 15px 0 15px 0;
+          border-bottom: 1px solid $line-color;
+        }
+
+        &:last-child {
+          border: none;
+        }
+
+        &.selected {
+          background-color: $primary-color;
+          p {
+            color: $table-selected-text-color-inverse;
+            font-weight: 200;
+          }
+        }
+
+        p {
+          font-weight: 200;
+        }
+
+        p.arrow-up {
+          padding-right: 30%;
+          background: url('#{$images_root}/users/arrow-up.png') no-repeat right center;
+        }
+        p.arrow-down {
+          padding-right: 30%;
+          background: url('#{$images_root}/users/arrow-down.png') no-repeat right center;
+        }
+
+        .left-side {
+          min-width: 175px;
+          max-width: 175px;
+          .circle {
+            text-align: center;
+            line-height: 36px;
+            width: 32px;
+            height: 32px;
+
+            i {
+              font-size: 16px;
+              color: $color-text-inverse;
+            }
+          }
+        }
+
+        .middle {
+          min-width: 200px;
+          max-width: 200px;
+        }
+
+        .right-side {
+          min-width: 200px;
+          max-width: 200px;
+          float: none;
+
+          p {
+            &.circle {
+              display: inline-block;
+              width: 24px;
+              height: 24px;
+              margin-right: 8px;
+              border-radius: 50%;
+              line-height: 24px;
+              text-align: center;
+
+              border: 1px solid $color-normal;
+              background-color: $color-text-inverse;
+              color: $color-text-inverse;
+
+              i {
+                font-size: 14px;
+              }
+
+              &.online {
+                background-color: $color-normal;
+                display: inline-block;
+              }
+            }
+
+            &.status {
+              display: inline;
+              margin-left: 0px;
+            }
+            &.time {
+              display: inline;
+              font-size: 10px;
+              margin-left: 15px;
+              color: $gray-light;
+              &.offline {
+                display: inline;
+                float: right;
+                font-size: 10px;
+                line-height: 12px;
+                margin-left: 15px;
+                width: 70px;
+                color: #6e6e6e;
+              }
+            }
+          }
+        }
+        p {
+          display: inline-block;
+          font-size: rem-calc(16);
+          margin-bottom: 0;
+          margin-right: 0px;
+          &.right {
+            line-height: 28px;
+          }
+        }
+
+        img {
+          margin-right: 25px;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

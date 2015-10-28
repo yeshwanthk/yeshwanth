@@ -1,0 +1,71 @@
+<div class="order-device">
+
+    <div class="row order-device-button-parent">
+        <div ng-switch="step">
+            <div ng-switch-when="devicePurchase">
+                <div class="device-purchase-container">
+                    <div device-purchase-panel
+                         device-catalog="deviceCatalog"
+                         user-selected-devices="userSelectedDevices"
+                         device-count="deviceCount.data">
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-switch-when="shipping">
+                <div class="center-shipping-container"
+                     ordering-view-shipping
+                     all-devices="allDevices"
+                     use-recommended-devices="false"
+                     on-step-completed="onStepCompleted(data)"
+                     show-address-form="showAddressForm.data">
+                </div>
+            </div>
+
+            <div ng-if="deviceCatalog.data.length > 0"
+                 class="row order-device-buttons">
+                <ul class="button-group">
+                    <li>
+                        <button ng-if="!isReviewStep && !showAddressForm.data"
+                                type="submit"
+                                class="button"
+                                ng-click="back()">
+                            {{backButtonText | translate}}
+                        </button>
+                    </li>
+                    <li>
+
+                        <!--needs to be in button element for ng-click and disabled to work together-->
+                        <button
+                            ng-show="step === 'devicePurchase'"
+                            type="submit" class="button"
+                            ng-disabled="deviceCount.data === 0 && !root.queue.disableEdit"
+                            ng-class="{'disabled-elem': $root.queue.disableEdit}"
+
+                            ns-popover="$root.queue.disableEdit"
+                            ns-popover-template="popover-queue-msg"
+                            ns-popover-trigger="mouseenter"
+                            ns-popover-placement="left"
+                            ns-popover-theme="popover-cv-input-error-theme"
+                            ns-popover-timeout="0"
+
+                            ng-click="$root.queue.disableEdit || onStepCompleted({'key': 'devicePurchase', 'event': $event})"
+                            translate
+                        >SHARED.MODAL-CONFIRMATION.BUTTON-NEXT</button>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--outside of ng-switch so not impacted by flex-->
+    <div ng-if="isReviewStep"
+         ng-class="{'hidden': !isReviewStep}"
+         class="step-review-order"
+         ordering-view-review-order
+         options-for-order="optionsForOrder"
+         device-total="deviceTotal"
+         on-step-completed="onStepCompleted(data)">
+    </div>
+</div>

@@ -1,0 +1,193 @@
+.ordering-view-devices {
+  width: 1000px;
+}
+
+//ordering.viewRecommendedDevices HTML directive
+.ordering-recommended-devices {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: $color-background-darkest;
+  .title {
+    margin: 1rem 0 2rem 2rem;
+    font-weight: 500;
+    color: $color-text;
+  }
+  .no-recommendations {
+    color: $color-text-lighter-1;
+    text-align: center;
+    margin: 3rem 1rem 2rem 3rem;
+  }
+
+  .recommended-devices-table {
+    margin-left: 1rem;
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+
+    .table-row {
+      border-top: 1px solid $color-text-lighter-5;
+      display: table-row;
+      width: 100%;
+    }
+    .nested-row {
+      border-top: 1px solid $color-text-lighter-5;
+      display: table-row;
+      width: 100%;
+    }
+    .cell {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: left;
+      line-height: 4rem;
+    }
+
+    .site-users {
+      vertical-align: top;
+      width: 20%;
+      padding-left: 3.5rem;
+      span {
+        font-weight: 500;
+      }
+    }
+    .devices {
+      width: 60%;
+    }
+    .device-container {
+      display: table;
+      width: 100%;
+
+    }
+    .device-icon {
+      width: 15%;
+      text-align: center;
+      display: table-cell;
+      padding: 0.1rem 1rem 0.1rem 1rem;
+      img {
+        width: 50px;
+      }
+    }
+    .device-name {
+      width: 45%;
+      text-align: center;
+    }
+    .device-quantity {
+      width: 40%;
+      text-align: center;
+    }
+  }
+}
+
+//ordering.viewDevices HTML
+.device-purchase-container {
+  display: inline-block;
+  width: 100%;
+  padding: 0 1rem 1rem 1rem;
+  .device {
+    border-top: 1px solid $color-text-lighter-5;
+    color: $color-text;
+    text-align: center;
+    line-height: 5rem;
+    vertical-align: middle;
+  }
+  .device-subtotal {
+    line-height: initial;
+    padding-bottom: 8px;
+    color: $color-text-lighter-2;
+    font-size: 8px;
+    span {
+      font-weight: 400;
+    }
+    .upper {
+      padding-right: 0
+    }
+  }
+
+  input {
+    font-size: x-large;
+    font-weight: 300;
+    color: $color-text-lighter-1;
+    margin: auto;
+    width: 3.5rem;
+    height: 100%;
+    text-align: center;
+    display: inline-block;
+  }
+  .device-icon {
+    display: inline;
+    width: 80px;
+  }
+  .price-info {
+    color: $color-text;
+    font-size: x-large;
+    font-weight: 300;
+  }
+  .device-totals {
+    border-top: 1px solid $color-text-lighter-5;
+    a {
+      font-size: large;
+    }
+    line-height: 2rem;
+    padding: 1rem 0 1rem 0;
+    color: $color-text-lighter-1;
+    .total {
+      font-size: x-large;
+      font-weight: 500;
+    }
+    .upper {
+      padding-right: 0
+    }
+  }
+  .button-row {
+    button {
+      border-radius: 25px;
+      padding-left: 0;
+      padding-right: 0;
+      min-width: 90px;
+      margin: auto;
+    }
+  }
+}
+
+//ordering.modal.viewDeviceCatalog modal HTML
+.device-catalog-modal {
+  width: 100%;
+  max-height: 90%;
+  padding: 0;
+  overflow: hidden;
+  .header {
+    padding: 2.6rem;
+    display: table;
+    width: 100%;
+    background: $color-heading;
+    h4 {
+      font-size: 28px;
+      font-weight: 200;
+      height: 100%;
+      vertical-align: middle;
+      display: table-cell;
+      color: $color-background;
+      width: 60%;
+    }
+    .button-group {
+      vertical-align: middle;
+      height: 100%;
+      display: table-cell;
+      min-width: 60%;
+      text-align: right;
+      .button {
+        min-width: 120px;
+        margin-bottom: 0;
+      }
+      .dark {
+        background: darken($color-heading-darkest, 10);
+      }
+    }
+  }
+
+  .device-scrollable-container {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

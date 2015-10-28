@@ -1,0 +1,205 @@
+<div class="service-panel-slider" ng-class="{'service-panel-slider-subitems': showDetails}">
+
+    <table class="service-panel-slider-table"><tr><td class="service-panel-slider-cell set-width">
+
+        <section class="top-usage overview" block-ui="serviceTopUsage">
+
+            <h2>
+
+              <span ng-switch="service.status" class="title-status-wrapper">
+                <i ng-switch-when="up" class="wl-icon-checkmark normal circle left title-status" alt="online"/>
+                <i ng-switch-when="down" class="wl-icon-x critical circle left title-status" alt="offline"/>
+                <i ng-switch-default class="wl-icon-status-minor minor circle left title-status" alt="degraded"/>
+              </span>
+
+              {{service.name}}
+
+            </h2>
+
+            <ul class="cloud-vpn-tabs" ng-if="service._version === 'MVP4'">
+              <li ng-class="{'two-li': service.optionLen==2,'three-li': service.optionLen==3,'many-li': service.optionLen>3}" ng-repeat="obj in service.optionList track by $index | orderBy:'obj.orderIndex'" ng-if="obj.choice.name || obj.choice.desc">
+                <div class="img-container primary circle" ng-class="">
+                  <cv-svg-import svg-url="obj.choice.imageLoc" />
+                </div>
+                <div>{{obj.choice.name}} {{obj.choice.desc}}</div>
+              </li>
+            </ul>
+
+            <div class="buttons row">
+                <button ng-if="service.vpnUrl.length > 0" ng-click="getClient()" data-translate="SERVICE.DOWNLOAD_CLIENT" class="ng-scope">DOWNLOAD CLIENT</button>
+             <button ui-sref="root.ordering" data-translate="SERVICE.UPGRADE" href="/ordering">UPGRADE</button>
+            </div>
+
+        </section>
+
+        <div class="services-scrollable-container main-panel">
+
+          <!-- start -->
+
+          <section class="vpn-properties">
+
+            <div class="service-image row" ng-if="service._version === 'MVP4'">
+
+              <div class="large-2 columns vpn-label"><span translate>SERVICE.SERVICE_ID</span>: </div>
+              <div class="large-10 columns vpn-prop">{{service.serviceId}}</div>
+
+            </div>
+
+            <div class="service-image row">
+
+              <div class="large-2 columns vpn-label"><span translate>SERVICE.VPN_URL</span>: </div>
+              <div class="large-10 columns vpn-prop">{{service.vpnUrl}}</div>
+
+            </div>
+
+          </section>
+
+          <section class="monthly-use-breakdown" block-ui="serviceMonthlyUseBreakdown" ng-class="{'white-bg': service._version != 'MVP4'}">
+
+
+            <h6><span translate>SERVICE.MONTHLY_USAGE</span><a class="right" href="#" data-translate="SERVICE.HISTORY" ng-click="openServiceUsageHistory($event)"></a></h6>
+
+            <div ng-if="monthlyUsage && monthlyUsage.length > 0">
+
+              <!--
+              <div class="light-gray">{{"SERVICE.GB_TOTAL" | translate :{'quotaGb': service.monthlyUsage.quotaGb} }}</div>
+              -->
+
+              <div class="chart" ng-if="monthlyUsage && monthlyUsage.length > 0">
+                <nvd3-pie-chart
+                  data="monthlyUsage"
+                  width="400"
+                  height="170"
+                  margin="{left:0, top:0, bottom:0, right:0}"
+                  x="xFunction()"
+                  y="yFunction()"
+                  donut="true"
+                  donutRatio=".55">
+                  <svg class="monthly-usage-chart"></svg>
+                </nvd3-pie-chart>
+              </div>
+            </div>
+            <div class="no-data-error-msg" ng-if="!monthlyUsage || !monthlyUsage.length > 0">
+              <h5 data-translate="SERVICE.NO_DATA"></h5>
+            </div>
+          </section>
+
+          <section class="usage-performance" ng-class="{'white-bg': service._version != 'MVP4'}">
+
+
+            <div performance-graph
+                 on-fetch-graph-data="fetchGraphData"
+                 graph-data-mapping="graphDataMapping"
+                 slider-config="graphSliderConfig"
+                 on-click="openPerformanceHistory(data)"
+                 enable-spinner="true"
+                 title-key="SERVICE.PERFORMANCE">
+            </div>
+
+          </section>
+
+          <section class="service-properties">
+
+            <!--h6 translate>SERVICE.PROPERTIES</h6-->
+
+            <div class="service-options"
+                 ng-if="service._version === 'MVP4' && option.type"
+                 ng-repeat="option in serviceOptions | objOrder | orderBy:['orderIndex']">
+
+              <section ng-switch="option.type" class="service-option-{{option.type}}">
+
+                <!-- CHOICE -->
+                <div ng-switch-when="choice"
+                     service-properties
+                     service="option"
+                     go-to-details="enterServiceOptionsDetails"
+                  ></div>
+
+
+
+
+
+
+                <!-- BUCKET -->
+                <div ng-switch-when="bucket" id="bucket-{{option._idx}}">
+
+                  <div>
+
+                    <h6>{{option.title}}
+                      <i class="cv-icon-info help"
+                         ns-popover
+                         ns-popover-template='<div class="triangle"></div><div class="ns-popover-tooltip">{{option.info}}</div>'
+                         ns-popover-plain="true"
+                         ns-popover-trigger="mouseenter"
+                         ns-popover-placement="top"
+                         ns-popover-theme="ns-popover-tooltip-theme"
+                         ns-popover-timeout="0"></i>
+                      <div class="pencil-container" ng-click="enterServiceOptionsDetails(option)">
+                        <i class="cv-icon-pencil"></i>
+                      </div>
+                    </h6>
+
+                    <div data-ng-show="option.enabled" >
+                      <div class="subheader">
+                        <span class="icon" cv-svg-import svg-width="40px" svg-height="40px" svg-url="option.imageLoc"></span>
+                        <span ng-bind="option.header"></span>
+                      </div>
+
+                      <!-- Bucket bars -->
+                      <table>
+                        <tr class="buckets-bars">
+                          <td class="buckets-bar" ng-repeat="bucket in option.buckets">
+                            <div id="bar-{{$index}}" class="outer-bar" ng-class="{'dashed': bucket.limit, 'solid': !bucket.limit}">
+                              <div class="inner-bar"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr class="buckets-labels">
+                          <td class="buckets-label" ng-repeat="bucket in option.buckets">{{bucket.name}}</td>
+                        </tr>
+                        <tr class="brandwidth-vals">
+                          <td class="buckets-val" ng-repeat="bucket in option.buckets">{{bucket.contains.length}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div data-ng-hide="option.enabled" class="bandwidth-disabled-msg" translate>SERVICE.BUCKETS.DISABLED_MSG</div>
+
+                  </div>
+
+
+
+
+                </div>
+
+              </section>
+
+            </div>
+          </section>
+          <!-- end -->
+
+      </div>
+
+    </td>
+    <td style="display: none;" class="service-panel-slider-cell" id="services-details-panel">
+        <div ng-repeat="option in serviceOptions | objOrder | orderBy:['orderIndex']">
+          <div ng-switch="option.type">
+            <section class="service-options-panel" ng-switch-when="choice"
+                     class="choice-panel"
+                     ng-show="currentServiceOptionsIdx == option._idx">
+              <div service-choice-panel
+                   service="option"
+                   back="backToSitePanel"></div>
+            </section>
+            <section class="service-options-panel" ng-switch-when="bucket"
+                   class="bucket-panel"
+                   ng-show="currentServiceOptionsIdx == option._idx">
+              <div buckets-panel
+                 service="option"
+                 back="backToSitePanel"
+              ></div>
+            </section>
+          </div>
+        </div>
+
+    </td></tr></table>
+</div>

@@ -1,0 +1,27 @@
+<section class="welcome">
+  <div class="wrapper">
+    <section class="spacer"><span></span></section>
+
+    <section class="header"><span>
+      <h1 translate>ORDER.WELCOME.TITLE</h1>
+      <h3>{{'ORDER.WELCOME.TITLE_CONT' | translate:{company: $root.CONST.COMPANY_SHORT} }}</h3>
+    </span></section>
+
+    <section class="body"><span>
+      <p>{{'ORDER.WELCOME.INTRO_1' | translate:{company: $root.CONST.COMPANY} }}</p>
+      <p translate>ORDER.WELCOME.INTRO_2</p>
+      <p>
+        <button ui-sref="root.ordering" class="button light" translate>ORDER.WELCOME.START</button>
+      </p>
+    </span></section>
+
+    <!-- ICONS -->
+    <div class="icons">
+      <img class="remote" src="/customization/icons/cloud-bundle-remote.svg"/>
+      <img class="basic" src="/customization/icons/cloud-bundle-basic.svg"/>
+      <img class="full" src="/customization/icons/cloud-bundle-full.svg"/>
+      <img class="premium" src="/customization/icons/cloud-bundle-premium.svg"/>
+    </div>
+    <!-- ICONS -->
+  </div>
+</section>

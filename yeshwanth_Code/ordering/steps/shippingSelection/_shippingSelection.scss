@@ -1,0 +1,353 @@
+$shipping-device-container-width: 240px;
+$address-panel-container-width: 520px;
+
+.popover-install-options {
+  display: table;
+
+  .popover-install-options-row {
+    display: table-row;
+    width: 100%;
+
+    .icon {
+      display: table-cell;
+      width: 20%;
+      font-size: 5px;
+      padding-top: 5px;
+      vertical-align: top;
+      text-align: center;
+      height: 20px;
+      img {
+        height: 20px;
+        display: block;
+      }
+    }
+    .message {
+      width: 80%;
+      display: table-cell;
+      padding-bottom: 25px;
+      .title {
+        font-weight: bold;
+      }
+    }
+    .popover-install-options-row:last-of-type {
+      .message {
+        padding-bottom: 0px;
+      }
+    }
+  }
+}
+
+.ordering-view-shipping {
+  margin: 0 2rem 2rem 0;
+  background: $color-background;
+  display: block;
+
+  .shipping-border-container {
+    position: relative;
+    text-align: right;
+    display: inline-block;
+    height: 685px;
+    min-width: 500px;
+    padding-left: $ordering-inset-border-padding;
+    hr {
+      margin-bottom: 0;
+    }
+  }
+
+  .ship-options {
+    ul {
+      width: 100%;
+      display: block;
+      list-style-type: none;
+      margin: 0;
+
+      li {
+        display: inline-block;
+        margin-right: 12px;
+
+        .help {
+          color: #444 !important;
+          font-size: 19px;
+        }
+        .help:hover {
+          color: #000 !important;
+        }
+      }
+
+      li:last-of-type {
+        text-align: right;
+      }
+    }
+  }
+  .styled-inputs {
+    height: 100%;
+    vertical-align: middle;
+    label {
+      ul {
+        display: inline;
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px;
+
+        li {
+          display: inline;
+        }
+      }
+    }
+  }
+
+  .shipping-title-container {
+    display: table;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid $color-text-lighter-5;
+    h5 {
+      text-align: left;
+      height: 50px;
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .styled-inputs {
+      display: table-cell;
+      margin-left: 0.5rem;
+      text-align: right;
+    }
+    span {
+      color: $color-text-lighter-2;
+      font-weight: 400;
+    }
+  }
+  .shipping-container {
+    display: inline-block;
+    text-align: right;
+    white-space: nowrap;
+    height: 560px;
+    overflow: hidden;
+    min-width: 550px;
+    border-bottom: 1px solid $color-text-lighter-5;
+
+    .styled-inputs {
+      margin-top: 1rem;
+    }
+
+    .shipping-device-disabled-box {
+      background-color: $color-background-darkest;
+      opacity: 0.5;
+    }
+  }
+
+  .shipping-device-container {
+    vertical-align: top;
+    width: $shipping-device-container-width;
+    display: inline-block;
+    white-space: normal;
+    padding: 3rem 0 1rem 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .address-panel-container {
+    display: inline-block;
+    white-space: normal;
+    text-align: left;
+    width: $address-panel-container-width;
+
+    .address-panel {
+      background-color: white;
+      vertical-align: top;
+      height: 525px;
+      min-width: 450px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-top: 25px;
+
+      .address-actions {
+        li {
+          display: inline-block;
+          line-height: 32px;
+        }
+      }
+
+      li.button {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .new-address-container {
+        min-height: 500px;
+        .button-group {
+          margin: 0 1rem 0 0;
+          height: 33px;
+          .button {
+            margin: 0 0.2rem 0 0;
+            min-width: 100px;
+          }
+        }
+      }
+
+      .address-grid-block.add {
+        color: white;
+        padding: 20px;
+        background: $color-heading-darkest;
+        &:hover {
+          padding-top: 19px;
+          background: $color-heading-hover;
+        }
+        i {
+          display: block;
+          font-size: 70px;
+          margin-bottom: 25px;
+        }
+      }
+
+      .address-grid-block {
+        display: table;
+        border: 1px solid $color-text-lighter-5;
+        padding: 30px 25px 20px 25px;
+        margin: 0 1rem 1rem 0;
+        float: left;
+        height: 235px;
+        max-height: 235px;
+        width: 225px;
+        position: relative;
+
+        ul {
+          max-height: 182px;
+          overflow: hidden;
+        }
+
+        .add-cell {
+          display: table-cell;
+          height: 100%;
+          vertical-align: middle;
+        }
+        .add-text-table {
+          display: table;
+          width: 100%;
+          height: 35px;
+          border: 1px solid $color-text-lighter-5;
+          border-radius: $border-radius-base;
+        }
+        .add-text {
+          display: table-cell;
+          height: 100%;
+          vertical-align: middle;
+        }
+
+        .shipping-address li {
+          list-style: none !important;
+          overflow: hidden;
+          color: $color-text-lighter-1;
+        }
+        .name {
+          color: $color-text;
+          font-weight: 600;
+          font-size: larger;
+        }
+        .company {
+          height: 30px;
+          padding-bottom: 10px;
+        }
+        &:not(.disabled) .company {
+          border-bottom: 1px solid $color-text-lighter-5;
+          margin-right: -25px;
+        }
+        .address-line-1 {
+          margin-top: 1.5rem;
+          font-weight: 500;
+        }
+
+        .address-actions {
+          color: $color-text;
+          position: absolute;
+          right: 20px;
+          top: 20px;
+
+          .wl-icon-x, .wl-icon-pencil {
+            font-size: 16px;
+            margin-left: 5px;
+          }
+          .wl-icon-info:hover {
+            cursor: help;
+          }
+        }
+
+        h3 {
+          display: table-cell;
+          vertical-align: middle;
+        }
+
+        &:hover:not(.disabled) {
+          cursor: pointer;
+          border: 2px solid $color-heading;
+        }
+
+        &:hover:not(.disabled):not(.add) {
+          padding: 29px 24px 19px 24px;
+        }
+
+        &.selected {
+          padding: 29px 24px 20px 24px;
+          border: 2px solid $primary-color;
+        }
+        .unavailable {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          font-weight: 500;
+          i {
+            font-size: medium;
+            color: $color-background;
+          }
+        }
+        .disabled-table {
+          display: table;
+          height: 100%;
+          opacity: 0.8;
+          background-color: $light-gray;
+        }
+        .unavailable-text, .unavailable-popover {
+          display: table-cell;
+          vertical-align: middle;
+        }
+        .unavailable-text {
+          padding-left: 2rem;
+          width: 70%;
+          font-size: 18px;
+          color: $color-background;
+        }
+        .unavailable-popover {
+          width: 30%;
+          text-align: center;
+        }
+
+      }
+    }
+  }
+
+  .bottom-buttons {
+    line-height: 60px;
+    width: 100%;
+    display: table;
+    .button-left {
+      display: table-cell;
+      text-align: left;
+    }
+    .button-right {
+      display: table-cell;
+      text-align: right;
+      padding-right: 20px;
+    }
+    button {
+      display: inline-block;
+      min-width: 100px;
+      width: auto;
+      border-radius: 25px;
+    }
+  }
+}
+

@@ -1,0 +1,268 @@
+<div class="review-order">
+
+    <!--SERVICE ROW-->
+    <div ng-if="serviceTotal"
+         class="row">
+        <div class="small-2 columns">
+            <div class="row">
+                <div class="small-12 columns">
+                    <h3 class="section-title left" translate>SHARED.SERVICE.SINGLE</h3>
+                </div>
+            </div>
+        </div>
+        <div class="small-10 columns options-panel">
+            <div class="row border-bottom">
+                <div class="small-9 columns">
+                    <h4 class="service-name upper">{{optionsForOrder.name}}</h4>
+                </div>
+                <div class="small-3 columns">
+                    <h4 class="text-right" ng-if="!optionsForOrder.minServicePrice">
+                        {{optionsForOrder.price | currency:
+                        currency}}/{{serviceChargeUnit}}
+                    </h4>
+                </div>
+            </div>
+            <div class="row order-includes">
+                <div class="small-6 columns">
+                    <strong class="subheader" translate>ORDER.REVIEW.INCLUDES</strong>
+          <span class="subheader"
+                ng-repeat="feature in optionsForOrder.features | filter: true">
+            <span ng-if="feature.presence">{{feature.name}}<span ng-if="!$last">,&nbsp;</span>
+            </span>
+          </span>
+                </div>
+            </div>
+
+            <!--SELECTED OPTIONS ROWS-->
+            <div class="row border-bottom secondary"
+                 ng-repeat="option in optionsForOrder.selectedOptions">
+                <div class="small-2 columns">
+                    <span class="icon text-center">
+                        <span cv-svg-import svg-url="option.imageLoc"/>
+                    </span>
+                </div>
+                <div class="small-7 columns">
+                    <h4>{{option.name}}</h4>
+                </div>
+                <div class="small-3 columns">
+                    <h4 class="text-right"><span
+                            ng-if="(!$first && optionsForOrder.hasOwnProperty('minServicePrice')) || (!optionsForOrder.hasOwnProperty('minServicePrice'))">+</span><span
+                            ng-if="option.price >=0">{{option.price | currency: currency}}</span><span
+                            ng-if="option.price < 0">{{0 | currency: currency}}</span><span>/{{serviceChargeUnit}}</span>
+                    </h4>
+                </div>
+            </div>
+
+            <div class="row subtotal-row">
+                <div class="small-6 columns">&nbsp;</div>
+                <div class="small-4 columns border-top">
+                    <h4 class="section-title upper text-right" translate>ORDER.SHARED.SERVICE_SUBTOTAL</h4>
+                </div>
+                <div class="small-2 columns border-top">
+                    <h4 class="text-right right">{{serviceTotal | currency: currency}}
+                        /{{serviceChargeUnit}}</h4>
+                </div>
+            </div>
+
+            <div class="row subtotal-row">
+                <div class="small-6 columns">&nbsp;</div>
+                <div class="small-4 columns border-top">
+                    <h4 class="section-title text-right" translate>ORDER.REVIEW.TAX_NOT_INCLUDED</h4>
+                </div>
+                <div class="small-2 columns border-top">
+                </div>
+            </div>
+
+        </div>
+        <div class="row"><br></div>
+    </div>
+
+    <!--Devices start-->
+    <div ng-if="deviceTotal"
+         class="row device-section">
+
+        <!--Device header start-->
+        <div class="small-2 columns">
+            <div class="row">
+                <div class="small-12 columns">
+                    <h3 class="section-title upper text-left" translate>SHARED.DEVICE.PLURAL</h3>
+                </div>
+            </div>
+        </div>
+        <!--Device header end-->
+
+        <!--Device display by installation type start-->
+        <div class="small-10 columns options-panel">
+
+            <div ng-if="optionsForOrder.devicesByAddress.professional">
+
+                <div class="row border-bottom">
+                    <div class="small-9 columns">
+                        <h4 class="ship-to upper" translate>ORDER.REVIEW.INSTALL_HEADER</h4>
+                    </div>
+                </div>
+
+                <div class="row order-includes"
+                     ng-repeat="address in optionsForOrder.devicesByAddress.professional"
+                     ng-class="{'border-bottom ': Object.keys(optionsForOrder.devicesByAddress.self).length === 0}">
+                    <div class="small-3 columns">
+
+                        <p><!--this centers the list vertically-->
+                        <ul class="shipping-address no-bullet">
+                            <li><strong>{{address.name}}</strong></li>
+                            <li>{{address.org}}</li>
+                            <li>{{address.address1}}</li>
+                            <li>{{address.address2}}</li>
+                            <li>{{address.city}}, {{address.country}}</li>
+                            <li>{{address.zip}}</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="small-9 columns">
+                        <div ng-repeat="device in address.devicesToAddress" class="row device-row">
+                            <div class="small-2 columns">
+                                <img ng-src="{{device.imageLoc}}"/>
+                            </div>
+                            <div class="small-5 columns device-name">
+                                <strong>{{device.name}}</strong>
+                            </div>
+                            <div class="small-2 columns text-center">
+                                <h4 class="inline">{{device.quantityToAddress}}x</h4>
+                            </div>
+                            <div class="small-3 columns text-right">
+                                <h4 class="inline">{{device.price | currency: currency}}<span
+                                        ng-if="deviceChargeType !== 'fixed'">/{{deviceChargeUnit}}</span>
+                                </h4>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div ng-if="optionsForOrder.devicesByAddress.self">
+
+                <div class="row border-bottom">
+                    <div class="small-9 columns">
+                        <h4 class="ship-to upper" translate>ORDER.REVIEW.SHIPPING_HEADER</h4>
+                    </div>
+                </div>
+
+                <div class="row border-bottom order-includes"
+                     ng-repeat="address in optionsForOrder.devicesByAddress.self">
+                    <div class="small-3 columns">
+                        <p>
+                        <ul class="shipping-address no-bullet">
+                            <li><strong>{{address.name}}</strong></li>
+                            <li>{{address.org}}</li>
+                            <li>{{address.address1}}</li>
+                            <li>{{address.address2}}</li>
+                            <li>{{address.city}}, {{address.country}}</li>
+                            <li>{{address.zip}}</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="small-9 columns">
+                        <div ng-repeat="device in address.devicesToAddress" class="row device-row">
+                            <div class="small-2 columns">
+                                <img ng-src="{{device.imageLoc}}"/>
+                            </div>
+                            <div class="small-5 columns device-name">
+                                <strong>{{device.name}}</strong>
+                            </div>
+                            <div class="small-2 columns text-center">
+                                <h4 class="inline">{{device.quantityToAddress}}x</h4>
+                            </div>
+                            <div class="small-3 columns text-right">
+                                <h4 class="inline"><span>{{device.price | currency: currency}}</span><span
+                                        ng-if="deviceChargeType !== 'fixed' && deviceChargeUnit">/{{deviceChargeUnit}}</span>
+                                </h4>
+                            </div>
+                            <div class="small-2 columns text-right">
+                                <h4>
+                                    {{calculateTotalAtAddress(device.price,device.quantityToAddress) | currency:
+                                    currency}}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--SUMMARY-->
+                <div class="row subtotal-row">
+                    <div class="small-6 columns">&nbsp;</div>
+                    <div class="small-4 columns border-top">
+                        <h4 class="section-title upper text-right" translate>ORDER.SHARED.DEVICE_SUBTOTAL</h4>
+                    </div>
+                    <div class="small-2 columns border-top">
+                        <h4 class="text-right right">{{deviceTotal | currency: currency}}<span
+                                ng-if="deviceChargeType !== 'fixed' && deviceChargeUnit">/{{deviceChargeUnit}}</span>
+                        </h4>
+                    </div>
+                </div>
+
+                <div ng-if="installTotal"
+                     class="row subtotal-row">
+                    <div class="small-6 columns">&nbsp;</div>
+                    <div class="small-4 columns border-top">
+                        <h4 class="section-title upper text-right" translate>ORDER.REVIEW.INSTALL_SUBTOTAL</h4>
+                    </div>
+                    <div class="small-2 columns border-top">
+                        <h4 class="text-right right">{{installTotal | currency: currency}} ({{installCount}} x
+                            {{installPrice | currency: currency}})</h4>
+                    </div>
+                </div>
+
+                <div class="row subtotal-row">
+                    <div class="small-6 columns">&nbsp;</div>
+                    <div class="small-4 columns border-top">
+                        <h4 class="section-title text-right" translate>ORDER.REVIEW.TAX_NOT_INCLUDED</h4>
+                    </div>
+                    <div class="small-2 columns border-top">
+                    </div>
+                </div>
+
+            </div>
+            <!--Device display by installation type start-->
+
+        </div>
+    </div>
+    <!--Devices end-->
+
+    <!--bottom buttons-->
+    <div class="row button-row">
+        <ul class="button-group right">
+            <li>
+                <button class="button light"
+                        data-ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                        ng-click="onStepCompleted({data: {'key': 'review', 'scope': this}})"
+                        
+                        ns-popover
+                        ns-popover-template="popover-queue-msg"
+                        ns-popover-trigger="mouseenter"
+                        ns-popover-placement="left"
+                        ns-popover-theme="popover-cv-input-error-theme"
+                        ns-popover-timeout="0"
+
+                        translate
+                >SHARED.MODAL-CONFIRMATION.BUTTON-BACK</button>
+            </li>
+            <li>
+                <button class="button"
+                        data-ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                        ng-click="onStepCompleted({data: {'key': 'review', 'submitOrder': true, 'scope': this}})"
+
+                        ns-popover
+                        ns-popover-template="popover-queue-msg"
+                        ns-popover-trigger="mouseenter"
+                        ns-popover-placement="left"
+                        ns-popover-theme="popover-cv-input-error-theme"
+                        ns-popover-timeout="0"
+                        
+                        translate
+                >ORDER.REVIEW.BUTTON-PURCHASE</button>
+            </li>
+        </ul>
+
+    </div>
+</div>

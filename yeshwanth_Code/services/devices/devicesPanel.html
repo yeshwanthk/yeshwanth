@@ -1,0 +1,109 @@
+<div>
+
+  <section class="service-info shaded">
+
+
+      <h2 ng-click="onBack()" class="service-back title">
+        <i class="wl-icon-chevron"></i>
+        {{service.name}}
+      </h2>
+
+
+
+
+    <p class="inline" ng-if="service.options && service._version != 'MVP4'">
+                <span>
+                  {{service.options.speed}} MB/s
+                </span> |
+                <span data-translate="SERVICE.USERS"
+                      data-translate-value-num-users="{{service.options.users}}"
+                  >
+                </span>
+    </p>
+
+    <div class="buttons row">
+      <button ng-click="getClient()" ng-if="service.vpnUrl.length > 0" data-translate="SERVICE.DOWNLOAD_CLIENT" class="ng-scope">DOWNLOAD CLIENT</button>
+      <button ui-sref="root.ordering" data-translate="SERVICE.UPGRADE" class="ng-scope" href="/ordering">UPGRADE</button>
+    </div>
+
+  </section>
+
+    <div class="services-scrollable-container device-panel-details">
+
+        <section ng-if="site.location">
+            <div class="section row map-row">
+                <div>
+                    <table class="location-table">
+                        <tr>
+                            <td>Location</td>
+                            <td>
+                                <div class="right-align">{{setAddress(site.location)}}</div>
+                                <div class="right-align">{{setAddress(site.location, true)}}</div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="map-container">
+                    <cv-map location="site.location"
+                     single-marker="true"
+                     data-mode="display"
+                     show-back="false"
+                     height="145px"
+                     no-control="true">
+                    </cv-map>
+                </div>
+            </div>
+        </section>
+
+        <section class="monthly-use-breakdown">
+            <h6 data-translate="SERVICE.MONTHLY_USAGE_BREAKDOWN"></h6>
+
+            <p data-translate="SERVICE.GB_USED_THIS_MONTH"
+               data-translate-value-usage-gb="{{service.monthlyUsage.usageGb}}"></p>
+
+            <hr class="sep">
+
+            <div class="chart">
+              <nvd3-pie-chart
+                data="monthlyUsage"
+                width="400"
+                height="160"
+                margin="{left:0, top:0, bottom:0, right:0}"
+                x="xFunction()"
+                y="yFunction()">
+                <svg class="monthly-usage-chart"></svg>
+              </nvd3-pie-chart>
+            </div>
+        </section>
+
+        <section class="usage-performance">
+            <div performance-graph
+             on-fetch-graph-data="fetchGraphData"
+             graph-data-mapping="graphDataMapping"
+             slider-config="graphSliderConfig"
+             on-click="openPerformanceHistory(data)"
+             enable-spinner="true"
+             title-key="SERVICE.PERFORMANCE_AT_LOCATION">
+            </div>
+        </section>
+
+        <section class="usage-device-location">
+            <h6 data-translate="SERVICE.DEVICES_AT_LOCATION"></h6>
+            <ul class="device-location-tabs">
+                <li ng-repeat="device in site.devices">
+
+                  <a ng-click="showDeviceDetails({'device': device})">{{device.name}}
+                      <span class="device-state circle {{device.status}}" ng-switch="device.status">
+                          <i ng-switch-when="online" class="wl-icon-checkmark"></i>
+                          <i ng-switch-when="offline" class="wl-icon-x"></i>
+                          <i ng-switch-when="degraded" class="wl-icon-degraded"></i>
+                        </ng-switch>
+                      </span>
+                  </a>
+
+                </li>
+            </ul>
+        </section>
+
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="ordering-recommended-devices">
+    <h5 class="title">{{"ORDER.DEVICEPURCHASE.RECOMMENDATIONS_TITLE" | translate}}</h5>
+    <div ng-if="recommendedDevices.sites.length !== 0">
+        <div class="recommended-devices-table">
+            <div class="table-row" ng-repeat="site in recommendedDevices.sites track by $index">
+                <div class="cell site-users">
+                    {{"SHARED.SITE.SINGLE" | translate}} {{$index+1}}
+                </div>
+                <div class="cell site-users">
+                    <div>
+                        <span>{{site.users}}</span> <span ng-pluralize translate
+                                                          count="site.users"
+                                                          when="{'1': '{{&quot;SHARED.USER.SINGLE&quot; | translate}}',
+                        'other': '{{&quot;SHARED.USER.PLURAL&quot; | translate}}'}"></span>
+                    </div>
+                </div>
+                <div class="cell devices">
+                    <div class="device-container">
+                        <div class="nested-row" ng-repeat="device in site.devices track by $index">
+                            <div class="cell device-icon">
+                                <img ng-src="{{device.imageLoc}}"/>
+                            </div>
+                            <div class="cell device-name">
+                                {{device.name}}
+                            </div>
+                            <div class="cell device-quantity">
+                                <!-- TODO: this need to be changed. The server side currently supports 1 device per site only at the moment. -->
+                                x 1
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-if="recommendedDevices.sites.length === 0 || recommendedDevices.sites == undefined">
+        <h4 class="no-recommendations" translate>ORDER.SITEPROFILE.NO_RECOMMENDATIONS</h4>
+    </div>
+</div>

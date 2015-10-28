@@ -1,0 +1,157 @@
+@mixin table-cell {
+  min-width: 13rem;
+  display: table-cell;
+  vertical-align: middle
+}
+
+.ordering-service-catalog {
+  padding: 2rem;
+  .inline-table {
+    display: inline-block;
+    white-space: nowrap;
+  }
+
+  .inline-table-col {
+    display: inline-block;
+    white-space: normal;
+  }
+
+  .service-table {
+    display: table;
+    .product-panel {
+      border-bottom: 3px solid $color-heading-lightest;
+      &.subscribed {
+        border-bottom: none;
+      }
+
+      &.recommended {
+        border-bottom: 3px solid $color-heading;
+      }
+    }
+    .product-panel-svg {
+      padding: 20px 30px 20px 30px;
+    }
+  }
+
+  .service-table-col {
+    display: table-column;
+  }
+
+  .service-table-row {
+    display: table-row;
+  }
+
+  .service-highlighted {
+    background-color: $color-background;
+    border: 1px solid $color-heading;
+  }
+
+
+
+  .service-table {
+    //background: $color-background-darker;
+    margin-left: auto;
+    margin-right: auto;
+    /* this makes the option-list product panels appear in line
+       as they're presented without the subscribed-flag div
+       above them in the DOM */
+    padding-top: 24px;
+    margin-top: -24px;
+    display: table;
+    border-collapse: collapse;
+    //border-bottom: $color-text-lighter-3 3px solid;
+
+    .subscribed-flag {
+      color: $color-heading;
+      text-align: left;
+      white-space: nowrap;
+      height: $subscribed-flag-height;
+    }
+
+    .panel-button.subscribed {
+      background-color: $color-heading;
+    }
+
+    .feature {
+      text-align: center;
+      height: 50px;
+      //background-color: $color-background-darker;
+      // border-bottom: $color-text-lighter-3 1px solid;
+    }
+
+    .feature-space {
+      @include table-cell();
+      min-width: 13rem;
+    }
+    .feature-description {
+      @include table-cell();
+      min-width: 13rem;
+      height: auto;
+      word-wrap: break-word;
+      color: #6e6e6e;
+      text-align: right;
+      font-size: rem-calc(18);
+      padding-right: 15px;
+      padding-left: 10px;
+      border-top: $color-text-lighter-5 1px solid;
+
+      .circle {
+        cursor: help;
+        $circle-size: 20px;
+        margin-left: 5px;
+        display: inline-block;
+        width: $circle-size;
+        height: $circle-size;
+        line-height: $circle-size;
+        text-align: center;
+        border-radius: 50%;
+        border: 1px solid $color-text-lighter-1;
+        background-color: $color-text-lighter-1;
+        color: $color-background-darker;
+      }
+    }
+    @mixin col-border {
+      border-top: none;
+      border-bottom: none;
+      border-left: 1px solid $color-heading;
+      border-right: 1px solid $color-heading;
+    }
+    .feature-col-border {
+      @include col-border();
+    }
+    .service {
+      display: table-cell;
+      vertical-align: top;
+    }
+    .feature-check {
+      @include table-cell();
+      border-top: $color-text-lighter-5 1px solid;
+      text-align: center;
+      height: 50px;
+      vertical-align: middle;
+
+      &.feature-col-border {
+        @include col-border();
+      }
+
+      i.wl-icon-checkmark {
+        color: $color-heading-lightest;
+      }
+
+      &.highlighted {
+        i.wl-icon-checkmark {
+          color: $primary-color;
+        }
+      }
+    }
+
+    i.wl-icon-checkmark {
+      font-size: 25px;
+      vertical-align: middle;
+      color: grey;
+    }
+  }
+  .bottom-row {
+    border-top: 1px solid $color-text-lighter-4;
+  }
+}

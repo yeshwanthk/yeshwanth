@@ -1,0 +1,63 @@
+<div class="service-info service-choice-panel" block-ui="serviceChoiceBlock">
+
+  <div class="row header">
+    <span ng-click="cancel()" class="service-back title small">
+      <i class="wl-icon-chevron back-arrow"></i>
+      <span>{{service.title}}</span>
+    </span>
+  </div>
+
+  <div class="row">
+      <table>
+        <tr class="cursor-pointer styled-inputs" ng-repeat="obj in service.choices"
+            ng-click="selectChoice(obj)">
+          <td class="service-choice-left-column">
+            <input name="choice-{{obj.id}}"
+                   id="choice-{{obj.id}}"
+                   value="{{obj.id}}"
+                   ng-model="service._selectedId"
+                   type="radio"
+                   ng-checked="service._selectedId == obj.id"
+                   ng-click="selectChoice(obj)" />
+            <!-- Will be styled by "styled-input" class -->
+            <label for="choice-{{obj.id}}"><span></span></label>
+          </td>
+          <td ng-class="{'primary-selected': obj.id == service._selectedId, 'primary': obj.id != service._selectedId}">
+            <cv-svg-import class="choice-options-img" svg-url="obj.imageLoc" />
+          </td>
+          <td class="choice-description">
+            <strong class="upper">{{obj.name}}</strong>
+            <p>{{obj.desc}}</p>
+          </td>
+        </tr>
+      </table>
+
+  </div>
+
+  <div class="button-group left">
+    <button ng-click="cancel()" class="button light" data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL"></button>
+    &nbsp;
+    <button class="button dark"
+      ng-disabled="totalWeight > 100"
+      data-ng-show="$root.queue.disableEdit === false"
+      ng-click="save()"
+      data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-SAVE"
+    ></button>
+    <button class="button dark disabled-elem"
+      data-translate="SHARED.MODAL-CONFIRMATION.BUTTON-SAVE"
+      data-ng-show="$root.queue.disableEdit === true"
+
+      ns-popover
+      ns-popover-template="popover-queue-msg"
+      ns-popover-trigger="mouseenter"
+      ns-popover-placement="left"
+      ns-popover-theme="popover-cv-input-error-theme"
+      ns-popover-timeout="0"
+      
+    ></button>
+    <div class="separator">&nbsp;</div>
+    <button class="button light" ng-click="restoreDefaults()" data-translate="SERVICE.RESTORE_DEFAULTS"></button>
+  </div>
+
+
+</div>

@@ -1,0 +1,100 @@
+<section class="body device-serial new-device-setup">
+
+  <div class="panel-header">
+    <h2 translate>DEVICES.SIDEBAR.NEW_DEVICE.SETUP.HEADER</h2>
+  </div>
+
+  <div class="panel-body-wrapper">
+
+    <div class="panel-body">
+      <!-- START-PROGRESS-CIRCLES -->
+      <section class="serial-status setup">
+        <div class="left-status">
+          <div class="circle left-circle">
+            <i class="icon wl-icon-checkmark secondary"></i>
+            <div class="filler filled"></div>
+          </div>
+          <p class="primary" translate>DEVICES.SIDEBAR.NEW_DEVICE.SETUP.PREV-STEP</p>
+        </div>
+        <div class="middle-status">
+          <hr/>
+        </div>
+        <div class="right-status">
+          <div class="circle">
+            <div class="filler filled"
+                 style="width:{{100 * ((currentNewDeviceIdx+1)/newDevices.length)}}%"></div>
+          </div>
+          <p translate>DEVICES.SIDEBAR.NEW_DEVICE.SETUP.CURRENT-STEP</p>
+          <div class="process-step">
+              {{currentNewDeviceIdx+1}} {{'DEVICES.SIDEBAR.NEW_DEVICE.SETUP.OF' | translate}} {{newDevices.length}}
+          </div>
+        </div>
+      </section>
+      <!-- END-PROGRESS-CIRCLES -->
+      <hr class="sep"/>
+      <!-- START-SETUP-FORM -->
+      <section class="device-profile-breakdown">
+        <h4 translate>DEVICES.SIDEBAR.NEEDS_EDIT.HEADER</h4>
+      </section>
+      <!-- START-DEVICE-BASIC-INFO -->
+      <section class="device-profile-breakdown">
+        <div>
+          <span translate>DEVICES.SIDEBAR.NEEDS_EDIT.SERIAL_NUMBER</span>:
+          <span data-ng-bind="selectedDevice.info.serialId"></span>
+          <span class="identity"
+                data-ng-bind="selectedDevice.info.model"
+                ng-if="selectedDevice.info.model"
+            ></span>
+        </div>
+      </section>
+      <!-- END-DEVICE-BASIC-INFO -->
+      <section>
+      <!-- START-DEVICE-DETAIL-INFO -->
+        <form class="device-info">
+          <span class="device-label"
+                translate>DEVICES.SIDEBAR.NEEDS_EDIT.DEVICE-LABEL</span>
+          <input type="text"
+                 id="right-label-name"
+                 placeholder="{{'DEVICES.SIDEBAR.NEEDS_EDIT.DEVICE-PLACEHOLDER' | translate}}"
+                 data-ng-model="selectedDevice.info.name"
+                 data-ng-change="startEditingDeviceInfo('name')"
+                 data-ng-blur="saveSelectedDeviceName()">
+          <br>
+        </form>
+      <!-- END-DEVICE-DETAIL-INFO -->
+      </section>
+
+      <!-- START-MAP -->
+      <cv-map data-location="selectedDevice.info.location"
+           data-mode="edit"
+           data-is-new="true"
+           data-on-save="saveLocation"
+           data-show-back="false"
+           data-hide-buttons="true"></cv-map>
+      <!-- END-MAP -->
+    </div>
+    <!-- END-PANEL-BODY -->
+
+    <div class="panel-footer">
+      <!-- START-BOTTOM -->
+      <div class="bottom">
+        <div class="buttons" style="padding-left:30px">
+          <span data-ng-hide="newDevices.length == 1">
+            <a class="light button"
+               data-ng-click="changeCurrentNewDevice(currentNewDeviceIdx-1)">{{'DEVICES.SIDEBAR.NEW_DEVICE.SETUP.BUTTON-BACK' | translate}}</a>
+          </span>
+          <span data-ng-show="isLastNewDeviceIdx()">
+            <a class="button"
+               data-ng-click="changeCurrentNewDevice(currentNewDeviceIdx+1)">{{'DEVICES.SIDEBAR.NEW_DEVICE.SETUP.BUTTON-NEXT' | translate}}</a>
+          </span>
+          <span data-ng-hide="isLastNewDeviceIdx()">
+            <a class="button" data-ng-click="finishNewDeviceSetup()">{{'DEVICES.SIDEBAR.NEW_DEVICE.SETUP.BUTTON-FINISH' | translate}}</a></span>
+        </div>
+      </div>
+      <!--END-BOTTOM -->
+    </div>
+    <hr class="sep"/>
+
+  </div>
+
+</section>

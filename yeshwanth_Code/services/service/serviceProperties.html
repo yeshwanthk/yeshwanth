@@ -1,0 +1,29 @@
+<div class="service-properties-container">
+
+
+      <h6>{{service.title}}</h6>
+
+
+
+   <table>
+        <tbody>
+        <tr>
+            <td class="icon-col">
+                <cv-svg-import
+                    svg-url="selectedOption.imageLoc"
+                    class="security-options-img primary">
+                 </cv-svg-import>
+            </td>
+            <td class="desc">
+                <strong>
+                  {{selectedOption.name}}
+                  <div class="service-properties-pencil" ng-click="edit();">
+                    <i class="cv-icon-pencil"></i>
+                  </div>
+                </strong>
+                <p>{{selectedOption.desc}}</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

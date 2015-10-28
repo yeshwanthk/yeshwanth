@@ -1,0 +1,28 @@
+<div class="body device-registered">
+  <div class="content-wrapper">
+    <div class="content">
+
+      <div class="panel-header">
+        <h2 translate>DEVICES.SIDEBAR.REGISTERED.HEADER</h2>
+      </div>
+
+      <div class="panel-body-wrapper">
+        <div class="panel-body">
+          <h3>{{'DEVICES.SIDEBAR.REGISTERED.SERIAL' | translate:{serial: selectedDevice.info.serialId} }}</h3>
+
+          <section>
+            <p>{{'DEVICES.SIDEBAR.REGISTERED.BODY' | translate:{model: selectedDevice.info.model, serial: selectedDevice.info.serialId} }}</p>
+            <p>{{'DEVICES.SIDEBAR.REGISTERED.PROBLEM-P1' | translate}}
+              <a ng-click="viewUnused()">{{'DEVICES.SIDEBAR.REGISTERED.PROBLEM-LINK-ENTER-SERIAL' | translate}}</a>
+              {{'DEVICES.SIDEBAR.REGISTERED.PROBLEM-OR' | translate}}
+              {{'DEVICES.SIDEBAR.REGISTERED.PROBLEM-LINK-CONTACT_US' | translate}}
+              {{'DEVICES.SIDEBAR.REGISTERED.PROBLEM-P2' | translate}}
+            </p>
+          </section>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

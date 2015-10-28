@@ -1,0 +1,29 @@
+<div class="device-catalog-modal">
+
+    <div class="header">
+        <h4 translate>ORDER.DEVICEPURCHASE.CHANGE.HEADER</h4>
+        <div class="button-group right">
+            <button class="button dark" ng-click="cancel()" translate>SHARED.MODAL-CONFIRMATION.BUTTON-CANCEL
+            </button>
+
+            <button type="submit" class="button light" ng-click="updateUserSelectedDevices()" translate>
+                SHARED.MODAL-CONFIRMATION.BUTTON-SAVE
+            </button>
+        </div>
+    </div>
+    <!-- Recommended device section -->
+    <div class="device-scrollable-container">
+        <div ordering-view-recommended-devices
+             recommended-devices="recommendedDevices"></div>
+        <!-- Device catalog section -->
+        <div device-purchase-panel
+             device-catalog="deviceCatalog"
+             device-count="deviceCount.data"
+             currency="{{currency}}"
+             charge-unit="{{deviceChargeUnit}}"
+             charge-type="{{deviceChargeType}}">
+        </div>
+
+    </div>
+
+</div>

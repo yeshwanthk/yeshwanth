@@ -1,0 +1,66 @@
+<section class="login-main">
+
+  <img class="login-logo" ng-src="customization/images/telco-logo-white.png" src="customization/images/telco-logo.png">
+
+  <div class="login-container">
+
+    <h1 class="title" translate>LOGIN.TITLE</h1>
+
+    <div class="login-inner-container">
+
+      <form class="login-form" novalidate name="loginForm">
+
+        <div class="login-table">
+          <div class="login-table-row">
+            <div class="login-left-cell"><label translate class="login-form-label" for="inputLanguage">SHARED.NAV.LANGUAGE</label></div>
+            <div class="login-right-cell">
+              <div id="inputLanguage"
+                   class="login-input-language"
+                   ns-popover
+                   ns-popover-template="popover-language-selector"
+                   ns-popover-trigger="click"
+                   ns-popover-placement="bottom"
+                   ns-popover-hide-on-click="true" ns-popover-timeout="60000">
+                {{language.selected.name}}&nbsp;<i class="down-triangle"></i>
+              </div>
+            </div>
+          </div>
+          <div class="login-table-row">
+            <div class="login-left-cell"><label translate class="login-form-label" for="inputUsername">SHARED.INPUT.USERNAME</label></div>
+            <div class="login-right-cell"><input cv-input
+                       required
+                       id="inputUsername"
+                       ng-model="username"
+                       name="username"
+                       type="email">
+            </div>
+          </div>
+          <div class="login-table-row">
+            <div class="login-left-cell"><label translate class="login-form-label" for="inputPassword">SHARED.INPUT.PASSWORD</label></div>
+            <div class="login-right-cell"><input cv-input
+                       required
+                       id="inputPassword"
+                       ng-model="password"
+                       name="password"
+                       type="password">
+            </div>
+          </div>
+          <div class="login-table-row">
+            <div class="login-left-cell">&nbsp;</div>
+            <div class="login-right-cell">
+              <button type="submit"
+                ng-click="login(username, password, loginForm)"
+                ng-disabled="loginForm.$invalid && !loginForm['password'].$pristine"
+                class="button login-form-button"
+                translate>SHARED.INPUT.LOGIN</button>
+              <a class="forgot-password" href="" ng-click="openModal()" translate>LOGIN.FORGOT_PASSWORD</a>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</section>

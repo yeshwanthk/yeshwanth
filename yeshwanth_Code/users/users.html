@@ -1,0 +1,293 @@
+<div class="users-page">
+  <cv-split-panel data-show-right-panel="selectedUsers.length > 0">
+    <cv-split-panel-left>
+
+        <div cv-split-panel-resizable class="users-left-pane">
+            <!-- START-DEVICE-CONTAINER -->
+            <div class="users-left-pane-header">
+              <div class="header-wrapper">
+                <!-- START-SEARCH -->
+                <div cv-search
+                     model="search.username"
+                     update-callback="onSearchTextChange"></div>
+                <!-- END-SEARCH -->
+
+                <!-- START-ADD-DEVICE -->
+                <div class="add-user button"
+                     ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                     ng-click="applyChange(); openAddUserModal();"
+
+                     ns-popover
+                     ns-popover-template="popover-queue-msg"
+                     ns-popover-trigger="mouseenter"
+                     ns-popover-placement="left"
+                     ns-popover-theme="popover-cv-input-error-theme"
+                     ns-popover-timeout="0">
+
+                  <span translate>USERS.ADD_USER</span>
+                  <i class="wl-icon-plus"></i>
+                </div>
+                <!-- END-ADD-DEVICE -->
+              </div>
+            </div>
+
+            <div class="user-management styled-inputs">
+                <ul class="event-log-list">
+                    <li class="details">
+                        <!-- Users table header -->
+                        <div class="left-side cell">
+                          <input type="checkbox" class="boxed" id="email"
+                                 ng-checked="allSelected()"
+                                 ng-click="applyChange();onSelectAll()">
+                          <label for="email"><span><i class="wl-icon-checkmark"></i></span></label>
+                          <div class="column-sorter"
+                               ng-click="applyChange();setSortOrder('username')">
+                            <p class="{{ sortBy == 'username'
+                                          ? (sortReverse ? 'arrow-down' : 'arrow-up')
+                                          : ''}}"
+                               translate>USERS.USERNAME</p>
+                          </div>
+                        </div>
+                        <div class="middle cell">
+                          <div class="column-sorter"
+                               ng-click="applyChange();setSortOrder('status,activity,username')">
+                            <p class="{{ sortBy == 'status,activity,username'
+                                          ? (sortReverse ? 'arrow-up' : 'arrow-down')
+                                          : ''}}"
+                               translate>USERS.STATUS</p>
+                          </div>
+                        </div>
+                        <div class="right-side cell">
+                          <div class="column-sorter"
+                               ng-click="applyChange();setSortOrder('activity,status,username')">
+                            <p class="{{ sortBy == 'activity,status,username'
+                                          ? (sortReverse ? 'arrow-down' : 'arrow-up')
+                                          : ''}}"
+                               translate>USERS.ACTIVITY</p>
+                          </div>
+                        </div>
+                    </li>
+                    <li ng-repeat="user in users | filter:search | orderBy:sortBy.split(','):sortReverse"
+                        ng-class="{'selected': user.selected }"
+                        ng-click="applyChange(); onSelectionChange(user);">
+
+                        <div class="left-side cell">
+                            <input type="checkbox" ng-checked="user.selected" class="boxed">
+                            <label><span><i class="wl-icon-checkmark"></i></span><p>{{user.username}}</p></label>
+                        </div>
+                        <div class="middle cell">
+                            <p>{{user.activity ? 'USERS.ACTIVATED' : 'USERS.SUSPENDED' | translate}}</p>
+                        </div>
+                        <div class="right-side cell">
+                            <p>
+                                <p class="circle"
+                                    ng-class="{'online': user.status}">
+                                  <i class="wl-icon-checkmark"></i>
+                                </p>
+                                <p class="status">
+                                    {{user.status ? 'USERS.ONLINE' : 'USERS.OFFLINE' | translate}}
+                                </p>
+                                <p ng-show="user.status && users.lastLogin" class="time">{{user.activity
+                                ? 'for ' + user.lastLogin.fromNow(true)
+                                : 'last activity: ' + user.lastLogin.fromNow(true) + ' ago'}}&nbsp;</p></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </cv-split-panel-left>
+    <cv-split-panel-right class="sidebar-width sidebar">
+        <section class="sidebar-view user-status">
+            <div ng-switch="selectedUsers.length">
+                <div ng-switch-when="0">
+                    <!-- Show nothing -->
+                </div>
+                <div ng-switch-when="1" ng-init="username = selectedUsers[0].username">
+                    <div class="panel-header">
+                        <div class="username"
+                             title="{{username}}"
+                             translate="USERS.USERS_SELECTED.SINGLE"
+                             translate-value-username="{{username}}">
+                        </div>
+                        <div class="timer"
+                             ng-show="countdown.ticking">
+                           <span translate="USERS.STATUS_CHANGE_MESSAGE.SINGLE"
+                                 translate-value-action="{{selectedUsersActivity
+                                  ? 'USERS.ACTION_ACTIVATED.SINGLE'
+                                  : 'USERS.ACTION_SUSPENDED.SINGLE' | translate}}"
+                                 translate-value-time="{{countdown.timeLeft}}"></span>
+                          <button ng-click="countdown.dismiss()" class="tiny button" translate>USERS.UNDO</button>
+                        </div>
+                    </div>
+
+                    <div class="panel-body-wrapper">
+                      <div class="panel-body">
+
+                          <ul class="inline-list user-action-switch"
+                              ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+
+                              ns-popover
+                              ns-popover-template="popover-queue-msg"
+                              ns-popover-trigger="mouseenter"
+                              ns-popover-placement="left"
+                              ns-popover-theme="popover-cv-input-error-theme"
+                              ns-popover-timeout="0">
+
+                              <li>
+                                <span ng-class="{'selected': selectedUsersActivity==0}"
+                                      translate>USERS.SUSPENDED</span>
+                              </li>
+                              <li>
+                                  <div class="slider-wrap">
+                                      <div cv-slider
+                                           start="0"
+                                           end="1"
+                                           step="1"
+                                           value="selectedUsersActivity"
+                                           update-callback="onSlider(data)"
+                                      ></div>
+                                      <div class="slider-blocker" ng-show="$root.queue.disableEdit === true"></div>
+                                  </div>
+                              </li>
+                              <li>
+                                  <span ng-class="{'selected': selectedUsersActivity==1}"
+                                        translate
+                                  >USERS.ACTIVATED</span>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="panel-footer">
+                        <div class="bottom">
+                          <div class="buttons">
+
+                            <button class="light button"
+                                    ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                                    ng-click="applyChange(); openResetPasswordsModal()"
+                                    translate
+
+                                    ns-popover
+                                    ns-popover-template="popover-queue-msg"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-placement="left"
+                                    ns-popover-theme="popover-cv-input-error-theme"
+                                    ns-popover-timeout="0"
+                            >USERS.RESET_PASSWORDS.SINGLE</button>
+
+                            <button class="light button"
+                                    translate
+                                    ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                                    ng-click="applyChange(); openDeleteUsersModal()"
+                                    ng-init="translateValues = {nusers: nUsers}"
+
+                                    ns-popover
+                                    ns-popover-template="popover-queue-msg"
+                                    ns-popover-trigger="mouseenter"
+                                    ns-popover-placement="left"
+                                    ns-popover-theme="popover-cv-input-error-theme"
+                                    ns-popover-timeout="0"
+                             >USERS.DELETE_USERS.SINGLE</button>
+
+                          </div>
+                        </div>
+                        <hr class="sep"/>
+                      </div>
+                    </div>
+
+                </div>
+                <div ng-switch-default ng-init="nUsers = selectedUsers.length">
+                    <div class="panel-header">
+                        <div class="username"
+                             translate="USERS.USERS_SELECTED.PLURAL"
+                             translate-value-nusers="{{nUsers}}">
+                        </div>
+
+                        <div class="timer"
+                           ng-show="countdown.ticking">
+                          <span translate="USERS.STATUS_CHANGE_MESSAGE.PLURAL"
+                                translate-value-nusers="{{nUsersAffected}}"
+                                translate-value-action="{{selectedUsersActivity
+                                     ? 'USERS.ACTION_ACTIVATED.PLURAL'
+                                     : 'USERS.ACTION_SUSPENDED.PLURAL' | translate}}"
+                                translate-value-time="{{countdown.timeLeft}}"></span>
+                          <button ng-click="countdown.dismiss()" class="tiny button" translate>USERS.UNDO</button>
+                        </div>
+                    </div>
+
+                    <div class="panel-body-wrapper">
+                      <div class="panel-body">
+
+                          <ul class="user-action-switch inline-list"
+                            ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+
+                            ns-popover
+                            ns-popover-template="popover-queue-msg"
+                            ns-popover-trigger="mouseenter"
+                            ns-popover-placement="left"
+                            ns-popover-theme="popover-cv-input-error-theme"
+                            ns-popover-timeout="0">
+
+                              <li>
+                                 <span ng-class="{'selected': selectedUsersActivity==0}"
+                                   translate>USERS.SUSPENDED</span>
+                              </li>
+                              <li>
+                                  <div class="slider-wrap">
+                                  <div cv-slider
+                                       start="0"
+                                       end="1"
+                                       step="selectedUsersActivity == 0.5 ? 0.5 : 1"
+                                       boolean-click
+                                       value="selectedUsersActivity"
+                                       update-callback="onSlider(data)"></div>
+                                  </div>
+                              </li>
+                              <li>
+                                  <span ng-class="{'selected': selectedUsersActivity==1}"
+                                     translate>USERS.ACTIVATED</span>
+                              </li>
+                          </ul>
+                      </div>
+
+                      <div class="panel-footer">
+                        <div class="bottom">
+                          <div class="buttons">
+
+                            <button class="light button"
+                                ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                                ng-click="applyChange(); openResetPasswordsModal()"
+                                translate
+
+                                ns-popover
+                                ns-popover-template="popover-queue-msg"
+                                ns-popover-trigger="mouseenter"
+                                ns-popover-placement="left"
+                                ns-popover-theme="popover-cv-input-error-theme"
+                                ns-popover-timeout="0"
+                            >USERS.RESET_PASSWORDS.PLURAL</button>
+
+                            <button class="light button"
+                                ng-class="{'disabled-elem': $root.queue.disableEdit === true}"
+                                ng-click="applyChange(); openDeleteUsersModal();"
+                                ng-init="translateValues = {nusers: nUsers}"
+
+                                ns-popover
+                                ns-popover-template="popover-queue-msg"
+                                ns-popover-trigger="mouseenter"
+                                ns-popover-placement="left"
+                                ns-popover-theme="popover-cv-input-error-theme"
+                                ns-popover-timeout="0"
+                            >{{'USERS.DELETE_USERS.PLURAL' | translate: translateValues}}</button>
+
+                          </div>
+                        </div>
+                        <hr class="sep"/>
+                      </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </cv-split-panel-right>
+</cv-split-panel>
+</div>

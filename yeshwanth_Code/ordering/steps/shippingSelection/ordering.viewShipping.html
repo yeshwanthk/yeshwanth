@@ -1,0 +1,183 @@
+<div class="ordering-view-shipping">
+    <div class="shipping-border-container">
+        <div class="shipping-title-container">
+            <div ng-switch="selectedInstallOption.data">
+                <h5 ng-switch-when="self" translate>ORDER.SHIPPING.SHIPPING_ADDRESS</h5>
+                <h5 ng-switch-when="professional" translate>ORDER.SHIPPING.INSTALLATION_ADDRESS</h5>
+            </div>
+            <form class="styled-inputs"
+                  ng-hide="disableShipToSingleAddress">
+                <input type="checkbox"
+                       id="shipToSingleAddress"
+                       ng-model="shipToSingleAddress"
+                       ng-change="onToggleShipToSingleAddress()"
+                       class="boxed"/>
+                <label ng-switch="getInstallType(installOptions)"
+                       for="shipToSingleAddress">
+                    <span><!--css checkbox placeholder--></span>
+                    <span ng-switch-when="professional"> {{"ORDER.SHIPPING.INSTALL.PRO" | translate}}></span>
+                    <span ng-switch-when="either">{{"ORDER.SHIPPING.INSTALL.EITHER" | translate}}</span>
+                    <span ng-switch-default>{{"ORDER.SHIPPING.INSTALL.SELF" | translate}}</span>
+                </label>
+            </form>
+        </div>
+
+
+        <div class="shipping-container"
+             id="shipping-fixed-container">
+            <!--left - device list-->
+            <div ng-show="!shipToSingleAddress"
+                 shipping-device-manager
+                 class="shipping-device-container"
+                 id="shipping-device-scroll-container"
+                 all-devices="allDevices"
+                 provider="deviceManager"
+                 show-site-label="useRecommendedDevices"
+                 on-complete="deviceManagerCallback">
+            </div>
+
+            <!--right -address list-->
+            <div class="address-panel-container">
+            <form class="styled-inputs ship-options"
+                  ng-if="getInstallType(installOptions) == 'either'">
+                <ul>
+                    <li ng-repeat="option in installOptions">
+                        <input class="no-select"
+                               ng-click="selectInstallOption(option.type)"
+                               type="radio"
+                               id="radio-{{option.type}}"
+                               name="installOptionsRadioGroup"
+                               data-ng-checked="selectedInstallOption.data === option.type">
+                        <label class="filter" for="radio-{{option.type}}">
+                            <span></span>{{option.title}} (+{{option.price |
+                            currency: currency}})
+                        </label>
+                    </li>
+                    <li>
+                        <!-- Help Icon -->
+                        <script type="text/ng-template" id="popover-install-options">
+                            <div class="triangle"></div>
+                            <div class="ns-popover-tooltip popover-install-options">
+                          <span class="popover-install-options-row" ng-repeat="option in installOptions">
+                            <div class="icon"><img ng-src="{{option.imageLoc}}"></div>
+                            <div class="message">
+                                <div class="title" ng-bind="option.title"></div>
+                                <div class="desc" ng-bind="option.desc"></div>
+                            </div>
+                          </span>
+                            </div>
+                        </script>
+
+                      <span>
+                        <i class="cv-icon-info help"
+                           ns-popover
+                           ns-popover-template="popover-install-options"
+                           ns-popover-trigger="mouseenter"
+                           ns-popover-placement="bottom|right"
+                           ns-popover-theme="ns-popover-tooltip-theme"
+                           ns-popover-timeout="0"></i>
+                      </span>
+                    </li>
+                </ul>
+
+            </form>
+                <hr/>
+
+                <div class="address-panel">
+
+                    <div ng-if="addressError">{{addressError}}</div>
+
+                    <!--single address form-->
+                    <div ng-if="showAddressForm">
+                        <div ordering-address-form
+                         class="scroll-container new-address-container"
+                             on-complete="addressFormCallback(data)"
+                             address-data="currentAddress">
+                        </div>
+                    </div>
+
+                    <!--address grid-->
+                    <div ng-if="!showAddressForm">
+                        <ul class="clearfix">
+                            <li ng-click="addNewAddress()"
+                                class="address-grid-block add text-center">
+                                <div class="add-cell">
+                                    <i class="wl-icon-plus_thin"></i>
+
+                                    <div class="add-text-table">
+                                        <div class="add-text">
+                                            {{"ORDER.SHIPPING.PANEL-ADD_NEW_ADDRESS" | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </li>
+                            <li ng-repeat="(key, address) in addressList | orderBy : address.name"
+                                class="address-grid-block"
+                            ng-class="{'selected': address._id === currentAddressId,
+                            'disabled': unavailableForProInstall(key) && address._id !== currentAddressId}"
+                                ng-click="selectAddressForDevice(address)">
+                            <div ng-show="unavailableForProInstall(key) && address._id !== currentAddressId"
+                                 class="unavailable">
+                                <div class="disabled-table">
+                                    <span class="unavailable-text">{{'ORDER.SHIPPING.INSTALLATION_ADDRESS_IN_USE' | translate}}</span>
+
+                                    <div class="unavailable-popover">
+                                        <i class="cv-icon-info help"
+                                           ns-popover
+                                           ns-popover-template='<div class="triangle"></div><div class="ns-popover-tooltip">{{"ORDER.SHIPPING.INSTALLATION_ADDRESS_IN_USE_HELP" | translate}}</div>'
+                                           ns-popover-plain="true"
+                                           ns-popover-trigger="mouseenter"
+                                           ns-popover-placement="top"
+                                           ns-popover-theme="ns-popover-tooltip-theme"
+                                           ns-popover-timeout="0"></i>
+                                    </div>
+                                </div>
+                            </div>
+                                <ul class="address-actions no-bullet">
+                                    <li><i class="wl-icon-pencil"
+                                           ng-click="editAddress(address)"></i></li>
+                                <li><i class="wl-icon-x"
+                                           ng-click="deleteAddress(key)"></i></li>
+                                </ul>
+
+                            <ul class="shipping-address no-bullet">
+                                <li class="name">{{address.name}}</li>
+                                <li class="company">{{address.org}}</li>
+                                    <li class="address-line-1">{{address.address1}}</li>
+                                    <li class="address-line-2">{{address.address2}}</li>
+                                    <li class="city">{{address.city}} {{address.country}}</li>
+                                    <li class="zip-code">{{address.zip}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="!showAddressForm" class="row">
+            <div class="button-group bottom-buttons">
+                <div class="button-left">
+                    <button ng-show="!shipToSingleAddress"
+                            class="button radius light"
+                            ng-click="goPrevious()"
+                            ng-disabled="backButtonDisabled"
+                            translate>SHARED.MODAL-CONFIRMATION.BUTTON-BACK
+                    </button>
+                </div>
+                <div class="button-right">
+                    <button class="button radius"
+                            ng-click="goNext({'event': $event,
+                            'widgetInfo':  {
+                              'type': 'iconic',
+                              'iconName':  'cv-icon-router',
+                              'iconTitle': 'ORDER.SHIPPING.COLLAPSED_TITLE'
+                          }})"
+                            ng-disabled="nextButtonDisabled">
+                        {{nextButtonText | translate}}
+                    </button>
+                </div>
+            </div>
+        </div>
+</div>
+</div>

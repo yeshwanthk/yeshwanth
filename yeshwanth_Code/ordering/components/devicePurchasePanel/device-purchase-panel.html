@@ -1,0 +1,58 @@
+<div>
+    <div block-ui="deviceCatalogBlock">
+        <div class="device-purchase-table">
+            <div class="table-row">
+                <div class="empty-cell-device-image"></div>
+                <div class="empty-cell-device-desc"></div>
+                <div class="device-head" translate>ORDER.DEVICEPURCHASE.CHANGE.PORTS</div>
+                <div class="device-head" translate>ORDER.DEVICEPURCHASE.CHANGE.SPEED</div>
+                <div class="device-head" translate>ORDER.DEVICEPURCHASE.CHANGE.SUPPORT_FOR</div>
+                <div class="device-head" translate>ORDER.DEVICEPURCHASE.CHANGE.PRICE</div>
+                <div class="device-head" translate>ORDER.DEVICEPURCHASE.QUANTITY</div>
+            </div>
+            <div class="table-row"
+                 ng-repeat="device in deviceCatalog | orderBy: 'price'">
+                <div class="device-image"><img ng-src="{{device.imageLoc}}"/></div>
+                <div class="device-desc"><p ng-if="device.url"><a ng-href="{{device.url}}">{{device.name}}</a></p><p>{{device.desc}}</p></div>
+                <div class="device-figure">{{device.ports}}</div>
+                <div class="device-figure">{{device.mbps}}Mbps</div>
+                <div class="device-figure">{{device['users-min']}}</div>
+                <div class="device-figure">{{device.price | currency: currency}}</div>
+                <div class="device-figure">
+                        <input type="text"
+                               numbers-only
+                               select-on-click
+                               value="device.userQuantity"
+                               ng-model="device.userQuantity"
+                               ng-change="updateSubTotal()"/>
+                </div>
+            </div>
+            <div class="table-row">
+                <div class="border-cell"></div>
+                <div class="border-cell"></div>
+                <div class="border-cell"></div>
+                <div class="border-cell"></div>
+                <div class="border-cell"></div>
+                <div class="device-total-head"
+                     translate>SERVICE.BUCKETS.TOTAL
+                </div>
+                <div class="border-cell"></div>
+            </div>
+            <div class="table-row">
+                <div class="empty-cell-device-image"></div>
+                <div class="empty-cell-device-desc"></div>
+                <div class="device-head"></div>
+                <div class="device-head"></div>
+                <div class="device-head"></div>
+                <div class="device-total">
+                    {{deviceSubtotal | currency: currency}}
+                </div>
+                <div class="device-total">
+                    {{deviceCount}}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

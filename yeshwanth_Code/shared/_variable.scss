@@ -1,0 +1,185 @@
+//these colors are grouped by, and should be read in conjunction with
+//the Cisco style guide png in the /styles directory
+
+$color-minor: #ffc539;
+$color-minor-darker: #f0b936;
+
+$color-heading: #15b2e6;
+$color-heading-darkest: #14b3e7;
+$color-heading-darkest-hover: ($color-heading-darkest - #111111);
+$color-heading-darker: #15bdf4;
+$color-heading-lighter: #7edbe7;
+
+//hover for white tiles
+$color-heading-lightest: #b4e3e7;
+
+//hover for blue tiles
+$color-heading-hover: #5fd1f6;
+
+$color-default: #B7B7B7;
+
+$color-critical: #fe7328;
+$color-critical-darker: #ef6c26;
+
+$color-waiting: #a0dae4;
+
+$color-normal: #7acc5a;
+$color-normal-darker: #78c959;
+$color-normal-lighter: #b0cca2;
+$color-normal-much-darker: #6bb34f;
+
+$color-text: #232f34;
+$color-text-inverse: #ffffff;
+$color-text-lighter-1: #656565;
+$color-text-lighter-2: #a2a2a2;
+$color-text-lighter-3: #b7b7b7;
+$color-text-lighter-4: #d0d5d8;
+$color-text-lighter-5: #e1e7ea;
+
+$color-background: #ffffff;
+$color-background-darkest: #e3eef2;
+//#edf3f6;
+$color-background-darkest2: #f1f7fa;
+$color-background-darker: #f5f9fb;
+$color-section-background: #eef3f7;
+
+$color-button-secondary-border: #cce3e8;
+$color-button-secondary-border-hover: #b7b7b7;
+
+$modal-header: #16bdf4;
+
+$color-very-light-gray: #dfdfdf;
+$color-light-blue: #7cdce8;
+$controls-color: #7fdbe8;
+
+$error-color: $color-critical-darker;
+$success-color: #00C700;
+
+$link-color: $primary-color;
+$link-hover-color: rgba($primary-color, 0.5);
+
+$branding-color: #e80f77;
+$pending-color: #15b2e6;
+
+$light-gray: #232f34;
+$very-light-gray: #ddd;
+
+$light-blue: #01c4d0;
+$light-blue-hover: #008cba;
+
+$critical-color: #C70002;
+$minor-color: #F1A766;
+$normal-color: #BABD5A;
+
+$warning-color: #00CFD2;
+$info-color: #43B9ED;
+
+$primary-color-invert: $color-text-inverse;
+
+$primary-disabled-color: rgba($primary-color, 0.5);
+$secondary-disabled-color: rgba($color-text, 0.5);
+$button-disabled-color: rgba($primary-color, 0.5);
+// ---------------------------------------- overwrite bootstrap variables
+
+$icon-font-path: "../font/bootstrap/";
+$font-size-base: 13px;
+$font-weight-base: 300;
+$line-height-base: 1.66666666666667;
+// 20/12
+$border-radius-base: 25px;
+$border-radius-large: 0;
+$border-radius-small: 0;
+
+/*// ---------------------------------------- overwrite bootflat variables
+
+$body-background-color: $color-6;
+$navbar-brand-color: $color-3;
+$navbar-font-color: $color-3;
+$navbar-inverse-background-color: $color-1;
+$button-primary: $color-3;
+$button-primary-hover: $color-7;
+
+// ---------------------------------------- overwrite bootflat variables*/
+
+$font-family-sans-serif: "Light", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-emphasis: "Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: "Times New Roman", Times, Georgia, serif;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: $font-family-serif;
+$headings-font-weight: normal;
+
+$images-root: "../images";
+$components-root: "../components";
+
+$page-width: auto;
+$button-light-border-width: rem-calc(1px);
+
+$min-page-width: 100%;
+$header-height: 122px;
+
+$admin-header-border: #7a7a7a;
+$admin-header-color: #e1e1e1;
+$admin-header-height: 45px;
+$customer-header-height: 100%;
+$customer-header-width: 193px;
+$body-header-height: $header-height;
+$body-header-color: $color-background-darkest;
+
+$body-color: $color-background-darkest2;
+//$color-background-darker;
+$body-padding: 133px;
+
+$input-color: $color-text;
+$input-background-color: $color-background;
+
+$sidebar-width: 465px;
+$sidebar-padding: rem-calc(32);
+$sidebar-background-color: $secondary-color;
+$sidebar-input-border-bottom-color: #ccc;
+$sidebar-input-height: rem-calc(35);
+$sidebar-input-color: $color-text;
+$sidebar-input-color-invert: $color-text-inverse;
+$sidebar-header-height: $header-height;
+$sidebar-header-bkg-color: $color-heading-darker;
+$sidebar-header-text-color: white;
+
+$sidebar-background-color: white;
+$sidebar-body-background-color: $color-background-darkest;
+$sidebar-color-gray: #545454;
+
+$sidebar-panel-body-padding: 20px;
+
+$body-secondary-color: $color-heading-lighter;
+$placeholder-color: $color-text-lighter-4;
+$line-color: $color-text-lighter-5;
+
+$navbar-text-color: $color-text-lighter-2;
+$navbar-text-size: 14px;
+$navbar-circle-size: 44px;
+$navbar-icon-font-size: 18px;
+$lang-selection-color: $color-heading-darker;
+
+$device-text-color: $color-text;
+
+$input-border-radius: $border-radius-base;
+$input-padding: 5px 10px;
+
+// -------- Markers
+$marker-circle-radius: 49px;
+$marker-inner-circle-radius: 18px;
+$marker-inner-circle-radius-sm: 9px;
+
+$subscribed-flag-height: 30px;
+
+$table-header-text-color: $color-text-lighter-3;
+$table-selected-text-color-inverse: $color-text-inverse;
+$slider-handle-color: $controls-color;
+
+// Ordering
+$order-section-background-color: white;
+
+// Services
+$soft-gray: #f4f4f4;
+
+$color-0: #000000 !default;
+/* color-0 black */
